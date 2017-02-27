@@ -1,3 +1,11 @@
+///-----------------------------------------------------------------
+///   Class:          ButtonNext.js
+///   Description:    Render next button on Session Pages
+///   Author:         Guilherme Borges Bastos       Date: 20/02/2017
+///   Notes:
+///   Revision History:
+///   Name:           Date:        Description:
+///-----------------------------------------------------------------
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';

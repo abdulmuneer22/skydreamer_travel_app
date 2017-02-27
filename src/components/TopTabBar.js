@@ -1,3 +1,12 @@
+///-----------------------------------------------------------------
+///   Namespace:      Main.js
+///   Class:          TopTabBar.js
+///   Description:    Render top-bar navigation
+///   Author:         Guilherme Borges Bastos       Date: 23/02/2017
+///   Notes:
+///   Revision History:
+///   Name:           Date:        Description:
+///-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -31,7 +40,7 @@ class TopTabBar extends Component {
     return (
         <View style={content}>
           <View>
-            <Icon name="ios-arrow-back" size={30} style={iconStyle} />
+            <Icon name="ios-arrow-back" size={30} style={[iconStyle, { marginTop: -5 }]} />
           </View>
           <View>
             <Icon2 name="menu" size={20} style={iconStyle} />

@@ -1,3 +1,11 @@
+///-----------------------------------------------------------------
+///   Class:          AuthReducer.js
+///   Description:    Reducer file for Auth Actions
+///   Author:         Guilherme Borges Bastos       Date: 16/02/2017
+///   Notes:
+///   Revision History:
+///   Name:               Date:           Description:
+///-----------------------------------------------------------------
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,

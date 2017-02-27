@@ -1,3 +1,11 @@
+///-----------------------------------------------------------------
+///   Class:          TabBarIcon.js
+///   Description:    Render icons inside of BottomTabBar Component
+///   Author:         Guilherme Borges Bastos       Date: 23/02/2017
+///   Notes:
+///   Revision History:
+///   Name:           Date:        Description:
+///-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';

@@ -1,3 +1,12 @@
+///-----------------------------------------------------------------
+///   Namespace:      Main.js
+///   Class:          BottomTabBar.js
+///   Description:    Render bottom navigation menu
+///   Author:         Guilherme Borges Bastos       Date: 24/02/2017
+///   Notes:
+///   Revision History:
+///   Name:           Date:        Description:
+///-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View, AsyncStorage } from 'react-native';
 import TabBarIcon from './TabBarIcon';

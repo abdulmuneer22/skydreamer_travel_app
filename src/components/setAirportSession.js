@@ -1,3 +1,11 @@
+///-----------------------------------------------------------------
+///   Class:          SetAirportSession.js
+///   Description:    Render Airport Session Page
+///   Author:         Guilherme Borges Bastos       Date: 21/02/2017
+///   Notes:
+///   Revision History:
+///   Name:           Date:        Description:
+///-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';

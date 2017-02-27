@@ -1,8 +1,19 @@
+///-----------------------------------------------------------------
+///   Namespace:      Router.js
+///   Class:          Main.js
+///   Description:    Render Main Page ( View Pager, BottomTabBar & TopTabBar )
+///   Author:         Guilherme Borges Bastos       Date: 23/02/2017
+///   Notes:
+///   Revision History:
+///   Name:           Date:        Description:
+///-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StatusBar } from 'react-native';
 import ViewPager from 'react-native-viewpager';
 import BottomTabBar from './BottomTabBar';
 import TopTabBar from './TopTabBar';
+import Location from './pages/Location';
+import Friend from './pages/Friend';
 
 class Main extends Component {
 
@@ -31,6 +42,15 @@ class Main extends Component {
 
    renderPage(data, pageID) {
       const { viewPagerContainer, title, subtitle, titleSkydreamer } = styles;
+      if (data === 'Compass') {
+        return (
+          <Location />
+        );
+      } else if (data === 'User') {
+        return (
+          <Friend />
+        );
+      }
       return (
         <TouchableOpacity style={viewPagerContainer}>
           <Text style={titleSkydreamer}>Skydreamer</Text>
@@ -50,29 +70,29 @@ class Main extends Component {
 
     return (
       <View style={viewContainer}>
-        <StatusBar
-           hidden
-        />
-        <View style={viewInnerContainer1}>
-          <TopTabBar />
-        </View>
-        <View style={viewInnerContainer}>
-          <ViewPager
-            style={viewPager}
-            dataSource={this.state.dataSource}
-            renderPage={this.renderPage}
-            onChangePage={(data) => this.onChangePage(data, this.bottomTabBar)}
-            renderPageIndicator={false}
-            initialPage={this.state.currentPage}
-            ref={(viewPagerComponent) => { this.viewPagerComponent = viewPagerComponent; }}
-          />
-        </View>
-        <View style={viewInnerContainer2}>
-          <BottomTabBar
-            ref={(bottomTabBar) => { this.bottomTabBar = bottomTabBar; }}
-          />
-        </View>
+      <StatusBar
+         hidden
+      />
+      <View style={viewInnerContainer1}>
+        <TopTabBar />
       </View>
+      <View style={viewInnerContainer}>
+        <ViewPager
+          style={viewPager}
+          dataSource={this.state.dataSource}
+          renderPage={this.renderPage}
+          renderPageIndicator={false}
+          initialPage={this.state.currentPage}
+          locked
+          ref={(viewPagerComponent) => { this.viewPagerComponent = viewPagerComponent; }}
+        />
+      </View>
+      <View style={viewInnerContainer2}>
+        <BottomTabBar
+          ref={(bottomTabBar) => { this.bottomTabBar = bottomTabBar; }}
+        />
+      </View>
+    </View>
     );
   }
 }
@@ -100,10 +120,7 @@ const styles = {
       flex: 1
   },
   viewPagerContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: '#FFF8F6'
+      flex: 1
   },
   viewContainer: {
     flex: 1,
@@ -111,9 +128,7 @@ const styles = {
   },
   viewInnerContainer: {
     flex: 1,
-    marginTop: 75,
-    marginBottom: 80,
-    zIndex: 0
+    marginTop: 50
   },
   viewInnerContainer2: {
     position: 'absolute',
