@@ -11,11 +11,11 @@ import { combineReducers } from 'redux';
 import AuthReducer from './AuthReducer';
 import FriendSelectionReducer from './FriendSelectionReducer';
 import FriendReducer from './FriendReducer';
-import ContactReducer from './ContactReducer';
+import PickerReducer from './PickerReducer';
 
 export default combineReducers({
   auth: AuthReducer,
-  contactPicker: ContactReducer,
+  contactPicker: PickerReducer,
   selectedFriendId: FriendSelectionReducer,
   friends: FriendReducer
 });
