@@ -9,3 +9,4 @@
 ///-----------------------------------------------------------------
 export * from './AuthActions';
 export * from './FriendActions';
+export * from './ContactAction';
