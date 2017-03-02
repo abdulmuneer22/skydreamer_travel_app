@@ -12,7 +12,9 @@ const HolderDateSeparator = ({ timestamp }) => {
 const styles = {
   spinnerStyle: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginTop: 5,
+    marginBottom: 5
   },
   text: {
     color: '#AFA3C6',

@@ -7,10 +7,9 @@
 ///   Name:           Date:        Description:
 ///-----------------------------------------------------------------
 import React, { Component } from 'react';
-import { Text,
-          View,
-          TextInput,
-          KeyboardAvoidingView } from 'react-native';
+import { View,
+         TextInput,
+         KeyboardAvoidingView } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
@@ -23,7 +22,7 @@ class Chat extends Component {
   state = {
     behavior: 'position',
     modalOpen: true,
-    chatText: 'Hello, SkyDreamer team!'
+    chatText: ''
   };
 
   render() {
@@ -55,6 +54,27 @@ class Chat extends Component {
             photoSrc="https://storage.skydreamer.io/profile/0100110.jpg"
             timestamp="12:30 PM"
             text="Yes I'm. I was busy."
+          />
+          <HolderSelfText
+            id={1}
+            photoSrc="https://storage.skydreamer.io/profile/0100110.jpg"
+            timestamp="12:30 PM"
+            text="Now I have 10 min"
+            hiddenProfile
+          />
+          <HolderSelfText
+            id={1}
+            photoSrc="https://storage.skydreamer.io/profile/0100110.jpg"
+            timestamp="12:30 PM"
+            text="I need to go to college right now, but at 6PM I'm back at home."
+            hiddenProfile
+          />
+          <HolderSelfText
+            id={1}
+            photoSrc="https://storage.skydreamer.io/profile/0100110.jpg"
+            timestamp="12:30 PM"
+            text="It's ok for you?"
+            hiddenProfile
           />
           </View>
 

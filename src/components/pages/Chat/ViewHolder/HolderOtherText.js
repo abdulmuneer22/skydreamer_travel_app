@@ -37,7 +37,7 @@ class HolderOtherText extends Component {
 
     return (
       <View style={rowContainer}>
-        <View style={{ flex: 0.2 }}>
+        <View style={{ flex: 0.15 }}>
           <Image source={{ uri: photoSrc }} style={profileImage} />
           {this.renderOnlineUserSign()}
         </View>
@@ -50,36 +50,40 @@ class HolderOtherText extends Component {
 const styles = {
   onlineUserSign: {
     backgroundColor: '#51CA31',
-    width: 10,
-    height: 10,
+    width: 8,
+    height: 8,
     borderRadius: 50,
     position: 'absolute',
-    right: 11,
-    top: 11,
+    right: 8,
+    top: 5,
     borderColor: '#FFF8F6',
     borderWidth: 1
   },
   profileImage: {
     backgroundColor: 'transparent',
     alignSelf: 'center',
-    marginTop: 7,
-    width: 50,
-    height: 50,
+    marginTop: 2,
+    width: 34,
+    height: 34,
     borderRadius: 50
   },
   textStyle: {
-    fontSize: 16,
+    fontSize: 15,
     fontFamily: 'Poppins-Light',
-    backgroundColor: '#FAE6E3',
+    backgroundColor: '#FAE7E3',
     borderRadius: 50,
     padding: 5,
-    paddingLeft: 20,
-    width: 150
+    paddingLeft: 15,
+    paddingRight: 15,
+    flexWrap: 'wrap',
+    color: '#1C1918'
   },
   textViewStyle: {
-    flex: 0.8,
-    flexDirection: 'column',
-    justifyContent: 'center'
+    flex: 0.85,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    marginRight: 20
   },
   container: {
     flex: 1,
@@ -88,7 +92,9 @@ const styles = {
   },
   rowContainer: {
     flexDirection: 'row',
-    height: 65
+    justifyContent: 'flex-end',
+    flexWrap: 'wrap',
+    marginTop: 3
   }
 };
 

@@ -9,10 +9,16 @@ class HolderSelfText extends Component {
   }
   */
 
+  setHiddenPicTextStyle() {
+    if (this.props.hiddenProfile) {
+      return { marginRight: 50 };
+    }
+  }
+
   renderOnlineUserSign() {
     const { id } = this.props;
     const { onlineUserSign } = styles;
-    if (id === 0 || id === 1 || id === 3 || id === 5) {
+    if ((id === 0 || id === 1 || id === 3 || id === 5) && !this.props.hiddenProfile) {
       return (
         <View style={onlineUserSign} />
       );
@@ -30,57 +36,34 @@ class HolderSelfText extends Component {
   }
 
   render() {
-    const { rowContainer,
-            profileImage } = styles;
-
-    const { photoSrc } = this.props;
-
+    const { rowContainer } = styles;
     return (
       <View style={rowContainer}>
         {this.renderText()}
-        <View style={{ flex: 0.2 }}>
-          <Image source={{ uri: photoSrc }} style={profileImage} />
-          {this.renderOnlineUserSign()}
-        </View>
       </View>
     );
   }
 }
 
 const styles = {
-  onlineUserSign: {
-    backgroundColor: '#51CA31',
-    width: 10,
-    height: 10,
-    borderRadius: 50,
-    position: 'absolute',
-    right: 11,
-    top: 11,
-    borderColor: '#FFF8F6',
-    borderWidth: 1
-  },
-  profileImage: {
-    backgroundColor: 'transparent',
-    alignSelf: 'center',
-    marginTop: 7,
-    width: 50,
-    height: 50,
-    borderRadius: 50
-  },
   textStyle: {
-    fontSize: 16,
+    fontSize: 15,
     fontFamily: 'Poppins-Light',
-    backgroundColor: '#FAE6E3',
+    backgroundColor: '#E12A68',
     borderRadius: 50,
     padding: 5,
-    paddingLeft: 20,
-    width: 195
+    paddingLeft: 15,
+    paddingRight: 15,
+    flexWrap: 'wrap',
+    color: '#fff'
   },
   textViewStyle: {
     flex: 0.8,
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginLeft: 20,
+    marginRight: 10
   },
   container: {
     flex: 1,
@@ -90,7 +73,8 @@ const styles = {
   rowContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    height: 65
+    flexWrap: 'wrap',
+    marginTop: 3
   }
 };
 
