@@ -29,10 +29,6 @@ class FriendListItem extends Component {
     };
   }
 
-  componentDidMount() {
-  }
-
-
   componentWillUpdate() {
     // LayoutAnimation.spring();
     Animated.timing(          // Uses easing functions

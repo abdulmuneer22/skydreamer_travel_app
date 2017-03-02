@@ -77,6 +77,19 @@
       <string>Octicons.ttf</string>
       <string>SimpleLineIcons.ttf</string>
       <string>Zocial.ttf</string>
+      <string>Poppins-Bold 2.ttf</string>
+      <string>Poppins-Bold 3.ttf</string>
+      <string>Poppins-Bold.ttf</string>
+      <string>Poppins-Light 2.ttf</string>
+      <string>Poppins-Light 3.ttf</string>
+      <string>Poppins-Light.ttf</string>
+      <string>Poppins-Medium.ttf</string>
+      <string>Poppins-Regular 2.ttf</string>
+      <string>Poppins-Regular 3.ttf</string>
+      <string>Poppins-Regular.ttf</string>
+      <string>Poppins-SemiBold 2.ttf</string>
+      <string>Poppins-SemiBold 3.ttf</string>
+      <string>Poppins-SemiBold.ttf</string>
     </array>
   </dict>
 </plist>

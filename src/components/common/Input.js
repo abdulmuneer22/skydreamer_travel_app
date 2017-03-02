@@ -9,7 +9,7 @@ const Input = ({ value, onChangeText, placeholder, secureTextEntry, placeholderC
       <TextInput
         secureTextEntry={secureTextEntry}
         placeholder={placeholder}
-        placeholderStyle={{ fontFamily: 'NotoSans-Regular', fontSize: 18 }}
+        placeholderStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18 }}
         autoCorrect={false}
         style={inputStyle}
         value={value}
@@ -32,7 +32,7 @@ const styles = {
     fontSize: 18,
     lineHeight: 35,
     flex: 1,
-    fontFamily: 'NotoSans-Regular'
+    fontFamily: 'Poppins-Regular'
   },
   containerStyle: {
     height: 50,

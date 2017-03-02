@@ -5,15 +5,19 @@
 ///   Author:         Guilherme Borges Bastos       Date: 23/02/2017
 ///   Notes:
 ///   Revision History:
-///   Name:           Date:        Description:
+///   Name:               Date:         Description:
+///   Guilherme Bastos    28/02/2017    Added Chat Page
 ///-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StatusBar } from 'react-native';
 import ViewPager from 'react-native-viewpager';
 import BottomTabBar from './BottomTabBar';
 import TopTabBar from './TopTabBar';
+
+//----------- PAGES COMPONENT --------------
 import Location from './pages/Location';
 import Friend from './pages/Friend';
+import Chat from './pages/Chat';
 
 class Main extends Component {
 
@@ -49,6 +53,10 @@ class Main extends Component {
       } else if (data === 'User') {
         return (
           <Friend />
+        );
+      } else if (data === 'Chat') {
+        return (
+          <Chat />
         );
       }
       return (
