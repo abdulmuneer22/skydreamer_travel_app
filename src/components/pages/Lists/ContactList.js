@@ -7,17 +7,16 @@
 ///   Name:           Date:        Description:
 ///-----------------------------------------------------------------
 import React, { Component } from 'react';
-import { ListView, View, Text } from 'react-native';
+import { ListView, View } from 'react-native';
 import { connect } from 'react-redux';
 import FriendListItem from './FriendListItem';
-import {loadFriends} from '../../../actions';
 
 class FriendList extends Component {
   componentWillMount() {
       const ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
       });
-      this.props.loadFriends(this.props.friends);
+
       this.dataSource = ds.cloneWithRows(this.props.friends);
   }
 
@@ -25,34 +24,19 @@ class FriendList extends Component {
     return <FriendListItem library={library} />;
   }
 
-  componentWillUpdate(){
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
-    this.dataSource = ds.cloneWithRows(this.props.friends);
-    //this.dataSource = ds.cloneWithRows(this.props.results);
-  }
-
   render() {
     const { container } = styles;
-    if(this.props.results==0){
-      return (
-        <View style={container}>
-          <Text> No contacts found</Text>
-        </View>
-      );
-    }else{
-      return (
-        <View style={container}>
-          <ListView
-            style={container}
-            dataSource={this.dataSource}
-            renderRow={this.renderRow}
-          />
-        </View>
-      );
-    }
+    return (
+      <View style={container}>
+        <ListView
+          style={container}
+          dataSource={this.dataSource}
+          renderRow={this.renderRow}
+        />
+      </View>
+    );
   }
+
 }
 
 const styles = {
@@ -62,8 +46,7 @@ const styles = {
 };
 
 const mapStateToProps = state => {
-    console.log(state);
-    return { friends: state.friends, results: state.selectedFriendId.results };
+    return { friends: state.friends };
 };
 
-export default connect(mapStateToProps, {loadFriends})(FriendList);
+export default connect(mapStateToProps)(FriendList);

@@ -9,4 +9,5 @@ export const CONTACTS_CHECKED = 'contact_checked';
 export const CONTACTS_UNCHECKED = 'contact_unchecked';
 export const CONTACTS_SELECTED = 'contacts_selected';
 export const CONTACTS_SEARCH = 'contacts_search';
-export const SEARCH_QUERY = 'search_query';
+export const SEARCH_FRIENDS = 'search_friends';
+export const LOAD_FRIENDS = 'load_friends';
