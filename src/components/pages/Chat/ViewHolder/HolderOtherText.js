@@ -12,7 +12,7 @@ class HolderOtherText extends Component {
   renderOnlineUserSign() {
     const { id } = this.props;
     const { onlineUserSign } = styles;
-    if (id === 0 || id === 1 || id === 3 || id === 5) {
+    if ((id === 0 || id === 1 || id === 3 || id === 5) && !this.props.hiddenProfile) {
       return (
         <View style={onlineUserSign} />
       );
@@ -38,7 +38,9 @@ class HolderOtherText extends Component {
     return (
       <View style={rowContainer}>
         <View style={{ flex: 0.15 }}>
-          <Image source={{ uri: photoSrc }} style={profileImage} />
+          {!this.props.hiddenProfile &&
+            <Image source={{ uri: photoSrc }} style={profileImage} />
+          }
           {this.renderOnlineUserSign()}
         </View>
         {this.renderText()}

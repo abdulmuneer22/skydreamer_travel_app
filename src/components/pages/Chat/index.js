@@ -47,6 +47,13 @@ class Chat extends Component {
               timestamp="12:30 PM"
               text="Is he online?"
             />
+            <HolderOtherText
+              id={10}
+              photoSrc="https://storage.skydreamer.io/profile/54564698.jpg"
+              timestamp="12:30 PM"
+              text="Probably not for now"
+              hiddenProfile
+            />
 
           <HolderDateSeparator timestamp="3:02 PM" />
           <HolderSelfText
