@@ -1,28 +1,38 @@
 import React, { Component } from 'react';
-import { View, Image, Text } from 'react-native';
+import { View, Text } from 'react-native';
 
 class HolderSelfText extends Component {
-  /*
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  */
-
   setHiddenPicTextStyle() {
     if (this.props.hiddenProfile) {
       return { marginRight: 50 };
     }
   }
 
-  renderOnlineUserSign() {
-    const { id } = this.props;
-    const { onlineUserSign } = styles;
-    if ((id === 0 || id === 1 || id === 3 || id === 5) && !this.props.hiddenProfile) {
-      return (
-        <View style={onlineUserSign} />
-      );
+  setMoreSpaceStyle() {
+    const { moreSpace } = this.props;
+    if (moreSpace) {
+      return { marginTop: 15 };
     }
+  }
+
+  setSquareCorners() {
+    const { squareCorner, semiSquareCorner } = this.props;
+    if (squareCorner === true && semiSquareCorner === false) {
+      return {
+          borderTopLeftRadius: 50,
+          borderBottomLeftRadius: 50,
+          borderRadius: 10,
+          marginTop: 2
+      };
+    } else if (semiSquareCorner === true) {
+      return {
+          borderTopRightRadius: 10,
+          borderRadius: 50,
+          marginTop: 2
+      };
+    }
+
+    return { borderRadius: 50, borderBottomRightRadius: 10 };
   }
 
   renderText() {
@@ -30,7 +40,7 @@ class HolderSelfText extends Component {
     const { textViewStyle, textStyle } = styles;
     return (
       <View style={textViewStyle}>
-        <Text style={textStyle}>{text}</Text>
+        <Text style={[textStyle, this.setSquareCorners()]}>{text}</Text>
       </View>
     );
   }
@@ -38,7 +48,7 @@ class HolderSelfText extends Component {
   render() {
     const { rowContainer } = styles;
     return (
-      <View style={rowContainer}>
+      <View style={[rowContainer, this.setMoreSpaceStyle()]}>
         {this.renderText()}
       </View>
     );
@@ -50,7 +60,6 @@ const styles = {
     fontSize: 15,
     fontFamily: 'Poppins-Light',
     backgroundColor: '#E12A68',
-    borderRadius: 50,
     padding: 5,
     paddingLeft: 15,
     paddingRight: 15,
@@ -73,9 +82,8 @@ const styles = {
   rowContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    flexWrap: 'wrap',
-    marginTop: 3
+    flexWrap: 'wrap'
   }
 };
 
-export default HolderSelfText;
+export { HolderSelfText };

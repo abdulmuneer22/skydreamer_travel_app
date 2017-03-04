@@ -2,12 +2,30 @@ import React, { Component } from 'react';
 import { View, Image, Text } from 'react-native';
 
 class HolderOtherText extends Component {
-  /*
-  constructor(props) {
-    super(props);
-    this.state = {};
+  setSquareCorner() {
+    const { squareCorner, semiSquareCorner } = this.props;
+    if (squareCorner === true && semiSquareCorner === false) {
+      return {
+          borderTopLeftRadius: 10,
+          borderBottomLeftRadius: 10,
+          borderRadius: 50
+      };
+    } else if (semiSquareCorner === true) {
+      return {
+          borderTopLeftRadius: 10,
+          borderRadius: 50,
+          marginTop: 2
+      };
+    }
+    return { borderRadius: 50, borderBottomLeftRadius: 10 };
   }
-  */
+
+  setMoreSpaceStyle() {
+    const { moreSpace } = this.props;
+    if (moreSpace) {
+      return { marginTop: 15 };
+    }
+  }
 
   renderOnlineUserSign() {
     const { id } = this.props;
@@ -24,7 +42,7 @@ class HolderOtherText extends Component {
     const { textViewStyle, textStyle } = styles;
     return (
       <View style={textViewStyle}>
-        <Text style={textStyle}>{text}</Text>
+        <Text style={[textStyle, this.setSquareCorner()]}>{text}</Text>
       </View>
     );
   }
@@ -36,7 +54,7 @@ class HolderOtherText extends Component {
     const { photoSrc } = this.props;
 
     return (
-      <View style={rowContainer}>
+      <View style={[rowContainer, this.setMoreSpaceStyle()]}>
         <View style={{ flex: 0.15 }}>
           {!this.props.hiddenProfile &&
             <Image source={{ uri: photoSrc }} style={profileImage} />
@@ -73,7 +91,6 @@ const styles = {
     fontSize: 15,
     fontFamily: 'Poppins-Light',
     backgroundColor: '#FAE7E3',
-    borderRadius: 50,
     padding: 5,
     paddingLeft: 15,
     paddingRight: 15,
@@ -96,8 +113,8 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     flexWrap: 'wrap',
-    marginTop: 3
+    marginTop: 0
   }
 };
 
-export default HolderOtherText;
+export {HolderOtherText};

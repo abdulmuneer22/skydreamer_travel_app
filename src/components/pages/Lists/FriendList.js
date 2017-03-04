@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import { ListView, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import FriendListItem from './FriendListItem';
-import {loadFriends} from '../../../actions';
+import { loadFriends } from '../../../actions';
 
 class FriendList extends Component {
   componentWillMount() {
@@ -21,11 +21,7 @@ class FriendList extends Component {
       this.dataSource = ds.cloneWithRows(this.props.friends);
   }
 
-  renderRow(library) {
-    return <FriendListItem library={library} />;
-  }
-
-  componentWillUpdate(){
+  componentWillUpdate() {
     const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2
     });
@@ -33,25 +29,30 @@ class FriendList extends Component {
     //this.dataSource = ds.cloneWithRows(this.props.results);
   }
 
+  renderRow(library) {
+    return <FriendListItem library={library} />;
+  }
+
+
   render() {
     const { container } = styles;
-    if(this.props.results==0){
+    if (this.props.results === 0) {
       return (
         <View style={container}>
           <Text> No contacts found</Text>
         </View>
       );
-    }else{
-      return (
-        <View style={container}>
-          <ListView
-            style={container}
-            dataSource={this.dataSource}
-            renderRow={this.renderRow}
-          />
-        </View>
-      );
     }
+
+    return (
+      <View style={container}>
+        <ListView
+          style={container}
+          dataSource={this.dataSource}
+          renderRow={this.renderRow}
+        />
+      </View>
+    );
   }
 }
 
@@ -66,4 +67,4 @@ const mapStateToProps = state => {
     return { friends: state.friends, results: state.selectedFriendId.results };
 };
 
-export default connect(mapStateToProps, {loadFriends})(FriendList);
+export default connect(mapStateToProps, { loadFriends })(FriendList);

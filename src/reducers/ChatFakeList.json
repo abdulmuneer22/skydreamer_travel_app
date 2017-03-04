@@ -1,0 +1,156 @@
+[
+  {
+    "id": 0,
+    "type": "OtherText",
+    "text": "Hi men, what about our trip?",
+    "user":
+    {
+        "userid": 21,
+        "photoSrc": "https://storage.skydreamer.io/profile/54564698.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 1,
+    "type": "OtherText",
+    "text": "I'm exciting about that... :D",
+    "user":
+    {
+        "userid": 21,
+        "photoSrc": "https://storage.skydreamer.io/profile/54564698.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 2,
+    "type": "OtherText",
+    "text": "I'm not sure, let's wait.",
+    "user":
+    {
+        "userid": 21,
+        "photoSrc": "https://storage.skydreamer.io/profile/54564698.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 3,
+    "type": "SelfText",
+    "text": "Do you want to buy the ticket flight?",
+    "user":
+    {
+        "userid": 1,
+        "photoSrc": "https://storage.skydreamer.io/profile/0100110.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 4,
+    "type": "SelfText",
+    "text": "Yes, I do!",
+    "user":
+    {
+        "userid": 1,
+        "photoSrc": "https://storage.skydreamer.io/profile/0100110.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 5,
+    "type": "SelfText",
+    "text": "Beautiful place, let's go there!",
+    "user":
+    {
+        "userid": 1,
+        "photoSrc": "https://storage.skydreamer.io/profile/0100110.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 6,
+    "type": "SelfText",
+    "text": "I booked the hotels for us.",
+    "user":
+    {
+        "userid": 1,
+        "photoSrc": "https://storage.skydreamer.io/profile/0100110.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 7,
+    "type": "OtherText",
+    "text": "Do you want to go to baseball?",
+    "user":
+    {
+        "userid": 25,
+        "photoSrc": "https://storage.skydreamer.io/profile/8951165.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 8,
+    "type": "OtherText",
+    "text": "Hello, are you there?",
+    "user":
+    {
+        "userid": 25,
+        "photoSrc": "https://storage.skydreamer.io/profile/8951165.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 9,
+    "type": "OtherText",
+    "text": "I can't afford it right now.",
+    "user":
+    {
+        "userid": 22,
+        "photoSrc": "https://storage.skydreamer.io/profile/54ds564456sd.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 10,
+    "type": "OtherText",
+    "text": "Hi :D",
+    "user":
+    {
+        "userid": 22,
+        "photoSrc": "https://storage.skydreamer.io/profile/54ds564456sd.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 11,
+    "type": "OtherText",
+    "text": "Hi, whats app guys?",
+    "user":
+    {
+        "userid": 22,
+        "photoSrc": "https://storage.skydreamer.io/profile/54ds564456sd.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 12,
+    "type": "OtherText",
+    "text": "Let's go the the party?",
+    "user":
+    {
+        "userid": 22,
+        "photoSrc": "https://storage.skydreamer.io/profile/54ds564456sd.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 13,
+    "type": "SelfText",
+    "text": "YES, I'm in!",
+    "user":
+    {
+        "userid": 1,
+        "photoSrc": "https://storage.skydreamer.io/profile/0100110.jpg"
+    },
+    "timestamp": 1488499497
+  }
+]

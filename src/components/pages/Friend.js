@@ -8,18 +8,21 @@
 ///-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Searchbar, Input, Spinner} from '.././common';
+import { Searchbar } from '.././common';
 import FriendList from './Lists/FriendList';
-import {connect} from 'react-redux';
-import {searchFriends} from '../../actions';
+import { connect } from 'react-redux';
+import { searchFriends } from '../../actions';
 
 class Friend extends Component {
-  onSearch(query){
+
+  onSearch(query) {
     this.props.searchFriends(query);
   }
-  onClear(query){
-    this.props.query='';
+
+  onClear(query) {
+    this.props.query = '';
   }
+
   render() {
     const { container, searchBar } = styles;
     return (
@@ -50,8 +53,8 @@ const styles = {
 };
 
 const mapStateToProps = ({ selectedFriendId }) => {
-  const {query} = selectedFriendId;
+  const { query } = selectedFriendId;
   return { query };
 };
 
-export default connect(mapStateToProps, {searchFriends})(Friend);
+export default connect(mapStateToProps, { searchFriends })(Friend);

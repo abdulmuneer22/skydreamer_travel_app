@@ -13,9 +13,8 @@ import { View,
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
-import HolderDateSeparator from './ViewHolder/HolderDateSeparator';
-import HolderOtherText from './ViewHolder/HolderOtherText';
-import HolderSelfText from './ViewHolder/HolderSelfText';
+
+import ChatList from './Lists/ChatList';
 
 class Chat extends Component {
 
@@ -32,57 +31,7 @@ class Chat extends Component {
            behavior="padding"
         >
           <View style={styles.containerChatList}>
-            <HolderDateSeparator timestamp="12:30 PM" />
-            <HolderOtherText
-              id={1}
-              photoSrc="https://storage.skydreamer.io/profile/848fds5155.jpg"
-              timestamp="12:30 PM"
-              text="Hello, Federico!"
-            />
-
-            <HolderDateSeparator timestamp="2:24 PM" />
-            <HolderOtherText
-              id={10}
-              photoSrc="https://storage.skydreamer.io/profile/54564698.jpg"
-              timestamp="12:30 PM"
-              text="Is he online?"
-            />
-            <HolderOtherText
-              id={10}
-              photoSrc="https://storage.skydreamer.io/profile/54564698.jpg"
-              timestamp="12:30 PM"
-              text="Probably not for now"
-              hiddenProfile
-            />
-
-          <HolderDateSeparator timestamp="3:02 PM" />
-          <HolderSelfText
-            id={1}
-            photoSrc="https://storage.skydreamer.io/profile/0100110.jpg"
-            timestamp="12:30 PM"
-            text="Yes I'm. I was busy."
-          />
-          <HolderSelfText
-            id={1}
-            photoSrc="https://storage.skydreamer.io/profile/0100110.jpg"
-            timestamp="12:30 PM"
-            text="Now I have 10 min"
-            hiddenProfile
-          />
-          <HolderSelfText
-            id={1}
-            photoSrc="https://storage.skydreamer.io/profile/0100110.jpg"
-            timestamp="12:30 PM"
-            text="I need to go to college right now, but at 6PM I'm back at home."
-            hiddenProfile
-          />
-          <HolderSelfText
-            id={1}
-            photoSrc="https://storage.skydreamer.io/profile/0100110.jpg"
-            timestamp="12:30 PM"
-            text="It's ok for you?"
-            hiddenProfile
-          />
+            <ChatList />
           </View>
 
           <View style={styles.viewInputContainer}>
@@ -122,8 +71,7 @@ const styles = {
     borderColor: '#F4F3F8',
     flex: 1,
     flexDirection: 'column',
-    justifyContent: 'flex-start',
-    alignItems: 'center'
+    justifyContent: 'flex-start'
   },
   viewContainer: {
     flex: 1,
