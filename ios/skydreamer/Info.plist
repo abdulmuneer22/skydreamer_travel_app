@@ -91,5 +91,27 @@
       <string>Poppins-SemiBold 3.ttf</string>
       <string>Poppins-SemiBold.ttf</string>
     </array>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb251686075279620</string>
+        </array>
+      </dict>
+    </array>
+    <key>FacebookAppID</key>
+    <string>251686075279620</string>
+    <key>FacebookDisplayName</key>
+    <string>Skydreamer</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+      <string>fbapi</string>
+      <string>fb-messenger-api</string>
+      <string>fbauth2</string>
+      <string>fbshareextension</string>
+    </array>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>You shouldn't see this message related to NSPhotoLibraryUsageDescription</string>
   </dict>
 </plist>
