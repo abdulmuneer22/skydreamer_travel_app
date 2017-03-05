@@ -6,7 +6,7 @@
  npm install --save react-redux
  npm install --save redux-thunk
  npm install --save axios
- npm install -g rnpm
+ npm install -g rnpm 
  npm install react-native-vector-icons --save
  npm install react-native-linear-gradient --save
  npm i --save react-native-slider

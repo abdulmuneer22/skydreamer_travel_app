@@ -18,11 +18,25 @@ class RouterComponent extends Component {
            token: value
          });
        } else {
-         this.setState({
-           logged: false,
-           loading: false,
-           token: null
-         });
+         AsyncStorage.getItem('fb_name')
+         .then((value) => {
+           console.log("fb_name value@Router", value);
+           if (value != null) {
+             this.setState({
+               logged: true,
+               loading: false,
+               token: null,
+               fb_name: value
+             });
+           } else {
+             this.setState({
+               logged: false,
+               loading: false,
+               token: null,
+               fb_name: null
+             });
+           }
+         })
        }
      }
    );

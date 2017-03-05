@@ -11,3 +11,8 @@ export const CONTACTS_SELECTED = 'contacts_selected';
 export const CONTACTS_SEARCH = 'contacts_search';
 export const SEARCH_FRIENDS = 'search_friends';
 export const LOAD_FRIENDS = 'load_friends';
+
+// Author: Alberto Schiabel
+export const LOGIN_FACEBOOK_SUCCESS = 'login_facebook_success';
+export const LOGIN_FACEBOOK_FAIL = 'login_facebook_fail';
+export const LOGIN_FACEBOOK = 'login_facebook';

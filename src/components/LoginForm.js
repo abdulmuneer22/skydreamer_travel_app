@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
-import { Text, View, Image, StatusBar, Animated } from 'react-native';
+import { Text,
+         View,
+         Image,
+         StatusBar,
+         Animated } from 'react-native';
 import { connect } from 'react-redux';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { emailChanged, passwordChanged, loginUser } from '../actions';
-import { CardSection, Spinner, Input } from './common';
+import { bindActionCreators } from 'redux';
+import { emailChanged,
+         passwordChanged,
+         loginUser,
+         loginUserViaFacebook } from '../actions';
+import { CardSection,
+         Spinner,
+         Input } from './common';
 import ButtonLogin from './ButtonLogin';
+import FacebookLoginButton from './FacebookLoginButton';
 
 class LoginForm extends Component {
 
@@ -17,17 +27,19 @@ class LoginForm extends Component {
      this.spring();
   }
 
-  onEmailChange(text) {
-    this.props.emailChanged(text);
+  onEmailChange = (text) => {
+    this.props.actions.emailChanged(text);
   }
 
-  onPasswordChange(text) {
-    this.props.passwordChanged(text);
+  onPasswordChange = (text) => {
+    this.props.actions.passwordChanged(text);
   }
 
-  onButtonPress() {
-    const { email, password } = this.props;
-    this.props.loginUser({ email, password });
+  onButtonPress = () => {
+    const { email,
+            password,
+            actions } = this.props;
+    actions.loginUser({ email, password });
   }
 
 
@@ -42,18 +54,27 @@ class LoginForm extends Component {
     ).start();
   }
 
+  /*
   renderButton() {
     if (this.props.loading) {
       return <Spinner size="large" />;
     }
 
     return (
-      <ButtonLogin onPress={this.onButtonPress.bind(this)}>
+      <ButtonLogin onPress={this.onButtonPress}>
         ENTRAR
       </ButtonLogin>
     );
   }
+  */
 
+  renderButton = () => (
+    this.props.loading ?
+      <Spinner size="large" /> :
+      <ButtonLogin onPress={this.onButtonPress}>
+        ENTRAR
+      </ButtonLogin>
+  );
 
   render() {
     const { errorTextStyle,
@@ -62,11 +83,10 @@ class LoginForm extends Component {
             loginFormContainerStyle,
             containerLogoStyle } = styles;
 
-    const facebookLogin = (
-          <Icon.Button name="facebook" backgroundColor="#3b5998">
-            <Text style={{ fontFamily: 'Arial', fontSize: 15, color: 'white' }}>Login with Facebook</Text>
-          </Icon.Button>
-        );
+    const { email,
+            password,
+            error,
+            actions } = this.props;
 
     return (
       <View style={containerStyle}>
@@ -86,8 +106,8 @@ class LoginForm extends Component {
             <CardSection>
               <Input
                 placeholder="Usuário"
-                onChangeText={this.onEmailChange.bind(this)}
-                value={this.props.email}
+                onChangeText={this.onEmailChange}
+                value={email}
               />
             </CardSection>
 
@@ -95,13 +115,13 @@ class LoginForm extends Component {
               <Input
                 secureTextEntry
                 placeholder="Senha"
-                onChangeText={this.onPasswordChange.bind(this)}
-                value={this.props.password}
+                onChangeText={this.onPasswordChange}
+                value={password}
               />
             </CardSection>
 
             <Text style={errorTextStyle}>
-              {this.props.error}
+              {error}
             </Text>
 
             <CardSection>
@@ -109,7 +129,7 @@ class LoginForm extends Component {
             </CardSection>
 
             <CardSection style={{ paddingTop: 10 }}>
-              {facebookLogin}
+              <FacebookLoginButton onPress={actions.loginUserViaFacebook}/>
             </CardSection>
 
           </View>
@@ -153,6 +173,13 @@ const mapStateToProps = ({ auth }) => {
   return { email, password, error, loading };
 };
 
-export default connect(mapStateToProps, {
-  emailChanged, passwordChanged, loginUser
-})(LoginForm);
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators({
+    emailChanged,
+    passwordChanged,
+    loginUser,
+    loginUserViaFacebook
+  }, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
