@@ -68,7 +68,6 @@ class Main extends Component {
       );
    }
 
-
   render() {
     const { viewContainer,
             viewInnerContainer,

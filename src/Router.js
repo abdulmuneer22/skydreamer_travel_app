@@ -20,7 +20,7 @@ class RouterComponent extends Component {
        } else {
          AsyncStorage.getItem('fb_name')
          .then((value) => {
-           console.log("fb_name value@Router", value);
+           //console.log('fb_name value@Router', value);
            if (value != null) {
              this.setState({
                logged: true,
@@ -36,7 +36,7 @@ class RouterComponent extends Component {
                fb_name: null
              });
            }
-         })
+         });
        }
      }
    );

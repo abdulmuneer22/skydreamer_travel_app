@@ -38,14 +38,14 @@ class TopTabBar extends Component {
     const { content, iconStyle } = styles;
 
     return (
-        <View style={content}>
-          <View>
-            <Icon name="ios-arrow-back" size={30} style={[iconStyle, { marginTop: -5 }]} />
-          </View>
-          <View>
-            <Icon2 name="menu" size={20} style={iconStyle} />
-          </View>
+      <View style={content}>
+        <View>
+          <Icon name="ios-arrow-back" size={30} style={[iconStyle, { marginTop: -5 }]} />
         </View>
+        <View>
+          <Icon2 name="menu" size={20} style={iconStyle} />
+        </View>
+      </View>
     );
   }
 
