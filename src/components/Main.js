@@ -64,6 +64,7 @@ class Main extends Component {
           <Text style={titleSkydreamer}>Skydreamer</Text>
           <Text style={title}>Navigation System</Text>
           <Text style={subtitle}>{data}</Text>
+                  <Text>asd</Text>
         </TouchableOpacity>
       );
    }

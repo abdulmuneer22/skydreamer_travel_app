@@ -114,7 +114,7 @@ export const loginUserViaFacebook = () => (
           /**
            * @TODO: send a POST request to Skydreamer's API
            * with the following parameters retrieved from facebook:
-           * 
+           *
            * id: string,
            * email: string,
            * gender: string,
