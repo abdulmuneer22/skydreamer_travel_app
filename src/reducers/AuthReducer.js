@@ -44,7 +44,6 @@ export default (state = INITIAL_STATE, action) => {
         error: ''
       };  // *
     case LOGIN_FACEBOOK_SUCCESS:
-      console.log("action asdasd", action);
       return {
         ...state,
         facebookData: action.data,
@@ -56,7 +55,7 @@ export default (state = INITIAL_STATE, action) => {
         facebookData: {},
         error: action.error,
         loading: false
-      }
+      };
     default:
       return state;
   }

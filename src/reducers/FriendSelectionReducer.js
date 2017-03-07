@@ -13,8 +13,8 @@ const INITIAL_STATE = {
   results: [],
   searchArray: [],
   loading: false
-}
-var _ = require('lodash');
+};
+const _ = require('lodash');
 
 export default (state = INITIAL_STATE, action) => {
   console.log(action);
@@ -24,10 +24,10 @@ export default (state = INITIAL_STATE, action) => {
     case 'LOAD_FRIENDS':
       return { ...state, searchArray: action.payload, results: action.payload };
     case 'SEARCH_FRIENDS':
-      var searchResults = [];
-      var regex = new RegExp(action.payload,'i');
+      let searchResults = [];
+      const regex = new RegExp(action.payload,'i');
       if(!action.payload){
-        searchResults=state.searchArray;
+        searchResults = state.searchArray;
       }
       else{
         searchResults = _.filter(state.searchArray, function (item) {

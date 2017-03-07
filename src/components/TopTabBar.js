@@ -60,9 +60,9 @@ class TopTabBar extends Component {
     }
     //default
     return (
-      <View style={[content, { padding: 15 }]}>
+      <View style={content}>
         <View>
-          <Icon name="ios-arrow-back" size={25} style={iconStyle} />
+          <Icon name="ios-arrow-back" size={30} style={[iconStyle, { marginTop: -5 }]} />
         </View>
         <View>
           <Icon2 name="menu" size={20} style={iconStyle} />

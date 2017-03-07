@@ -18,10 +18,10 @@ export default (state = INITIAL_STATE, action) => {
   console.log(action);
   switch (action.type) {
     case 'CONTACTS_CHECKED':
-      var id = action.payload.recordID;
+      const id = action.payload.recordID;
       return { ...state.contacts[id], selected: true };
     case 'CONTACTS_UNCHECKED':
-      var id = action.payload.recordID;
+      const id = action.payload.recordID;
       return { ...state.contacts[id], selected: false };
     case 'CONTACTS_SELECTED':
       return { ...state, contacts: action.payload };
@@ -34,4 +34,4 @@ export default (state = INITIAL_STATE, action) => {
     default:
       return state;
   }
-}
+};

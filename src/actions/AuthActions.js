@@ -111,7 +111,17 @@ export const loginUserViaFacebook = () => (
           dispatch(loginFacebookFail("User cancelled login"));
         } else {
           console.log("calling facebookApiRequest");
-
+          /**
+           * @TODO: send a POST request to Skydreamer's API
+           * with the following parameters retrieved from facebook:
+           *
+           * id: string,
+           * email: string,
+           * gender: string,
+           * locale: string,
+           * location: string,
+           * name: string
+           */
           AccessToken.getCurrentAccessToken().then(
             (data) => {
               console.log('token data', data);
