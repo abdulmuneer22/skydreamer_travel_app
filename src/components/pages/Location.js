@@ -85,7 +85,8 @@ const styles = StyleSheet.create({
     flex: 1
   },
   map: {
-    flex: 1
+    flex: 1,
+    marginTop: 50
   },
   bubble: {
     backgroundColor: 'rgba(255,255,255,0.7)',

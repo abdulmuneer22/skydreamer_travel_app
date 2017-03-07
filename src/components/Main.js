@@ -7,6 +7,7 @@
 ///   Revision History:
 ///   Name:               Date:         Description:
 ///   Guilherme Bastos    28/02/2017    Added Chat Page
+///   Guilherme Bastos    06/03/2017    Added TopChatBar
 ///-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Text, StatusBar } from 'react-native';
@@ -21,7 +22,6 @@ import Chat from './pages/Chat';
 
 class Main extends Component {
 
-  static refBottomTabBar;
   state = { dataSource: null, currentPage: 0, pages: ['Flight', 'Compass', 'Cards', 'Chat', 'User'] };
 
   componentWillMount() {
@@ -41,10 +41,12 @@ class Main extends Component {
    }
 
    setCurrentPage(index) {
+     this.topTabBarComponent.setState({ currentPage: index });
      this.viewPagerComponent.goToPage(index, true);
    }
 
-   renderPage(data, pageID) {
+   // renderPage(data, pageID) {
+   renderPage(data) {
       const { viewPagerContainer, title, subtitle, titleSkydreamer } = styles;
       if (data === 'Compass') {
         return (
@@ -68,7 +70,6 @@ class Main extends Component {
       );
    }
 
-
   render() {
     const { viewContainer,
             viewInnerContainer,
@@ -82,7 +83,9 @@ class Main extends Component {
          hidden
       />
       <View style={viewInnerContainer1}>
-        <TopTabBar />
+       <TopTabBar
+         ref={(topTabBarComponent) => { this.topTabBarComponent = topTabBarComponent; }}
+       />
       </View>
       <View style={viewInnerContainer}>
         <ViewPager
@@ -125,10 +128,11 @@ const styles = {
     color: '#EC514C'
   },
   viewPager: {
-      flex: 1
+    flex: 1
   },
   viewPagerContainer: {
-      flex: 1
+    flex: 1,
+    marginTop: 50
   },
   viewContainer: {
     flex: 1,
@@ -136,7 +140,6 @@ const styles = {
   },
   viewInnerContainer: {
     flex: 1,
-    marginTop: 50
   },
   viewInnerContainer2: {
     position: 'absolute',

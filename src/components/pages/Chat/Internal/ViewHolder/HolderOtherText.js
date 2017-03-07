@@ -90,7 +90,7 @@ const styles = {
   textStyle: {
     fontSize: 15,
     fontFamily: 'Poppins-Light',
-    backgroundColor: '#FAE7E3',
+    backgroundColor: '#FBE9E7',
     padding: 5,
     paddingLeft: 15,
     paddingRight: 15,
@@ -117,4 +117,4 @@ const styles = {
   }
 };
 
-export {HolderOtherText};
+export { HolderOtherText };

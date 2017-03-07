@@ -48,7 +48,8 @@ const styles = {
     color: '#999'
   },
   container: {
-    flex: 1
+    flex: 1,
+    marginTop: 50
   }
 };
 

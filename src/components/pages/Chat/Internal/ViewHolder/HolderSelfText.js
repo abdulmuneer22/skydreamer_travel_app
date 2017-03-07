@@ -59,7 +59,7 @@ const styles = {
   textStyle: {
     fontSize: 15,
     fontFamily: 'Poppins-Light',
-    backgroundColor: '#E12A68',
+    backgroundColor: '#EC514D',
     padding: 5,
     paddingLeft: 15,
     paddingRight: 15,
@@ -71,8 +71,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginLeft: 20,
-    marginRight: 10
+    marginLeft: 20
   },
   container: {
     flex: 1,

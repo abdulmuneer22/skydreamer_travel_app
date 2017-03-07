@@ -1,92 +1,62 @@
-///-----------------------------------------------------------------
-///   Class:          Chat.js
-///   Description:    Render Chat Component
-///   Author:         Guilherme Borges Bastos       Date: 28/02/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
 import React, { Component } from 'react';
-import { View,
-         TextInput,
-         KeyboardAvoidingView } from 'react-native';
-
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon2 from 'react-native-vector-icons/FontAwesome';
-
-import ChatList from './Lists/ChatList';
+import { View } from 'react-native';
+import ViewPager from 'react-native-viewpager';
+import ChatPeopleList from './List/ChatPeopleList';
 
 class Chat extends Component {
 
-  state = {
-    behavior: 'position',
-    modalOpen: true,
-    chatText: ''
-  };
+  state = { dataSource: null, currentPage: 0, pages: ['People', 'Groups'] };
+
+  componentWillMount() {
+     this.dataSource = new ViewPager.DataSource({
+         pageHasChanged: (p1, p2) => p1 !== p2,
+     });
+
+     this.setState({
+          dataSource: this.dataSource.cloneWithPages(this.state.pages)
+     });
+  }
+
+  onChangePage(data) {
+     const pagesArr = ['People', 'Groups'];
+     console.log('---------- onChangePage -----------');
+     console.log(pagesArr[data]);
+     console.log(this.props.setCurrentPageTopTabBar);
+     console.log(this.props.text);
+  }
+
+  setCurrentPage(index) {
+    this.viewPagerComponent.goToPage(index, true);
+  }
 
   render() {
+    // const parent = this._reactInternalInstance._currentElement._owner._instance;
+    const { container } = styles;
     return (
-        <KeyboardAvoidingView
-          style={styles.viewContainer}
-           behavior="padding"
-        >
-          <View style={styles.containerChatList}>
-            <ChatList />
-          </View>
-
-          <View style={styles.viewInputContainer}>
-            <TextInput
-              placeholderStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#AFA3C6' }}
-              placeholder="Write a message"
-              placeholderTextColor={'#AFA3C6'}
-              underlineColorAndroid={'white'}
-              style={styles.textInput}
-              value={this.state.chatText}
-            />
-            <Icon name="emoticon-happy" size={25} style={styles.iconStyle} />
-            <Icon2 name="send-o" size={25} style={styles.iconStyle} />
-          </View>
-        </KeyboardAvoidingView>
+      <View style={container}>
+        <ChatPeopleList />
+      </View>
     );
   }
 }
 
-
 const styles = {
-  iconStyle: {
-    color: '#A89DC5',
-    alignSelf: 'center',
-    marginRight: 20,
-  },
-  textInput: {
-    color: '#AFA3C6',
-    alignSelf: 'center',
-    marginLeft: 10,
-    fontSize: 18,
-    fontFamily: 'Poppins-Regular',
-    flex: 1
-  },
-  containerChatList: {
-    borderTopWidth: 1,
-    borderColor: '#F4F3F8',
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'flex-start'
-  },
-  viewContainer: {
+  container: {
     flex: 1,
     marginBottom: 60,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignSelf: 'center'
+    marginTop: 50,
   },
-  viewInputContainer: {
-    borderBottomWidth: 2,
-    borderColor: '#F4F3F8',
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    elevation: 7,
-    height: 60
+  viewPager: {
+      flex: 1
+  },
+  title: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 25,
+    color: '#999'
+  },
+  viewPagerContainer: {
+      flex: 1
   }
 };
 

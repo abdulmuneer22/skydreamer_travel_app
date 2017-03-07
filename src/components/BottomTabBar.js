@@ -5,12 +5,13 @@
 ///   Author:         Guilherme Borges Bastos       Date: 24/02/2017
 ///   Notes:
 ///   Revision History:
-///   Name:           Date:        Description:
+///   Name:             Date:        Description:
+///   Guilherme Bastos  07/03/17     Added elevation style
 ///-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View, AsyncStorage } from 'react-native';
-import TabBarIcon from './TabBarIcon';
 import { Actions } from 'react-native-router-flux';
+import TabBarIcon from './TabBarIcon';
 
 class BottomTabBar extends Component {
 
@@ -153,7 +154,8 @@ const styles = {
      flexDirection: 'row',
      paddingLeft: 15,
      paddingRight: 15,
-     backgroundColor: '#FFFFFF'
+     backgroundColor: '#FFFFFF',
+     elevation: 10
    }
 };
 
