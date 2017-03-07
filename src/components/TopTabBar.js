@@ -7,10 +7,13 @@
 ///   Revision History:
 ///   Name:           Date:        Description:
 ///-----------------------------------------------------------------
+
 import React, { Component } from 'react';
 import { View, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/SimpleLineIcons';
+import TopChatBar from './pages/Chat/TopChatBar';
+
 
 class TopTabBar extends Component {
 
@@ -19,8 +22,15 @@ class TopTabBar extends Component {
     this.springValue = new Animated.Value(0.3);
   }
 
+  state = { currentPage: 0, pages: ['Flight', 'Compass', 'Cards', 'Chat', 'User'] };
+
   componentDidMount() {
      this.spring();
+  }
+
+  componentDidUpdate() {
+    console.log('########### componentDidUpdate #############');
+    this.getCurrentMainPage();
   }
 
   spring() {
@@ -34,9 +44,22 @@ class TopTabBar extends Component {
     ).start();
   }
 
-  renderTabBar() {
+  getCurrentMainPage = () => {
+    const { currentPage } = this.state;
+    console.log('getCurrentMainPage:', currentPage);
+  }
+
+  renderContainer() {
+    const { currentPage } = this.state;
     const { content, iconStyle } = styles;
 
+    if (Number(currentPage) === 3) {
+      //Top Chat Bar
+      return (
+        <TopChatBar />
+      );
+    }
+    //default
     return (
       <View style={content}>
         <View>
@@ -52,7 +75,7 @@ class TopTabBar extends Component {
   render() {
     return (
       <View>
-        { this.renderTabBar() }
+        { this.renderContainer() }
       </View>
     );
   }
@@ -63,7 +86,7 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 15
+    elevation: 8
   },
   iconStyle: {
     color: '#020201',
