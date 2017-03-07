@@ -19,6 +19,11 @@ import Location from './pages/Location';
 import Friend from './pages/Friend';
 import Chat from './pages/Chat';
 
+const FBSDK = require('react-native-fbsdk');
+const {
+  AppInviteDialog,
+} = FBSDK;
+
 class Main extends Component {
 
   static refBottomTabBar;
@@ -44,6 +49,19 @@ class Main extends Component {
      this.viewPagerComponent.goToPage(index, true);
    }
 
+   shareLink = () => {
+     AppInviteDialog.canShow(this.state.appInviteContent)
+     .then((canShow) => canShow && AppInviteDialog.show(this.state.appInviteContent))
+     .then((result, err) => {
+
+      if (result.isCancelled) {
+        alert('Share operation was cancelled');
+      } else {
+        alert('Share was successful with postId: ' + result.postId);
+      }
+     });
+   }
+
    renderPage(data, pageID) {
       const { viewPagerContainer, title, subtitle, titleSkydreamer } = styles;
       if (data === 'Compass') {
@@ -60,12 +78,17 @@ class Main extends Component {
         );
       }
       return (
+        <View>
         <TouchableOpacity style={viewPagerContainer}>
           <Text style={titleSkydreamer}>Skydreamer</Text>
           <Text style={title}>Navigation System</Text>
           <Text style={subtitle}>{data}</Text>
-                  <Text>asd</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity onPress={() => this.shareLink} style={viewPagerContainer}>
+          <Text>Share</Text>
+        </TouchableOpacity>
+        </View>
       );
    }
 
