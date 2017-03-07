@@ -5,6 +5,8 @@ import com.BV.LinearGradient.LinearGradientPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 
 import android.app.Application;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 
 import com.facebook.CallbackManager;
@@ -20,6 +22,10 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.Arrays;
 import java.util.List;
+
+import bolts.AppLinks;
+
+import static android.content.Intent.getIntent;
 
 public class MainApplication extends Application implements ReactApplication {
 
