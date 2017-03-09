@@ -13,10 +13,12 @@ import AuthReducer from './AuthReducer';
 import FriendSelectionReducer from './FriendSelectionReducer';
 import FriendReducer from './FriendReducer';
 import ChatReducer from './ChatReducer';
+import FacebookApiReducer from './FacebookApiReducer';
 
 export default combineReducers({
   auth: AuthReducer,
   selectedFriendId: FriendSelectionReducer,
   friends: FriendReducer,
-  chats: ChatReducer
+  chats: ChatReducer,
+  facebook: FacebookApiReducer,
 });
