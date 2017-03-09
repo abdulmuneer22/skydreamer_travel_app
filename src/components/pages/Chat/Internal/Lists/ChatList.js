@@ -6,26 +6,46 @@
 ///   Revision History:
 ///   Name:           Date:        Description:
 ///-----------------------------------------------------------------
-import React, { Component } from 'react';
+import React from 'react';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
-// import _ from 'lodash';
+import * as actions from '../../../../../actions';
+
 import {
          // HolderDateSeparator,
          HolderOtherText,
          HolderSelfText
        } from '../ViewHolder';
 
-class ChatList extends Component {
-  state = { number: 0, chatRows: null };
+export const addNewMessage = (text) => {
+  console.log('export const addNewMessage', text);
+};
+
+class ChatList extends React.Component {
+
+  static addNewMessage = (type, text, props) => {
+    props.addNewMessage(type, text);
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = { number: 0, chatRows: null };
+    this.ds = null;
+  }
 
   componentWillMount() {
-      const ds = new ListView.DataSource({
+      this.ds = new ListView.DataSource({
         rowHasChanged: (r1, r2) => r1 !== r2
       });
 
-      this.setState({ chatRows: this.props.chats });
-      this.dataSource = ds.cloneWithRows(this.props.chats);
+      this.setState({ chatRows: this.props.chats.data });
+      this.dataSource = this.ds.cloneWithRows(this.props.chats.data);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('nextProps', nextProps);
+    this.setState({ chatRows: this.props.chats.data });
+    this.dataSource = this.ds.cloneWithRows(this.props.chats.data);
   }
 
   renderRow(chat, sectionId, rowId, chatRows) {
@@ -127,7 +147,9 @@ class ChatList extends Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log('mapStateToProps of ChatList.js');
+  console.log(state);
   return { chats: state.chats };
 };
 
-export default connect(mapStateToProps)(ChatList);
+export default connect(mapStateToProps, actions)(ChatList);

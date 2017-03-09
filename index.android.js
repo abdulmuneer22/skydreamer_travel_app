@@ -6,7 +6,7 @@
  npm install --save react-redux
  npm install --save redux-thunk
  npm install --save axios
- npm install -g rnpm 
+ npm install -g rnpm
  npm install react-native-vector-icons --save
  npm install react-native-linear-gradient --save
  npm i --save react-native-slider
@@ -14,6 +14,8 @@
  npm install react-native-viewpager --save
  npm install react-native-maps --save
  npm install react-native-fbsdk --save
+ npm install --save firebase
+ npm install moment --save
 
  To install fonts
  http://stackoverflow.com/questions/38564125/how-do-i-add-custom-font-in-react-native-not-using-xcode

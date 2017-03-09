@@ -17,7 +17,6 @@ const INITIAL_STATE = {
 const _ = require('lodash');
 
 export default (state = INITIAL_STATE, action) => {
-  console.log(action);
   switch (action.type) {
     case 'select_friend':
       return action.payload;

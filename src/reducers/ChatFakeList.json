@@ -141,16 +141,5 @@
         "photoSrc": "https://storage.skydreamer.io/profile/54ds564456sd.jpg"
     },
     "timestamp": 1488499497
-  },
-  {
-    "id": 13,
-    "type": "SelfText",
-    "text": "YES, I'm in!",
-    "user":
-    {
-        "userid": 1,
-        "photoSrc": "https://storage.skydreamer.io/profile/0100110.jpg"
-    },
-    "timestamp": 1488499497
   }
 ]

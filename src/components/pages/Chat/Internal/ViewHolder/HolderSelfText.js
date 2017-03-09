@@ -81,7 +81,8 @@ const styles = {
   rowContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    flexWrap: 'wrap'
+    flexWrap: 'wrap',
+    paddingRight: 10
   }
 };
 

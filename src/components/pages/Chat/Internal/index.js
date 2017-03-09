@@ -11,57 +11,86 @@ import { View,
          Image,
          TextInput,
          Text,
+         TouchableOpacity,
          StatusBar } from 'react-native';
+
+import { connect } from 'react-redux';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import Icon4 from 'react-native-vector-icons/Entypo';
 import ChatList from './Lists/ChatList';
+import * as actions from '../../../../actions';
+
+const moment = require('moment');
 
 class InternalChat extends Component {
-
   state = {
     behavior: 'position',
     modalOpen: true,
-    chatText: ''
+    text: ''
   };
+
+  onChangeText = (text) => {
+    this.setState({ text });
+  }
+
+  onSendPressButton = () => {
+    var text = this.state.text;
+    var type = 'SelfText';
+    //ChatList.addNewMessage(text, ChatList.state);
+    this.props.addNewMessage(type, text);
+  }
 
   renderTopBar() {
     const { content, iconToolbarStyle, profileImage, chatTitle, chatSubTitle } = styles;
-    const photo = 'https://storage.skydreamer.io/profile/0100110.jpg';
-    const chatTitleStr = 'Federico Somaschini';
-    const chatSubTitleStr = "I'm busy now!";
+    // const { id, fullname, photo, lastMessage, lastLogin } = this.props;
+    const { fullname, photo, lastLogin } = this.props;
+    //TODO: refactor the code to add timezone and Language format
+    var dateA = moment(1489068939);
+    var dateB = moment(lastLogin);
+
+    var lastLoginStr = dateB.from(dateA);
 
     return (
       <View style={content}>
         <View style={{ flex: 1, flexDirection: 'row' }}>
-          <Icon3 name="ios-arrow-back" size={25} style={iconToolbarStyle} />
+          <TouchableOpacity style={{ justifyContent: 'center' }}>
+            <Icon3 name="ios-arrow-back" size={25} style={iconToolbarStyle} />
+          </TouchableOpacity>
           <Image source={{ uri: photo }} style={profileImage} />
-            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-around', marginLeft: 10, paddingTop: 7, paddingBottom: 7 }}>
-            <Text style={chatTitle}>{chatTitleStr}</Text>
-            <Text style={chatSubTitle}>{chatSubTitleStr}</Text>
+            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-around', marginLeft: 10, paddingTop: 10, paddingBottom: 10 }}>
+            <Text style={chatTitle}>{fullname}</Text>
+            <Text style={chatSubTitle}>{lastLoginStr}</Text>
           </View>
         </View>
         <View style={{ flexDirection: 'row' }}>
-          <Icon4 name="attachment" size={20} style={iconToolbarStyle} />
-          <Icon name="dots-vertical" size={20} style={iconToolbarStyle} />
+          <TouchableOpacity style={{ justifyContent: 'center' }}>
+            <Icon4 name="attachment" size={20} style={iconToolbarStyle} />
+          </TouchableOpacity>
+          <TouchableOpacity style={{ justifyContent: 'center' }}>
+            <Icon
+              name="dots-vertical"
+              size={20}
+              style={iconToolbarStyle}
+              onPress={this.onSendPressButton}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     );
   }
 
   render() {
-    const { backgroundImageStyle,
+    const { fullCointainerStyle,
             containerChatList,
             viewInputContainer,
             textInput,
             iconStyle } = styles;
 
     return (
-      <Image
-        source={require('../../../../images/chat-bg.jpg')} style={backgroundImageStyle}
-      >
+      <View style={fullCointainerStyle}>
         <StatusBar
            backgroundColor="black"
         />
@@ -78,15 +107,26 @@ class InternalChat extends Component {
             placeholder="Write a message"
             placeholderTextColor={'#AFA3C6'}
             underlineColorAndroid={'white'}
+            onChangeText={this.onChangeText}
             style={textInput}
-            value={this.state.chatText}
+            multiline
+            value={this.state.text}
           />
-          <Icon name="emoticon-happy" size={25} style={iconStyle} />
-          <Icon2 name="send-o" size={25} style={iconStyle} />
-
+          <TouchableOpacity style={{ justifyContent: 'center' }}>
+            <Icon name="emoticon-happy" size={25} style={iconStyle} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ justifyContent: 'center' }}
+            onPress={this.onSendPressButton}
+          >
+            <Icon2
+              name="send-o"
+              size={25}
+              style={iconStyle}
+            />
+          </TouchableOpacity>
         </View>
-
-      </Image>
+      </View>
     );
   }
 }
@@ -96,10 +136,11 @@ const styles = {
   iconStyle: {
     color: '#A89EC1',
     alignSelf: 'center',
-    marginRight: 20,
+    paddingRight: 10,
+    paddingLeft: 10,
   },
   content: {
-    height: 50,
+    height: 60,
     flexDirection: 'row',
     justifyContent: 'space-between',
     elevation: 3,
@@ -107,16 +148,15 @@ const styles = {
   },
   iconToolbarStyle: {
     color: '#A89EC1',
-    fontWeight: '100',
-    marginLeft: 10,
-    marginRight: 5,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    paddingRight: 10,
+    paddingLeft: 10,
   },
   profileImage: {
     backgroundColor: 'transparent',
     alignSelf: 'center',
-    width: 37,
-    height: 37,
+    width: 45,
+    height: 45,
     borderRadius: 50,
     marginLeft: 15
   },
@@ -142,12 +182,9 @@ const styles = {
   },
   containerChatList: {
     flex: 1,
-    borderTopWidth: 1,
     borderColor: '#F4F3F8',
     flexDirection: 'column',
-    justifyContent: 'flex-start',
-    paddingTop: 10,
-    paddingRight: 10,
+    marginBottom: 10
   },
   viewContainer: {
     flex: 1,
@@ -156,19 +193,25 @@ const styles = {
     alignSelf: 'center'
   },
   viewInputContainer: {
-    borderBottomWidth: 2,
-    borderColor: '#F4F3F8',
     backgroundColor: '#fff',
     flexDirection: 'row',
-    elevation: 7,
-    height: 60
+    elevation: 7
   },
-  backgroundImageStyle: {
+  fullCointainerStyle: {
     flex: 1,
     width: null,
-    height: null
+    height: null,
+    backgroundColor: '#FFF8F6'
   }
 };
 
 
-export default InternalChat;
+const mapStateToProps = (state) => {
+  console.log('mapStateToProps of InternalChat.js');
+  console.log(state);
+
+  const { text, type } = state;
+  return { text, type };
+};
+
+export default connect(mapStateToProps, actions)(InternalChat);

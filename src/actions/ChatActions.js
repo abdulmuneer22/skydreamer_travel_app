@@ -1,9 +1,13 @@
-import { Actions } from 'react-native-router-flux';
-
-export const openChat = (friendId) => {
-  Actions.internalChat();
+export const openChat = (id, fullname, photo, lastLogin) => {
   return {
     type: 'open_chat',
-    payload: friendId
+    payload: { id, fullname, photo, lastLogin }
+  };
+};
+
+export const addNewMessage = (type, text) => {
+  return {
+    type: 'add_new_message',
+    payload: { type, text }
   };
 };

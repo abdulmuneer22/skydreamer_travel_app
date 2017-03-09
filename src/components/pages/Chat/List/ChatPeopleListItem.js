@@ -29,10 +29,6 @@ class ChatPeopleListItem extends Component {
     };
   }
 
-  componentDidMount() {
-  }
-
-
   componentWillUpdate() {
     // LayoutAnimation.spring();
     Animated.timing(          // Uses easing functions
@@ -128,12 +124,12 @@ class ChatPeopleListItem extends Component {
             rowContainer,
             profileImage } = styles;
 
-    const { id, photo } = this.props.chat;
+    const { id, fullname, photo, lastLogin } = this.props.chat;
 
     return (
       <TouchableWithoutFeedback
         style={container}
-        onPress={() => this.props.openChat(id)}
+        onPress={() => this.props.openChat(id, fullname, photo, lastLogin)}
         onLongPress={() => this.props.selectedFriend(id)}
       >
         <View>
@@ -153,7 +149,6 @@ class ChatPeopleListItem extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  //todo: refactor aqui
   const expanded = state.selectedFriendId === ownProps.chat.id;
   return { expanded: expanded };
 };
