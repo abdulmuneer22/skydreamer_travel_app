@@ -19,16 +19,16 @@ class HolderSelfText extends Component {
     const { squareCorner, semiSquareCorner } = this.props;
     if (squareCorner === true && semiSquareCorner === false) {
       return {
-          borderTopLeftRadius: 50,
-          borderBottomLeftRadius: 50,
-          borderRadius: 10,
-          marginTop: 2
+        borderTopLeftRadius: 50,
+        borderBottomLeftRadius: 50,
+        borderRadius: 10,
+        marginTop: 2,
       };
     } else if (semiSquareCorner === true) {
       return {
-          borderTopRightRadius: 10,
-          borderRadius: 50,
-          marginTop: 2
+        borderTopRightRadius: 10,
+        borderRadius: 50,
+        marginTop: 2,
       };
     }
 
@@ -64,26 +64,26 @@ const styles = {
     paddingLeft: 15,
     paddingRight: 15,
     flexWrap: 'wrap',
-    color: '#fff'
+    color: '#fff',
   },
   textViewStyle: {
     flex: 0.8,
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginLeft: 20
+    marginLeft: 20,
   },
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   rowContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     flexWrap: 'wrap',
-    paddingRight: 10
-  }
+    paddingRight: 10,
+  },
 };
 
 export { HolderSelfText };

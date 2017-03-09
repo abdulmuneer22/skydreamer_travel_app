@@ -1,13 +1,13 @@
-///-----------------------------------------------------------------
-///   Namespace:      Main.js
-///   Class:          BottomTabBar.js
-///   Description:    Render bottom navigation menu
-///   Author:         Guilherme Borges Bastos       Date: 24/02/2017
-///   Notes:
-///   Revision History:
-///   Name:             Date:        Description:
-///   Guilherme Bastos  07/03/17     Added elevation style
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Namespace:      Main.js
+// /   Class:          BottomTabBar.js
+// /   Description:    Render bottom navigation menu
+// /   Author:         Guilherme Borges Bastos       Date: 24/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:             Date:        Description:
+// /   Guilherme Bastos  07/03/17     Added elevation style
+// /-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View, AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
@@ -16,13 +16,13 @@ import TabBarIcon from './TabBarIcon';
 class BottomTabBar extends Component {
 
   state = {
-            selected: 'Flight',
-            chatNum: 0,
-            notificationNum: 0,
-            mapNum: 0,
-            friendNum: 7,
-            plusFriendNum: 2
-          };
+    selected: 'Flight',
+    chatNum: 0,
+    notificationNum: 0,
+    mapNum: 0,
+    friendNum: 7,
+    plusFriendNum: 2,
+  };
 
   animateBubble(index) {
     switch (index) {
@@ -97,44 +97,44 @@ class BottomTabBar extends Component {
     const size = 26;
 
     return (
-        <View style={styles.content}>
+      <View style={styles.content}>
 
-          <TabBarIcon
-            size={size} text="Flight" notificationNumber={this.state.chatNum} fontFamily="MaterialIcons"
-            iconName="local-airport"
-            ref={(flightComponent) => { this.flightComponent = flightComponent; }}
-            pageIndex={0}
-          />
+        <TabBarIcon
+          size={size} text="Flight" notificationNumber={this.state.chatNum} fontFamily="MaterialIcons"
+          iconName="local-airport"
+          ref={(flightComponent) => { this.flightComponent = flightComponent; }}
+          pageIndex={0}
+        />
 
-          <TabBarIcon
-            size={size} text="Compass" notificationNumber={this.state.notificationNum} fontFamily="SimpleLineIcons"
-            iconName="compass"
-            ref={(compassComponent) => { this.compassComponent = compassComponent; }}
-            pageIndex={1}
-          />
+        <TabBarIcon
+          size={size} text="Compass" notificationNumber={this.state.notificationNum} fontFamily="SimpleLineIcons"
+          iconName="compass"
+          ref={(compassComponent) => { this.compassComponent = compassComponent; }}
+          pageIndex={1}
+        />
 
-          <TabBarIcon
-            size={size} text="Cards" notificationNumber={this.state.mapNum} fontFamily="MaterialCommunityIcons"
-            iconName="cards-playing-outline"
-            ref={(cardComponent) => { this.cardComponent = cardComponent; }}
-            pageIndex={2}
-          />
+        <TabBarIcon
+          size={size} text="Cards" notificationNumber={this.state.mapNum} fontFamily="MaterialCommunityIcons"
+          iconName="cards-playing-outline"
+          ref={(cardComponent) => { this.cardComponent = cardComponent; }}
+          pageIndex={2}
+        />
 
-          <TabBarIcon
-            size={size} text="Chat" notificationNumber={this.state.friendNum} fontFamily="MaterialIcons"
-            iconName="chat-bubble-outline"
-            ref={(chatComponent) => { this.chatComponent = chatComponent; }}
-            pageIndex={3}
-          />
+        <TabBarIcon
+          size={size} text="Chat" notificationNumber={this.state.friendNum} fontFamily="MaterialIcons"
+          iconName="chat-bubble-outline"
+          ref={(chatComponent) => { this.chatComponent = chatComponent; }}
+          pageIndex={3}
+        />
 
-          <TabBarIcon
-            size={size} text="User" notificationNumber={this.state.plusFriendNum} fontFamily="SimpleLineIcons"
-            iconName="user"
-            ref={(friendComponent) => { this.friendComponent = friendComponent; }}
-            pageIndex={4}
-          />
+        <TabBarIcon
+          size={size} text="User" notificationNumber={this.state.plusFriendNum} fontFamily="SimpleLineIcons"
+          iconName="user"
+          ref={(friendComponent) => { this.friendComponent = friendComponent; }}
+          pageIndex={4}
+        />
 
-        </View>
+      </View>
     );
   }
 
@@ -149,14 +149,14 @@ class BottomTabBar extends Component {
 }
 
 const styles = {
-   content: {
-     flex: 1,
-     flexDirection: 'row',
-     paddingLeft: 15,
-     paddingRight: 15,
-     backgroundColor: '#FFFFFF',
-     elevation: 10
-   }
+  content: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingLeft: 15,
+    paddingRight: 15,
+    backgroundColor: '#FFFFFF',
+    elevation: 10,
+  },
 };
 
 export default BottomTabBar;

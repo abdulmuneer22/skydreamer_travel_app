@@ -1,12 +1,13 @@
-///-----------------------------------------------------------------
-///   Class:          ButtonNext.js
-///   Description:    Render next button on Session Pages
-///   Author:         Guilherme Borges Bastos       Date: 20/02/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
-import React from 'react';
+// /-----------------------------------------------------------------
+// /   Class:          ButtonNext.js
+// /   Description:    Render next button on Session Pages
+// /   Author:         Guilherme Borges Bastos       Date: 20/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /   Alberto Schiabel 09/03/2017  Added PropTypes
+// /-----------------------------------------------------------------
+import React, { PropTypes} from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -23,13 +24,18 @@ const ButtonNext = ({ onPress, children }) => {
   );
 };
 
+ButtonNext.propTypes = {
+  onPress: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
 const styles = {
   textStyle: {
     color: '#FFF',
     fontSize: 22,
     fontFamily: 'NotoSans-Semibold',
     marginRight: 30,
-    marginLeft: 30
+    marginLeft: 30,
   },
   buttonStyle: {
     flexDirection: 'row',
@@ -41,8 +47,8 @@ const styles = {
     marginLeft: 25,
     marginRight: 25,
     marginBottom: 25,
-    padding: 20
-  }
+    padding: 20,
+  },
 };
 
 export default ButtonNext;

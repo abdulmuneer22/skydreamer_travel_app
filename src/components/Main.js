@@ -1,30 +1,87 @@
-///-----------------------------------------------------------------
-///   Namespace:      Router.js
-///   Class:          Main.js
-///   Description:    Render Main Page ( View Pager, BottomTabBar & TopTabBar )
-///   Author:         Guilherme Borges Bastos       Date: 23/02/2017
-///   Notes:
-///   Revision History:
-///   Name:               Date:         Description:
-///   Guilherme Bastos    28/02/2017    Added Chat Page
-///   Guilherme Bastos    06/03/2017    Added TopChatBar
-///-----------------------------------------------------------------
-import React, { Component } from 'react';
+// /-----------------------------------------------------------------
+// /   Namespace:      Router.js
+// /   Class:          Main.js
+// /   Description:    Render Main Page ( View Pager, BottomTabBar & TopTabBar )
+// /   Author:         Guilherme Borges Bastos       Date: 23/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:               Date:         Description:
+// /   Guilherme Bastos    28/02/2017    Added Chat Page
+// /   Guilherme Bastos    06/03/2017    Added TopChatBar
+// /-----------------------------------------------------------------
+import React, { Component, PropTypes } from 'react';
 import { View, TouchableOpacity, Text, StatusBar } from 'react-native';
 import ViewPager from 'react-native-viewpager';
-import BottomTabBar from './BottomTabBar';
-import TopTabBar from './TopTabBar';
+
 // redux connection here is only to test fbApis
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 import { facebookApi } from '../actions';
 
-//----------- PAGES COMPONENT --------------
+import BottomTabBar from './BottomTabBar';
+import TopTabBar from './TopTabBar';
+// ----------- PAGES COMPONENT --------------
 import Location from './pages/Location';
 import Friend from './pages/Friend';
 import Chat from './pages/Chat';
 
+const styles = {
+  titleSkydreamer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 25,
+    color: '#000',
+  },
+  title: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 25,
+    color: '#999',
+  },
+  subtitle: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 35,
+    color: '#EC514C',
+  },
+  viewPager: {
+    flex: 1,
+  },
+  viewPagerContainer: {
+    flex: 1,
+    marginTop: 50,
+  },
+  viewContainer: {
+    flex: 1,
+    backgroundColor: '#FFF8F6',
+  },
+  viewInnerContainer: {
+    flex: 1,
+  },
+  viewInnerContainer2: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
+  viewInnerContainer1: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    zIndex: 1,
+  },
+};
+
 class Main extends Component {
+
+  static propTypes = {
+    fbActions: PropTypes.shape({
+      sendFacebookAppInvite: PropTypes.func.isRequired,
+      shareFacebookLinkWithCommentDefinedByTheUser: PropTypes.func.isRequired,
+      shareFacebookLinkWithPrefinedComment: PropTypes.func.isRequired,
+    }).isRequired,
+  };
 
   state = {
     dataSource: null, currentPage: 0, pages: ['Flight', 'Compass', 'Cards', 'Chat', 'User'],
@@ -36,7 +93,7 @@ class Main extends Component {
     });
 
     this.setState({
-      dataSource: this.dataSource.cloneWithPages(this.state.pages)
+      dataSource: this.dataSource.cloneWithPages(this.state.pages),
     });
   }
 
@@ -78,7 +135,7 @@ class Main extends Component {
         /**
          * Basically I'm temporarily using this onPress as a PlayGround for the fb methods
          */
-        onPress={() => { this.props.fbActions.sendFacebookAppInvite() }}
+        onPress={() => { this.props.fbActions.sendFacebookAppInvite(); }}
       >
         <Text style={titleSkydreamer}>Skydreamer</Text>
         <Text style={title}>Navigation System</Text>
@@ -96,88 +153,40 @@ class Main extends Component {
 
     return (
       <View style={viewContainer}>
-      <StatusBar
+        <StatusBar
           hidden
-      />
-      <View style={viewInnerContainer1}>
-        <TopTabBar
-          ref={(topTabBarComponent) => { this.topTabBarComponent = topTabBarComponent; }}
         />
+        <View style={viewInnerContainer1}>
+          <TopTabBar
+            ref={(topTabBarComponent) => { this.topTabBarComponent = topTabBarComponent; }}
+          />
+        </View>
+        <View style={viewInnerContainer}>
+          <ViewPager
+            style={viewPager}
+            dataSource={this.state.dataSource}
+            renderPage={this.renderPage}
+            renderPageIndicator={false}
+            initialPage={this.state.currentPage}
+            locked
+            ref={(viewPagerComponent) => { this.viewPagerComponent = viewPagerComponent; }}
+          />
+        </View>
+        <View style={viewInnerContainer2}>
+          <BottomTabBar
+            ref={(bottomTabBar) => { this.bottomTabBar = bottomTabBar; }}
+          />
+        </View>
       </View>
-      <View style={viewInnerContainer}>
-        <ViewPager
-          style={viewPager}
-          dataSource={this.state.dataSource}
-          renderPage={this.renderPage}
-          renderPageIndicator={false}
-          initialPage={this.state.currentPage}
-          locked
-          ref={(viewPagerComponent) => { this.viewPagerComponent = viewPagerComponent; }}
-        />
-      </View>
-      <View style={viewInnerContainer2}>
-        <BottomTabBar
-          ref={(bottomTabBar) => { this.bottomTabBar = bottomTabBar; }}
-        />
-      </View>
-    </View>
     );
   }
 }
 
-const styles = {
-  titleSkydreamer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 25,
-    color: '#000'
-  },
-  title: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 25,
-    color: '#999'
-  },
-  subtitle: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 35,
-    color: '#EC514C'
-  },
-  viewPager: {
-    flex: 1
-  },
-  viewPagerContainer: {
-    flex: 1,
-    marginTop: 50
-  },
-  viewContainer: {
-    flex: 1,
-    backgroundColor: '#FFF8F6'
-  },
-  viewInnerContainer: {
-    flex: 1,
-  },
-  viewInnerContainer2: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0
-  },
-  viewInnerContainer1: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    zIndex: 1
-  }
-};
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   facebook: state.facebook,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   fbActions: bindActionCreators(facebookApi, dispatch),
 });
 

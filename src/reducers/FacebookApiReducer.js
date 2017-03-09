@@ -1,11 +1,11 @@
-///-----------------------------------------------------------------
-///   Class:          FacebookApiReducer.js
-///   Description:    Reducer file for Facebook API Actions
-///   Author:         Alberto Schiabel (jkomyno) - Date: 09/03/2017
-///   Notes:
-///   Revision History:
-///   Name:               Date:           Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Class:          FacebookApiReducer.js
+// /   Description:    Reducer file for Facebook API Actions
+// /   Author:         Alberto Schiabel (jkomyno) - Date: 09/03/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:               Date:           Description:
+// /-----------------------------------------------------------------
 import {
   SHARE_FB_LINK_WITH_COMMENT_DEFINED_BY_THE_USER,
   SHARE_FB_LINK_WITH_COMMENT_DEFINED_BY_THE_USER_SUCCESS,
@@ -17,7 +17,7 @@ import {
   SEND_FB_APP_INVITE,
   SEND_FB_APP_INVITE_SUCCESS,
   SEND_FB_APP_INVITE_FAIL,
-  SEND_FB_APP_INVITE_CANCELLED
+  SEND_FB_APP_INVITE_CANCELLED,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -75,7 +75,7 @@ export default (state = INITIAL_STATE, action) => {
         ...state,
         isShareFbLinkWithPredefinedCommentLoading: false,
         fbError: action.error,
-      }
+      };
     case SEND_FB_APP_INVITE:
       return {
         ...state,
@@ -100,7 +100,7 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         wasSendFbAppInviteCancelled: true,
-      }
+      };
     default:
       return state;
   }

@@ -1,11 +1,11 @@
-///-----------------------------------------------------------------
-///   Class:          SetAirportSession.js
-///   Description:    Render Airport Session Page
-///   Author:         Guilherme Borges Bastos       Date: 21/02/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Class:          SetAirportSession.js
+// /   Description:    Render Airport Session Page
+// /   Author:         Guilherme Borges Bastos       Date: 21/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { Text } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -29,26 +29,26 @@ class SetAirportSession extends Component {
         colors={['#4800FC', '#0593FF']}
         style={linearGradient}
       >
-          <Text style={textTitle}>
+        <Text style={textTitle}>
             Where do you want to fly from?
           </Text>
 
-          <Text style={textValue}>US$ {this.state.value}</Text>
+        <Text style={textValue}>US$ {this.state.value}</Text>
 
-          <Slider
-            value={this.state.value}
-            step={1}
-            minimumValue={50}
-            maximumValue={3000}
-            minimumTrackTintColor='#1B9AF7'
-            maximumTrackTintColor='#999999'
-            thumbTintColor='#fff'
-            style={slider}
-            trackStyle={{ position: 'relative' }}
-            onValueChange={(value) => this.setState({ value })}
-          />
+        <Slider
+          value={this.state.value}
+          step={1}
+          minimumValue={50}
+          maximumValue={3000}
+          minimumTrackTintColor="#1B9AF7"
+          maximumTrackTintColor="#999999"
+          thumbTintColor="#fff"
+          style={slider}
+          trackStyle={{ position: 'relative' }}
+          onValueChange={value => this.setState({ value })}
+        />
 
-          <ButtonNext onPress={this.onNextPress.bind(this)}>
+        <ButtonNext onPress={this.onNextPress.bind(this)}>
             Choose the date
           </ButtonNext>
 
@@ -63,7 +63,7 @@ const styles = {
   linearGradient: {
     flex: 1,
     width: null,
-    height: null
+    height: null,
   },
   textValue: {
     color: '#FFF',
@@ -83,13 +83,13 @@ const styles = {
     fontSize: 35,
     lineHeight: 50,
     fontFamily: 'NotoSans-Regular',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   slider: {
     height: 10,
     flex: 1,
     marginLeft: 25,
-    marginRight: 25
+    marginRight: 25,
   },
 };
 

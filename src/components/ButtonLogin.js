@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
 const ButtonLogin = ({ onPress, children }) => {
@@ -13,6 +13,11 @@ const ButtonLogin = ({ onPress, children }) => {
   );
 };
 
+ButtonLogin.propTypes = {
+  onPress: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
 const styles = {
   textStyle: {
     alignSelf: 'center',
@@ -20,7 +25,7 @@ const styles = {
     fontSize: 18,
     fontWeight: '600',
     paddingTop: 13,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   buttonStyle: {
     flex: 1,
@@ -30,8 +35,8 @@ const styles = {
     marginLeft: 35,
     marginRight: 35,
     marginTop: 10,
-    height: 50
-  }
+    height: 50,
+  },
 };
 
 export default ButtonLogin;

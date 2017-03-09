@@ -6,15 +6,15 @@ class HolderOtherText extends Component {
     const { squareCorner, semiSquareCorner } = this.props;
     if (squareCorner === true && semiSquareCorner === false) {
       return {
-          borderTopLeftRadius: 10,
-          borderBottomLeftRadius: 10,
-          borderRadius: 50
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderRadius: 50,
       };
     } else if (semiSquareCorner === true) {
       return {
-          borderTopLeftRadius: 10,
-          borderRadius: 50,
-          marginTop: 2
+        borderTopLeftRadius: 10,
+        borderRadius: 50,
+        marginTop: 2,
       };
     }
     return { borderRadius: 50, borderBottomLeftRadius: 10 };
@@ -77,7 +77,7 @@ const styles = {
     right: 8,
     top: 5,
     borderColor: '#FFF8F6',
-    borderWidth: 1
+    borderWidth: 1,
   },
   profileImage: {
     backgroundColor: 'transparent',
@@ -85,7 +85,7 @@ const styles = {
     marginTop: 2,
     width: 34,
     height: 34,
-    borderRadius: 50
+    borderRadius: 50,
   },
   textStyle: {
     fontSize: 15,
@@ -95,26 +95,26 @@ const styles = {
     paddingLeft: 15,
     paddingRight: 15,
     flexWrap: 'wrap',
-    color: '#1C1918'
+    color: '#1C1918',
   },
   textViewStyle: {
     flex: 0.85,
     flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
-    marginRight: 20
+    marginRight: 20,
   },
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   rowContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     flexWrap: 'wrap',
-    marginTop: 0
-  }
+    marginTop: 0,
+  },
 };
 
 export { HolderOtherText };

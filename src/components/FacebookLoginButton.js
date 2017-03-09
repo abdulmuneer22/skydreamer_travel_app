@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     fontSize: 15,
     color: 'white',
-  }
+  },
 });
 
 const FacebookLoginButton = ({ onPress }) => (
@@ -21,7 +21,7 @@ const FacebookLoginButton = ({ onPress }) => (
 );
 
 FacebookLoginButton.propTypes = {
-  onPress: PropTypes.func.isRequired
+  onPress: PropTypes.func.isRequired,
 };
 
 export default FacebookLoginButton;

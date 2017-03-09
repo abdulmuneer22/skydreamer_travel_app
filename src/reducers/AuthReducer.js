@@ -1,11 +1,11 @@
-///-----------------------------------------------------------------
-///   Class:          AuthReducer.js
-///   Description:    Reducer file for Auth Actions
-///   Author:         Guilherme Borges Bastos       Date: 16/02/2017
-///   Notes:
-///   Revision History:
-///   Name:               Date:           Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Class:          AuthReducer.js
+// /   Description:    Reducer file for Auth Actions
+// /   Author:         Guilherme Borges Bastos       Date: 16/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:               Date:           Description:
+// /-----------------------------------------------------------------
 import {
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
@@ -14,7 +14,7 @@ import {
   LOGIN_USER,
   LOGIN_FACEBOOK_SUCCESS,
   LOGIN_FACEBOOK_FAIL,
-  LOGIN_FACEBOOK
+  LOGIN_FACEBOOK,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -22,7 +22,7 @@ const INITIAL_STATE = {
   password: 'teste',
   user: null,
   error: '',
-  loading: false
+  loading: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -41,20 +41,20 @@ export default (state = INITIAL_STATE, action) => {
       return {
         ...state,
         loading: true,
-        error: ''
+        error: '',
       };  // *
     case LOGIN_FACEBOOK_SUCCESS:
       return {
         ...state,
         facebookData: action.data,
-        loading: false
+        loading: false,
       };
     case LOGIN_FACEBOOK_FAIL:
       return {
         ...state,
         facebookData: {},
         error: action.error,
-        loading: false
+        loading: false,
       };
     default:
       return state;

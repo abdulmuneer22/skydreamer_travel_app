@@ -1,11 +1,11 @@
-///-----------------------------------------------------------------
-///   Class:          SetDateSession.js
-///   Description:    Render Data of departure and return Page
-///   Author:         Guilherme Borges Bastos       Date: 21/02/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Class:          SetDateSession.js
+// /   Description:    Render Data of departure and return Page
+// /   Author:         Guilherme Borges Bastos       Date: 21/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { Text, View, Switch } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,12 +18,12 @@ class SetDateSession extends Component {
   constructor(props) {
     super(props);
     this.state = { date: '20/02/2017',
-                   dateReturn: '',
-                   dateMonth: 'February',
-                   dateReturnMonth: '',
-                   minDate: '21/02/2017',
-                   maxDate: '21/02/2019',
-                   monthDeparture: false };
+      dateReturn: '',
+      dateMonth: 'February',
+      dateReturnMonth: '',
+      minDate: '21/02/2017',
+      maxDate: '21/02/2019',
+      monthDeparture: false };
   }
 
 
@@ -32,7 +32,6 @@ class SetDateSession extends Component {
   }
 
   renderMiddleContent() {
-
     const { textValue,
             departureContainer,
             returnContainer } = styles;
@@ -40,66 +39,66 @@ class SetDateSession extends Component {
     if (this.state.monthDeparture) {
       return (
 
-          <View>
-            <View style={departureContainer}>
-              <Text style={textValue}>Departure Month:</Text>
-              <DatePicker
-                style={{ width: 200 }}
-                date={this.state.dateMonth}
-                mode="date"
-                placeholder="Select departure date"
-                format="MMMM"
-                minDate={this.state.minDate}
-                maxDate={this.state.maxDate}
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                iconSource={require('../images/icon-calendar.png')}
-                onDateChange={(dateMonth) => this.setState({ dateMonth })}
-                customStyles={{
-                  dateIcon: {
-                    width: 40
-                  },
-                  dateText: {
-                    color: '#fff',
-                    fontSize: 25,
-                    textAlign: 'left'
-                  },
-                  dateInput: {
-                    borderWidth: 0
-                  }
-               }}
-              />
-            </View>
-
-            <View style={returnContainer}>
-              <Text style={textValue}>Return Month:</Text>
-              <DatePicker
-                style={{ width: 200 }}
-                date={this.state.dateReturnMonth}
-                mode="date"
-                placeholder="Select return date"
-                format="MMMM"
-                minDate={this.state.dateMonth}
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                iconSource={require('../images/icon-calendar.png')}
-                onDateChange={(dateReturnMonth) => this.setState({ dateReturnMonth })}
-                customStyles={{
-                  dateIcon: {
-                    width: 40
-                  },
-                  dateText: {
-                    color: '#fff',
-                    fontSize: 25,
-                    textAlign: 'left'
-                  },
-                  dateInput: {
-                    borderWidth: 0
-                  }
-               }}
-              />
-            </View>
+        <View>
+          <View style={departureContainer}>
+            <Text style={textValue}>Departure Month:</Text>
+            <DatePicker
+              style={{ width: 200 }}
+              date={this.state.dateMonth}
+              mode="date"
+              placeholder="Select departure date"
+              format="MMMM"
+              minDate={this.state.minDate}
+              maxDate={this.state.maxDate}
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              iconSource={require('../images/icon-calendar.png')}
+              onDateChange={dateMonth => this.setState({ dateMonth })}
+              customStyles={{
+                dateIcon: {
+                  width: 40,
+                },
+                dateText: {
+                  color: '#fff',
+                  fontSize: 25,
+                  textAlign: 'left',
+                },
+                dateInput: {
+                  borderWidth: 0,
+                },
+              }}
+            />
           </View>
+
+          <View style={returnContainer}>
+            <Text style={textValue}>Return Month:</Text>
+            <DatePicker
+              style={{ width: 200 }}
+              date={this.state.dateReturnMonth}
+              mode="date"
+              placeholder="Select return date"
+              format="MMMM"
+              minDate={this.state.dateMonth}
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              iconSource={require('../images/icon-calendar.png')}
+              onDateChange={dateReturnMonth => this.setState({ dateReturnMonth })}
+              customStyles={{
+                dateIcon: {
+                  width: 40,
+                },
+                dateText: {
+                  color: '#fff',
+                  fontSize: 25,
+                  textAlign: 'left',
+                },
+                dateInput: {
+                  borderWidth: 0,
+                },
+              }}
+            />
+          </View>
+        </View>
       );
     }
 
@@ -118,20 +117,20 @@ class SetDateSession extends Component {
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             iconSource={require('../images/icon-calendar.png')}
-            onDateChange={(date) => this.setState({ date })}
+            onDateChange={date => this.setState({ date })}
             customStyles={{
               dateIcon: {
-                width: 40
+                width: 40,
               },
               dateText: {
                 color: '#fff',
                 fontSize: 25,
-                textAlign: 'left'
+                textAlign: 'left',
               },
               dateInput: {
-                borderWidth: 0
-              }
-           }}
+                borderWidth: 0,
+              },
+            }}
           />
         </View>
 
@@ -147,20 +146,20 @@ class SetDateSession extends Component {
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             iconSource={require('../images/icon-calendar.png')}
-            onDateChange={(date) => this.setState({ dateReturn: date })}
+            onDateChange={date => this.setState({ dateReturn: date })}
             customStyles={{
               dateIcon: {
-                width: 40
+                width: 40,
               },
               dateText: {
                 color: '#fff',
                 fontSize: 25,
-                textAlign: 'left'
+                textAlign: 'left',
               },
               dateInput: {
-                borderWidth: 0
-              }
-           }}
+                borderWidth: 0,
+              },
+            }}
           />
         </View>
       </View>
@@ -168,7 +167,6 @@ class SetDateSession extends Component {
   }
 
   renderSwitchContent() {
-
     const { switchContainer,
             textSwitchValue,
             textSwitchSelectedValue } = styles;
@@ -179,7 +177,7 @@ class SetDateSession extends Component {
           <Text style={textSwitchValue}>Day</Text>
           <Switch
             style={{ marginTop: 10, marginBottom: 10 }}
-            onValueChange={(value) => this.setState({ monthDeparture: value })}
+            onValueChange={value => this.setState({ monthDeparture: value })}
             value={this.state.monthDeparture}
           />
           <Text style={textSwitchSelectedValue}>Month</Text>
@@ -192,7 +190,7 @@ class SetDateSession extends Component {
         <Text style={textSwitchSelectedValue}>Day</Text>
         <Switch
           style={{ marginTop: 10, marginBottom: 10 }}
-          onValueChange={(value) => this.setState({ monthDeparture: value })}
+          onValueChange={value => this.setState({ monthDeparture: value })}
           value={this.state.monthDeparture}
         />
         <Text style={textSwitchValue}>Month</Text>
@@ -201,7 +199,6 @@ class SetDateSession extends Component {
   }
 
   render() {
-
     const { linearGradient,
             textTitle } = styles;
 
@@ -210,15 +207,15 @@ class SetDateSession extends Component {
         colors={['#A71FAD', '#350DFE']}
         style={linearGradient}
       >
-          <Text style={textTitle}>
+        <Text style={textTitle}>
             Pick up date of departure and return or a month?
           </Text>
 
-          { this.renderSwitchContent() }
+        { this.renderSwitchContent() }
 
-          { this.renderMiddleContent() }
+        { this.renderMiddleContent() }
 
-          <ButtonNext onPress={this.onNextPress.bind(this)}>
+        <ButtonNext onPress={this.onNextPress.bind(this)}>
             Choose the airport
           </ButtonNext>
 
@@ -233,7 +230,7 @@ const styles = {
   linearGradient: {
     flex: 1,
     width: null,
-    height: null
+    height: null,
   },
   textValue: {
     color: '#FFF',
@@ -267,20 +264,20 @@ const styles = {
     fontSize: 35,
     lineHeight: 50,
     fontFamily: 'NotoSans-Regular',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   departureContainer: {
-    marginLeft: 25
+    marginLeft: 25,
   },
   returnContainer: {
     marginLeft: 25,
-    marginBottom: 25
+    marginBottom: 25,
   },
   switchContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    backgroundColor: '#8534DE'
-  }
+    backgroundColor: '#8534DE',
+  },
 };
 
 export default SetDateSession;

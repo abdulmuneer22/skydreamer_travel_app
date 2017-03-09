@@ -16,7 +16,7 @@ import {
 const {
   ShareDialog,
   ShareApi,
-  AppInviteDialog
+  AppInviteDialog,
 } = FBSDK;
 
 const shareLinkContent = {
@@ -30,19 +30,19 @@ const appInviteContent = {
   previewImageUrl: 'https://skydreamer.io/img/white_logo.png',
 };
 
-const shareFacebookLinkWithCommentDefinedByTheUserFail = (error) => ({
+const shareFacebookLinkWithCommentDefinedByTheUserFail = error => ({
   type: SHARE_FB_LINK_WITH_COMMENT_DEFINED_BY_THE_USER_FAIL,
   error,
 });
 
-const shareFacebookLinkWithCommentDefinedByTheUserSuccess = (result) => ({
+const shareFacebookLinkWithCommentDefinedByTheUserSuccess = result => ({
   type: SHARE_FB_LINK_WITH_COMMENT_DEFINED_BY_THE_USER_SUCCESS,
   result,
 });
 
 const shareFacebookLinkWithCommentDefinedByTheUserCancelled = () => ({
   type: SHARE_FB_LINK_WITH_COMMENT_DEFINED_BY_THE_USER_CANCELLED,
-})
+});
 
 /**
  * Shares something in the user's diary. The user can also decide
@@ -54,7 +54,7 @@ export const shareFacebookLinkWithCommentDefinedByTheUser = () => (
     dispatch({ type: SHARE_FB_LINK_WITH_COMMENT_DEFINED_BY_THE_USER });
     console.log('shareFacebookLinkWithCommentDefinedByTheUser dispatch', dispatch);
     ShareDialog.canShow(this.state.shareLinkContent)
-    .then((canShow) => canShow && ShareDialog.show(shareLinkContent))
+    .then(canShow => canShow && ShareDialog.show(shareLinkContent))
     .then((result, error) => {
       if (error) {
         dispatch(shareFacebookLinkWithCommentDefinedByTheUserFail(error));
@@ -70,12 +70,12 @@ export const shareFacebookLinkWithCommentDefinedByTheUser = () => (
   }
 );
 
-const shareFacebookLinkWithPrefinedCommentFail = (error) => ({
+const shareFacebookLinkWithPrefinedCommentFail = error => ({
   type: SHARE_FB_LINK_WITH_PREDEFINED_COMMENT_FAIL,
   error,
 });
 
-const shareFacebookLinkWithPrefinedCommentSuccess = (result) => ({
+const shareFacebookLinkWithPrefinedCommentSuccess = result => ({
   type: SHARE_FB_LINK_WITH_PREDEFINED_COMMENT_SUCCESS,
   result,
 });
@@ -86,12 +86,12 @@ const shareFacebookLinkWithPrefinedCommentSuccess = (result) => ({
  * which isn't editable by the user.
  * https://developers.facebook.com/docs/react-native/sharing
  */
-export const shareFacebookLinkWithPrefinedComment = (message) => (
+export const shareFacebookLinkWithPrefinedComment = message => (
   (dispatch) => {
     dispatch({ type: SHARE_FB_LINK_WITH_PREDEFINED_COMMENT });
     console.log('shareFacebookLinkWithPrefinedComment dispatch', dispatch);
     ShareApi.canShare(this.state.shareLinkContent)
-    .then((canShare) => canShare && ShareApi.share(shareLinkContent, '/me', message))
+    .then(canShare => canShare && ShareApi.share(shareLinkContent, '/me', message))
     .then((result, error) => {
       if (error) {
         dispatch(shareFacebookLinkWithPrefinedCommentFail(error));
@@ -104,17 +104,17 @@ export const shareFacebookLinkWithPrefinedComment = (message) => (
   }
 );
 
-const sendFacebookAppInviteFail = (error) => ({
+const sendFacebookAppInviteFail = error => ({
   type: SEND_FB_APP_INVITE_FAIL,
   error,
 });
 
-const sendFacebookAppInviteSuccess = (result) => ({
+const sendFacebookAppInviteSuccess = result => ({
   type: SEND_FB_APP_INVITE_SUCCESS,
   result,
 });
 
-const sendFacebookAppInviteCancelled = (result) => ({
+const sendFacebookAppInviteCancelled = result => ({
   type: SEND_FB_APP_INVITE_CANCELLED,
 });
 
@@ -128,7 +128,7 @@ export const sendFacebookAppInvite = () => (
     dispatch({ type: SEND_FB_APP_INVITE });
     console.log('sendFacebookAppInvite dispatch');
     AppInviteDialog.canShow(appInviteContent)
-    .then((canShow) => canShow && AppInviteDialog.show(appInviteContent))
+    .then(canShow => canShow && AppInviteDialog.show(appInviteContent))
     .then((result, error) => {
       console.log('inside body of sendFacebookAppInvite');
       if (error) {

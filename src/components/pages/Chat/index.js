@@ -8,21 +8,21 @@ class Chat extends Component {
   state = { dataSource: null, currentPage: 0, pages: ['People', 'Groups'] };
 
   componentWillMount() {
-     this.dataSource = new ViewPager.DataSource({
-         pageHasChanged: (p1, p2) => p1 !== p2,
-     });
+    this.dataSource = new ViewPager.DataSource({
+      pageHasChanged: (p1, p2) => p1 !== p2,
+    });
 
-     this.setState({
-          dataSource: this.dataSource.cloneWithPages(this.state.pages)
-     });
+    this.setState({
+      dataSource: this.dataSource.cloneWithPages(this.state.pages),
+    });
   }
 
   onChangePage(data) {
-     const pagesArr = ['People', 'Groups'];
-     console.log('---------- onChangePage -----------');
-     console.log(pagesArr[data]);
-     console.log(this.props.setCurrentPageTopTabBar);
-     console.log(this.props.text);
+    const pagesArr = ['People', 'Groups'];
+    console.log('---------- onChangePage -----------');
+    console.log(pagesArr[data]);
+    console.log(this.props.setCurrentPageTopTabBar);
+    console.log(this.props.text);
   }
 
   setCurrentPage(index) {
@@ -47,17 +47,17 @@ const styles = {
     marginTop: 50,
   },
   viewPager: {
-      flex: 1
+    flex: 1,
   },
   title: {
     justifyContent: 'center',
     alignItems: 'center',
     fontSize: 25,
-    color: '#999'
+    color: '#999',
   },
   viewPagerContainer: {
-      flex: 1
-  }
+    flex: 1,
+  },
 };
 
 

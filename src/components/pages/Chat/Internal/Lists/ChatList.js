@@ -1,11 +1,11 @@
-///-----------------------------------------------------------------
-///   Class:          FriendList.js
-///   Description:    Render the chat list from Redux
-///   Author:         Guilherme Borges Bastos       Date: 02/03/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Class:          FriendList.js
+// /   Description:    Render the chat list from Redux
+// /   Author:         Guilherme Borges Bastos       Date: 02/03/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /-----------------------------------------------------------------
 import React from 'react';
 import { ListView } from 'react-native';
 import { connect } from 'react-redux';
@@ -14,7 +14,7 @@ import * as actions from '../../../../../actions';
 import {
          // HolderDateSeparator,
          HolderOtherText,
-         HolderSelfText
+         HolderSelfText,
        } from '../ViewHolder';
 
 export const addNewMessage = (text) => {
@@ -34,12 +34,12 @@ class ChatList extends React.Component {
   }
 
   componentWillMount() {
-      this.ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
-      });
+    this.ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2,
+    });
 
-      this.setState({ chatRows: this.props.chats.data });
-      this.dataSource = this.ds.cloneWithRows(this.props.chats.data);
+    this.setState({ chatRows: this.props.chats.data });
+    this.dataSource = this.ds.cloneWithRows(this.props.chats.data);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,10 +59,10 @@ class ChatList extends React.Component {
     console.log(' ------------- FIM AQUI ------------------');
     console.log();
     // */
-    var hiddenProfile = false;
-    var moreSpace = false;
-    var squareCorner = false;
-    var semiSquareCorner = false;
+    let hiddenProfile = false;
+    let moreSpace = false;
+    let squareCorner = false;
+    let semiSquareCorner = false;
 
     const previus = chatRows[Number(rowId) - 1];
     const current = chatRows[Number(rowId)];
