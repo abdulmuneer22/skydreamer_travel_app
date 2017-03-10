@@ -7,9 +7,11 @@
 ///   Name:           Date:        Description:
 ///-----------------------------------------------------------------
 import React from 'react';
-import { ListView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
+import InvertibleScrollView from 'react-native-invertible-scroll-view';
 import * as actions from '../../../../../actions';
+//npm i -S react-native-invertible-scroll-view
 
 import {
          // HolderDateSeparator,
@@ -23,42 +25,28 @@ export const addNewMessage = (text) => {
 
 class ChatList extends React.Component {
 
-  static addNewMessage = (type, text, props) => {
-    props.addNewMessage(type, text);
-  }
-
   constructor(props) {
     super(props);
-    this.state = { number: 0, chatRows: null };
-    this.ds = null;
+    this.state = {
+      chatRows: null,
+      listHeight: 0,
+      scrollViewHeight: 0
+    };
   }
 
   componentWillMount() {
-      this.ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
-      });
-
-      this.setState({ chatRows: this.props.chats.data });
-      this.dataSource = this.ds.cloneWithRows(this.props.chats.data);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log('nextProps', nextProps);
     this.setState({ chatRows: this.props.chats.data });
-    this.dataSource = this.ds.cloneWithRows(this.props.chats.data);
   }
 
-  renderRow(chat, sectionId, rowId, chatRows) {
-    /*
-    console.log(' ---------------- AQUI -------------------');
-    console.log('previus', chatRows[Number(rowId) - 1]);
-    console.log('current', chatRows[Number(rowId)]);
-    console.log('next', chatRows[Number(rowId) + 1]);
-    console.log('rowId', Number(rowId));
-    console.log('NextRowId', (Number(rowId) + 1));
-    console.log(' ------------- FIM AQUI ------------------');
-    console.log();
-    // */
+  componentWillReceiveProps() { //nextProps
+    this.setState({ chatRows: this.props.chats.data });
+  }
+
+  componentDidUpdate() {
+     this.scrollView.scrollToEnd({ animated: true });
+  }
+
+  renderRow(chat, rowId, chatRows) {
     var hiddenProfile = false;
     var moreSpace = false;
     var squareCorner = false;
@@ -100,6 +88,7 @@ class ChatList extends React.Component {
             moreSpace={moreSpace}
             squareCorner={squareCorner}
             semiSquareCorner={semiSquareCorner}
+            key={rowId}
           />
         );
       case 'OtherText':
@@ -113,6 +102,7 @@ class ChatList extends React.Component {
             moreSpace={moreSpace}
             squareCorner={squareCorner}
             semiSquareCorner={semiSquareCorner}
+            key={rowId}
           />
         );
       case 'SelfText':
@@ -126,6 +116,7 @@ class ChatList extends React.Component {
             moreSpace={moreSpace}
             squareCorner={squareCorner}
             semiSquareCorner={semiSquareCorner}
+            key={rowId}
           />
         );
       default:
@@ -133,22 +124,33 @@ class ChatList extends React.Component {
     }
   }
 
+
   render() {
     const { chatRows } = this.state;
     return (
-      <ListView
-        style={{ flex: 1 }}
-        dataSource={this.dataSource}
-        renderRow={(chat, sectionId, rowId) => this.renderRow(chat, sectionId, rowId, chatRows)}
-      />
+      <ScrollView
+        keyboardDismissMode="on-drag"
+        ref={component => this.scrollView = component}
+        onContentSizeChange={(contentWidth, contentHeight) => {
+          this.setState({ listHeight: contentHeight });
+        }}
+        onLayout={(e) => {
+          const height = e.nativeEvent.layout.heigh;
+          this.setState({ scrollViewHeight: height });
+        }}
+      >
+         {this.props.chats.data.map((chat, i) => {
+             return this.renderRow(chat, i, chatRows);
+         })}
+      </ScrollView>
     );
   }
 
 }
 
 const mapStateToProps = (state) => {
-  console.log('mapStateToProps of ChatList.js');
-  console.log(state);
+  /*console.log('mapStateToProps of ChatList.js');
+  console.log(state);*/
   return { chats: state.chats };
 };
 
