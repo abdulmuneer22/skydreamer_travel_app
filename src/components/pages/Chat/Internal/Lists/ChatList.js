@@ -9,7 +9,6 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import InvertibleScrollView from 'react-native-invertible-scroll-view';
 import * as actions from '../../../../../actions';
 //npm i -S react-native-invertible-scroll-view
 

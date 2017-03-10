@@ -13,7 +13,7 @@ const config = {
   api: {
     rootUrl: 'https://api.skydreamer:3000',
     timeout: 15000, // ms
-    password: 'secret'
+    password: 'secret',
   },
   localStorage: {
     fileName: 'skydreamer_dump',

@@ -1,17 +1,17 @@
-///-----------------------------------------------------------------
-///   Class:          ContactAction.js
-///   Description:    Reducer file for Contact Action
-///   Author:         Paolo Pirruccio       Date: 24/02/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Class:          ContactAction.js
+// /   Description:    Reducer file for Contact Action
+// /   Author:         Paolo Pirruccio       Date: 24/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /-----------------------------------------------------------------
 
 const INITIAL_STATE = {
   query: null,
   contacts: [],
-  searchResults: []
-}
+  searchResults: [],
+};
 
 
 export default (state = INITIAL_STATE, action) => {

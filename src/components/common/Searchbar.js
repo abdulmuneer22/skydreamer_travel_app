@@ -18,7 +18,7 @@ const Searchbar = ({ value, onChangeText, onPress, placeholder, secureTextEntry,
         underlineColorAndroid={underlineColor || 'white'}
       />
       <TouchableOpacity onPress={onPress}>
-        <Icon name='clear' size={20}  />
+        <Icon name="clear" size={20} />
       </TouchableOpacity>
     </View>
   );
@@ -35,7 +35,7 @@ const styles = {
     fontSize: 18,
     lineHeight: 35,
     flex: 1,
-    fontFamily: 'NotoSans-Regular'
+    fontFamily: 'NotoSans-Regular',
   },
   containerStyle: {
     height: 50,
@@ -48,9 +48,9 @@ const styles = {
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     elevation: 2,
-    position: 'relative'
+    position: 'relative',
 
-  }
+  },
 };
 
 export { Searchbar };

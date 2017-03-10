@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextInput, View, } from 'react-native';
+import { TextInput, View } from 'react-native';
 
 const Input = ({ value, onChangeText, placeholder, secureTextEntry, placeholderColor, underlineColor }) => {
   const { inputStyle, containerStyle } = styles;
@@ -32,14 +32,14 @@ const styles = {
     fontSize: 18,
     lineHeight: 35,
     flex: 1,
-    fontFamily: 'Poppins-Regular'
+    fontFamily: 'Poppins-Regular',
   },
   containerStyle: {
     height: 50,
     flex: 1,
     flexDirection: 'row',
-    alignItems: 'center'
-  }
+    alignItems: 'center',
+  },
 };
 
 export { Input };

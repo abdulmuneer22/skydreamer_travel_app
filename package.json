@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "lint": "eslint src"
+    "lint": "eslint src --fix"
   },
   "dependencies": {
     "axios": "^0.15.3",
@@ -30,10 +30,14 @@
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "babel-eslint": "^7.1.1",
     "babel-jest": "18.0.0",
     "babel-preset-react-native": "1.9.1",
-    "eslint": "^3.15.0",
-    "eslint-config-rallycoding": "^3.2.0",
+    "eslint": "^3.17.1",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0",
     "jest": "18.1.0",
     "react-test-renderer": "15.4.2"
   },

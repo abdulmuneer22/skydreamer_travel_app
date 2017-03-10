@@ -1,12 +1,12 @@
-///-----------------------------------------------------------------
-///   Namespace:      Main.js
-///   Class:          Location.js
-///   Description:    Render MapView
-///   Author:         Guilherme Borges Bastos       Date: 27/02/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Namespace:      Main.js
+// /   Class:          Location.js
+// /   Description:    Render MapView
+// /   Author:         Guilherme Borges Bastos       Date: 27/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /-----------------------------------------------------------------
 
 import React from 'react';
 import { Text, View, Dimensions, StyleSheet } from 'react-native';
@@ -39,39 +39,39 @@ class Location extends React.Component {
 
   render() {
     return (
-        <MapView
-          provider={this.props.provider}
-          style={styles.map}
-          initialRegion={this.state.region}
-          onPress={this.onMapPress}
-          loadingEnabled
-          loadingIndicatorColor="#666666"
-          loadingBackgroundColor="#eeeeee"
+      <MapView
+        provider={this.props.provider}
+        style={styles.map}
+        initialRegion={this.state.region}
+        onPress={this.onMapPress}
+        loadingEnabled
+        loadingIndicatorColor="#666666"
+        loadingBackgroundColor="#eeeeee"
+      >
+        <MapView.Marker
+          coordinate={{
+            latitude: LATITUDE + SPACE,
+            longitude: LONGITUDE + SPACE,
+          }}
+          centerOffset={{ x: -18, y: -60 }}
+          anchor={{ x: 0.69, y: 1 }}
+          image={flagImg}
+        />
+        <MapView.Marker
+          coordinate={{
+            latitude: LATITUDE - SPACE,
+            longitude: LONGITUDE - SPACE,
+          }}
+          centerOffset={{ x: -42, y: -60 }}
+          anchor={{ x: 0.84, y: 1 }}
         >
-          <MapView.Marker
-            coordinate={{
-              latitude: LATITUDE + SPACE,
-              longitude: LONGITUDE + SPACE,
-            }}
-            centerOffset={{ x: -18, y: -60 }}
-            anchor={{ x: 0.69, y: 1 }}
-            image={flagImg}
-          />
-          <MapView.Marker
-            coordinate={{
-              latitude: LATITUDE - SPACE,
-              longitude: LONGITUDE - SPACE,
-            }}
-            centerOffset={{ x: -42, y: -60 }}
-            anchor={{ x: 0.84, y: 1 }}
-          >
-            <MapView.Callout>
-              <View>
-                <Text>This is a plain view</Text>
-              </View>
-            </MapView.Callout>
-          </MapView.Marker>
-        </MapView>
+          <MapView.Callout>
+            <View>
+              <Text>This is a plain view</Text>
+            </View>
+          </MapView.Callout>
+        </MapView.Marker>
+      </MapView>
     );
   }
 }
@@ -82,11 +82,11 @@ Location.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
   },
   map: {
     flex: 1,
-    marginTop: 50
+    marginTop: 50,
   },
   bubble: {
     backgroundColor: 'rgba(255,255,255,0.7)',

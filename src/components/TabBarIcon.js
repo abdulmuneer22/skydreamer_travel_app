@@ -1,11 +1,11 @@
-///-----------------------------------------------------------------
-///   Class:          TabBarIcon.js
-///   Description:    Render icons inside of BottomTabBar Component
-///   Author:         Guilherme Borges Bastos       Date: 23/02/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Class:          TabBarIcon.js
+// /   Description:    Render icons inside of BottomTabBar Component
+// /   Author:         Guilherme Borges Bastos       Date: 23/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Animated } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -22,7 +22,7 @@ class TabBarIcon extends Component {
   }
 
   componentDidMount() {
-     this.spring();
+    this.spring();
   }
 
 
@@ -45,7 +45,7 @@ class TabBarIcon extends Component {
   setBubbleStyle(num) {
     if (num > 99) {
       return {
-        width: 38
+        width: 38,
       };
     }
     return {};
@@ -68,7 +68,7 @@ class TabBarIcon extends Component {
 
   spring(parent = null, pageIndex = null) {
     if (parent !== null) {
-      //parent.onIconPressed();
+      // parent.onIconPressed();
       this.changeStateToSelected(parent, this.props.text);
       if (pageIndex !== null) {
         parent.changeActiveIcon(pageIndex);
@@ -80,63 +80,63 @@ class TabBarIcon extends Component {
       this.springValue,
       {
         toValue: 1,
-        friction: 1
-      }
+        friction: 1,
+      },
     ).start();
   }
 
   changeStateToSelected(parent, thisName) {
-     parent.setState({ selected: thisName });
+    parent.setState({ selected: thisName });
   }
 
   render() {
     const parent = this._reactInternalInstance._currentElement._owner._instance;
     const { bubbleText } = styles;
-    //console.log(parent.state.selected);
+    // console.log(parent.state.selected);
 
     return (
       <View style={this.setContainerStyle(parent, this.props.text)}>
         {this.props.notificationNumber > 0 &&
           <Animated.View
-                          style={[
-                                  {
-                                    width: 20,
-                                    height: 20,
-                                    backgroundColor: '#EC514C',
-                                    position: 'absolute',
-                                    borderRadius: 30,
-                                    right: 15,
-                                    elevation: 3,
-                                    shadowColor: '#000',
-                                    shadowOffset: { width: 2, height: 2 },
-                                    shadowOpacity: 0.2,
-                                    marginTop: 10,
-                                    transform: [{ scale: this.springValue }]
-                                  },
-                                  this.setBubbleStyle(this.props.notificationNumber)
-                                ]}
+            style={[
+              {
+                width: 20,
+                height: 20,
+                backgroundColor: '#EC514C',
+                position: 'absolute',
+                borderRadius: 30,
+                right: 15,
+                elevation: 3,
+                shadowColor: '#000',
+                shadowOffset: { width: 2, height: 2 },
+                shadowOpacity: 0.2,
+                marginTop: 10,
+                transform: [{ scale: this.springValue }],
+              },
+              this.setBubbleStyle(this.props.notificationNumber),
+            ]}
           >
             <Text style={bubbleText}>{this.props.notificationNumber}</Text>
           </Animated.View>
         }
         <TouchableOpacity style={{ flex: 1 }} onPress={() => this.spring(parent, this.props.pageIndex)}>
-            {this.props.fontFamily === 'MaterialCommunityIcons' &&
-              <Icon5 name={this.props.iconName} size={this.props.size} style={this.setStyle(parent, this.props.text)} />
+          {this.props.fontFamily === 'MaterialCommunityIcons' &&
+          <Icon5 name={this.props.iconName} size={this.props.size} style={this.setStyle(parent, this.props.text)} />
             }
-            {this.props.fontFamily === 'SimpleLineIcons' &&
-              <Icon4 name={this.props.iconName} size={this.props.size - 1} style={this.setStyle(parent, this.props.text)} />
+          {this.props.fontFamily === 'SimpleLineIcons' &&
+          <Icon4 name={this.props.iconName} size={this.props.size - 1} style={this.setStyle(parent, this.props.text)} />
             }
-            {this.props.fontFamily === 'FontAwesome' &&
-              <Icon3 name={this.props.iconName} size={this.props.size} style={this.setStyle(parent, this.props.text)} />
+          {this.props.fontFamily === 'FontAwesome' &&
+          <Icon3 name={this.props.iconName} size={this.props.size} style={this.setStyle(parent, this.props.text)} />
             }
-            {this.props.fontFamily === 'MaterialIcons' &&
-              <Icon2 name={this.props.iconName} size={this.props.size} style={this.setStyle(parent, this.props.text)} />
+          {this.props.fontFamily === 'MaterialIcons' &&
+          <Icon2 name={this.props.iconName} size={this.props.size} style={this.setStyle(parent, this.props.text)} />
             }
-            {this.props.fontFamily === 'Ionicons' &&
-              <Icon name={this.props.iconName} size={this.props.size} style={this.setStyle(parent, this.props.text)} />
+          {this.props.fontFamily === 'Ionicons' &&
+          <Icon name={this.props.iconName} size={this.props.size} style={this.setStyle(parent, this.props.text)} />
             }
 
-         </TouchableOpacity>
+        </TouchableOpacity>
 
       </View>
     );
@@ -148,24 +148,24 @@ const styles = {
   iconActiveStyle: {
     color: '#EA3F39',
     alignSelf: 'center',
-    marginTop: 15
+    marginTop: 15,
   },
   iconStyle: {
     color: '#A89DC5',
     alignSelf: 'center',
-    marginTop: 15
+    marginTop: 15,
   },
   textStyle: {
     color: '#fff',
     alignSelf: 'center',
     fontFamily: 'NotoSans-Light',
-    fontSize: 12
+    fontSize: 12,
   },
   textActiveStyle: {
     color: '#fff',
     alignSelf: 'center',
     fontFamily: 'OpenSans-SemiBold',
-    fontSize: 12
+    fontSize: 12,
   },
   bubble: {
     width: 25,
@@ -178,27 +178,27 @@ const styles = {
     right: 7,
     marginTop: 5,
     elevation: 8,
-    transform: [{ scale: this.springValue }]
+    transform: [{ scale: this.springValue }],
   },
   bubbleText: {
     color: '#fff',
     alignSelf: 'center',
     fontFamily: 'NotoSans-SemiBold',
     fontSize: 14,
-    marginTop: 0
+    marginTop: 0,
   },
   viewContainer: {
     flex: 1,
     height: 60,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
   },
   viewActiveContainer: {
     flex: 1,
     height: 60,
     backgroundColor: '#FFFFFF',
     borderBottomWidth: 3,
-    borderColor: '#EA3F39'
-  }
+    borderColor: '#EA3F39',
+  },
 };
 
 

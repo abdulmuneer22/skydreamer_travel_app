@@ -1,11 +1,11 @@
-///-----------------------------------------------------------------
-///   Class:          FriendList.js
-///   Description:    Render the list from Redux
-///   Author:         Guilherme Borges Bastos       Date: 27/02/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Class:          FriendList.js
+// /   Description:    Render the list from Redux
+// /   Author:         Guilherme Borges Bastos       Date: 27/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { ListView, View, Text } from 'react-native';
 import { connect } from 'react-redux';
@@ -14,19 +14,19 @@ import { loadFriends } from '../../../actions';
 
 class FriendList extends Component {
   componentWillMount() {
-      const ds = new ListView.DataSource({
-        rowHasChanged: (r1, r2) => r1 !== r2
-      });
-      this.props.loadFriends(this.props.friends);
-      this.dataSource = ds.cloneWithRows(this.props.friends);
+    const ds = new ListView.DataSource({
+      rowHasChanged: (r1, r2) => r1 !== r2,
+    });
+    this.props.loadFriends(this.props.friends);
+    this.dataSource = ds.cloneWithRows(this.props.friends);
   }
 
   componentWillUpdate() {
     const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
+      rowHasChanged: (r1, r2) => r1 !== r2,
     });
     this.dataSource = ds.cloneWithRows(this.props.friends);
-    //this.dataSource = ds.cloneWithRows(this.props.results);
+    // this.dataSource = ds.cloneWithRows(this.props.results);
   }
 
   renderRow(library) {
@@ -58,13 +58,13 @@ class FriendList extends Component {
 
 const styles = {
   container: {
-    flex: 1
-  }
+    flex: 1,
+  },
 };
 
-const mapStateToProps = state => {
-    console.log(state);
-    return { friends: state.friends, results: state.selectedFriendId.results };
+const mapStateToProps = (state) => {
+  console.log(state);
+  return { friends: state.friends, results: state.selectedFriendId.results };
 };
 
 export default connect(mapStateToProps, { loadFriends })(FriendList);

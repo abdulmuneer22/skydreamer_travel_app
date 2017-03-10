@@ -1,11 +1,11 @@
-///-----------------------------------------------------------------
-///   Class:          Chat.js
-///   Description:    Render Chat Component
-///   Author:         Guilherme Borges Bastos       Date: 28/02/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Class:          Chat.js
+// /   Description:    Render Chat Component
+// /   Author:         Guilherme Borges Bastos       Date: 28/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View,
          Image,
@@ -29,7 +29,7 @@ class InternalChat extends Component {
   state = {
     behavior: 'position',
     modalOpen: true,
-    text: ''
+    text: '',
   };
 
   onChangeText = (text) => {
@@ -37,9 +37,9 @@ class InternalChat extends Component {
   }
 
   onSendPressButton = () => {
-    var text = this.state.text;
-    var type = 'SelfText';
-    //ChatList.addNewMessage(text, ChatList.state);
+    const text = this.state.text;
+    const type = 'SelfText';
+    // ChatList.addNewMessage(text, ChatList.state);
     this.props.addNewMessage(type, text);
   }
 
@@ -47,11 +47,11 @@ class InternalChat extends Component {
     const { content, iconToolbarStyle, profileImage, chatTitle, chatSubTitle } = styles;
     // const { id, fullname, photo, lastMessage, lastLogin } = this.props;
     const { fullname, photo, lastLogin } = this.props;
-    //TODO: refactor the code to add timezone and Language format
-    var dateA = moment(1489068939);
-    var dateB = moment(lastLogin);
+    // TODO: refactor the code to add timezone and Language format
+    const dateA = moment(1489068939);
+    const dateB = moment(lastLogin);
 
-    var lastLoginStr = dateB.from(dateA);
+    const lastLoginStr = dateB.from(dateA);
 
     return (
       <View style={content}>
@@ -60,7 +60,7 @@ class InternalChat extends Component {
             <Icon3 name="ios-arrow-back" size={25} style={iconToolbarStyle} />
           </TouchableOpacity>
           <Image source={{ uri: photo }} style={profileImage} />
-            <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-around', marginLeft: 10, paddingTop: 10, paddingBottom: 10 }}>
+          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-around', marginLeft: 10, paddingTop: 10, paddingBottom: 10 }}>
             <Text style={chatTitle}>{fullname}</Text>
             <Text style={chatSubTitle}>{lastLoginStr}</Text>
           </View>
@@ -92,7 +92,7 @@ class InternalChat extends Component {
     return (
       <View style={fullCointainerStyle}>
         <StatusBar
-           backgroundColor="black"
+          backgroundColor="black"
         />
 
         {this.renderTopBar()}
@@ -144,7 +144,7 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'space-between',
     elevation: 3,
-    backgroundColor: '#FFF8F6'
+    backgroundColor: '#FFF8F6',
   },
   iconToolbarStyle: {
     color: '#A89EC1',
@@ -158,7 +158,7 @@ const styles = {
     width: 45,
     height: 45,
     borderRadius: 50,
-    marginLeft: 15
+    marginLeft: 15,
   },
   textInput: {
     flex: 1,
@@ -172,37 +172,37 @@ const styles = {
     color: '#D28A89',
     textAlign: 'left',
     fontSize: 16,
-    fontFamily: 'Poppins-Medium'
+    fontFamily: 'Poppins-Medium',
   },
   chatSubTitle: {
     color: '#D28A89',
     textAlign: 'left',
     fontSize: 13,
-    fontFamily: 'Poppins-Regular'
+    fontFamily: 'Poppins-Regular',
   },
   containerChatList: {
     flex: 1,
     borderColor: '#F4F3F8',
     flexDirection: 'column',
-    marginBottom: 10
+    marginBottom: 10,
   },
   viewContainer: {
     flex: 1,
     flexDirection: 'column',
     justifyContent: 'space-between',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
   viewInputContainer: {
     backgroundColor: '#fff',
     flexDirection: 'row',
-    elevation: 7
+    elevation: 7,
   },
   fullCointainerStyle: {
     flex: 1,
     width: null,
     height: null,
-    backgroundColor: '#FFF8F6'
-  }
+    backgroundColor: '#FFF8F6',
+  },
 };
 
 

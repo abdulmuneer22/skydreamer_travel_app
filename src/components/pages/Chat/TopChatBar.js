@@ -1,12 +1,12 @@
-///-----------------------------------------------------------------
-///   Namespace:      Main.js
-///   Class:          TopTabBar.js
-///   Description:    Render top-bar navigation
-///   Author:         Guilherme Borges Bastos       Date: 23/02/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Namespace:      Main.js
+// /   Class:          TopTabBar.js
+// /   Description:    Render top-bar navigation
+// /   Author:         Guilherme Borges Bastos       Date: 23/02/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /-----------------------------------------------------------------
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -35,12 +35,12 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    elevation: 8
+    elevation: 8,
   },
   iconStyle: {
     color: '#020201',
-    fontWeight: '100'
-  }
+    fontWeight: '100',
+  },
 };
 
 export default TopChatBar;
