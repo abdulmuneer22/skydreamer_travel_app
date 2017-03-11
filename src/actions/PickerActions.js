@@ -6,7 +6,14 @@
 // /   Revision History:
 // /   Name:           Date:        Description:
 // /-----------------------------------------------------------------
-import { CONTACTS_CHECKED, CONTACTS_UNCHECKED, CONTACTS_SELECTED, SEARCH_QUERY, CONTACTS_SEARCH, CONTACTS_LOADED } from './types';
+import {
+  CONTACTS_CHECKED,
+  CONTACTS_UNCHECKED,
+  CONTACTS_SELECTED,
+  SEARCH_QUERY,
+  CONTACTS_SEARCH,
+  CONTACTS_LOADED,
+} from './types';
 
 export const contactsLoaded = contact => ({ type: 'CONTACTS_LOADED', payload: contact });
 

@@ -1,21 +1,21 @@
-///-----------------------------------------------------------------
-///   Class:          FriendList.js
-///   Description:    Render the chat list from Redux
-///   Author:         Guilherme Borges Bastos       Date: 02/03/2017
-///   Notes:
-///   Revision History:
-///   Name:           Date:        Description:
-///-----------------------------------------------------------------
+// /-----------------------------------------------------------------
+// /   Class:          FriendList.js
+// /   Description:    Render the chat list from Redux
+// /   Author:         Guilherme Borges Bastos       Date: 02/03/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /-----------------------------------------------------------------
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
 import * as actions from '../../../../../actions';
-//npm i -S react-native-invertible-scroll-view
+// npm i -S react-native-invertible-scroll-view
 
 import {
          // HolderDateSeparator,
          HolderOtherText,
-         HolderSelfText
+         HolderSelfText,
        } from '../ViewHolder';
 
 export const addNewMessage = (text) => {
@@ -29,7 +29,7 @@ class ChatList extends React.Component {
     this.state = {
       chatRows: null,
       listHeight: 0,
-      scrollViewHeight: 0
+      scrollViewHeight: 0,
     };
   }
 
@@ -37,19 +37,19 @@ class ChatList extends React.Component {
     this.setState({ chatRows: this.props.chats.data });
   }
 
-  componentWillReceiveProps() { //nextProps
+  componentWillReceiveProps() { // nextProps
     this.setState({ chatRows: this.props.chats.data });
   }
 
   componentDidUpdate() {
-     this.scrollView.scrollToEnd({ animated: true });
+    this.scrollView.scrollToEnd({ animated: true });
   }
 
   renderRow(chat, rowId, chatRows) {
-    var hiddenProfile = false;
-    var moreSpace = false;
-    var squareCorner = false;
-    var semiSquareCorner = false;
+    let hiddenProfile = false;
+    let moreSpace = false;
+    let squareCorner = false;
+    let semiSquareCorner = false;
 
     const previus = chatRows[Number(rowId) - 1];
     const current = chatRows[Number(rowId)];
@@ -138,19 +138,16 @@ class ChatList extends React.Component {
           this.setState({ scrollViewHeight: height });
         }}
       >
-         {this.props.chats.data.map((chat, i) => {
-             return this.renderRow(chat, i, chatRows);
-         })}
+        {this.props.chats.data.map((chat, i) => this.renderRow(chat, i, chatRows))}
       </ScrollView>
     );
   }
 
 }
 
-const mapStateToProps = (state) => {
-  /*console.log('mapStateToProps of ChatList.js');
+const mapStateToProps = state =>
+  /* console.log('mapStateToProps of ChatList.js');
   console.log(state);*/
-  return { chats: state.chats };
-};
+   ({ chats: state.chats });
 
 export default connect(mapStateToProps, actions)(ChatList);

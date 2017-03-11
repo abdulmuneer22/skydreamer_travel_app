@@ -5,14 +5,19 @@
 // /   Notes:
 // /   Revision History:
 // /   Name:               Date:           Description:
+// /   Alberto Schiabel    10/03/2017      Imported types instead of using them statically
 // /-----------------------------------------------------------------
-import { SEARCH_FRIENDS, LOAD_FRIENDS } from './types';
+import {
+  SELECT_FRIEND,
+  SEARCH_FRIENDS,
+  LOAD_FRIENDS,
+} from './types';
 
 export const selectedFriend = friendId => ({
-  type: 'select_friend',
+  type: SELECT_FRIEND,
   payload: friendId,
 });
 
-export const searchFriends = query => ({ type: 'SEARCH_FRIENDS', payload: query });
+export const searchFriends = query => ({ type: SEARCH_FRIENDS, payload: query });
 
-export const loadFriends = friends => ({ type: 'LOAD_FRIENDS', payload: friends });
+export const loadFriends = friends => ({ type: LOAD_FRIENDS, payload: friends });

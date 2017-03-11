@@ -7,8 +7,17 @@
 // /   Revision History:
 // /   Name:           Date:        Description:
 // /-----------------------------------------------------------------
-
-import React from 'react';
+/**
+ * @Namespace:         Main.js
+ * @Class:             Location.js
+ * @Description:       Render MapView
+ * @Author:            Guilherme Borges Bastos   @Date: 27/02/2017
+ * @Notes:
+ * @Revision History:
+ * @Name:              @Date:      @Description:
+ * Alberto Schiabel    11/03/2017  eslint, refactored
+ */
+import React, { Component } from 'react';
 import { Text, View, Dimensions, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 
@@ -23,19 +32,41 @@ const LATITUDE_DELTA = 0.0922;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const SPACE = 0.01;
 
-class Location extends React.Component {
-  constructor(props) {
-    super(props);
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  map: {
+    flex: 1,
+    marginTop: 50,
+  },
+  bubble: {
+    backgroundColor: 'rgba(255,255,255,0.7)',
+    paddingHorizontal: 18,
+    paddingVertical: 12,
+    borderRadius: 20,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    marginVertical: 20,
+    backgroundColor: 'transparent',
+  },
+});
 
-    this.state = {
-      region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA,
-      },
-    };
-  }
+export default class Location extends Component {
+
+  static propTypes = {
+    provider: MapView.ProviderPropType,
+  };
+
+  state = {
+    region: {
+      latitude: LATITUDE,
+      longitude: LONGITUDE,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA,
+    },
+  };
 
   render() {
     return (
@@ -75,31 +106,3 @@ class Location extends React.Component {
     );
   }
 }
-
-Location.propTypes = {
-  provider: MapView.ProviderPropType,
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  map: {
-    flex: 1,
-    marginTop: 50,
-  },
-  bubble: {
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    marginVertical: 20,
-    backgroundColor: 'transparent',
-  },
-});
-
-
-export default Location;

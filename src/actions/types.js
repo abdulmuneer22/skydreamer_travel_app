@@ -9,8 +9,9 @@ export const CONTACTS_CHECKED = 'contact_checked';
 export const CONTACTS_UNCHECKED = 'contact_unchecked';
 export const CONTACTS_SELECTED = 'contacts_selected';
 export const CONTACTS_SEARCH = 'contacts_search';
-export const SEARCH_FRIENDS = 'search_friends';
-export const LOAD_FRIENDS = 'load_friends';
+export const SELECT_FRIEND = 'SELECT_FRIEND';
+export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
+export const LOAD_FRIENDS = 'LOAD_FRIENDS';
 
 /**
  * Author: Alberto Schiabel

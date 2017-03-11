@@ -7,7 +7,7 @@
 // /   Name:           Date:        Description:
 // /   Alberto Schiabel 09/03/2017  Added PropTypes
 // /-----------------------------------------------------------------
-import React, { PropTypes} from 'react';
+import React, { PropTypes } from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 

@@ -1,11 +1,11 @@
-// /-----------------------------------------------------------------
-// /   Class:          FacebookApiReducer.js
-// /   Description:    Reducer file for Facebook API Actions
-// /   Author:         Alberto Schiabel (jkomyno) - Date: 09/03/2017
-// /   Notes:
-// /   Revision History:
-// /   Name:               Date:           Description:
-// /-----------------------------------------------------------------
+/**
+ * @Class:             FacebookApiReducer.js
+ * @Description:       Reducer file for Facebook API Actions
+ * @Author:            Alberto Schiabel            @Date: 09/03/2017
+ * @Notes:
+ * @Revision History:
+ * @Name:              @Date:      @Description:
+ */
 import {
   SHARE_FB_LINK_WITH_COMMENT_DEFINED_BY_THE_USER,
   SHARE_FB_LINK_WITH_COMMENT_DEFINED_BY_THE_USER_SUCCESS,

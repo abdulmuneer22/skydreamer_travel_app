@@ -5,6 +5,11 @@
     ],
     "rules": {
         "react/jsx-filename-extension": "off",
-        "no-console": "off"
+        "no-console": "off",
+        "react/forbid-prop-types": "off",
+        "no-shadow": "off",
+        "no-case-declarations": 1,
+        "import/extensions": 1, // called every time we try to import react-native-linear-gradient
+        "no-underscore-dangle": 1
     }
 }
