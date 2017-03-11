@@ -16,9 +16,6 @@ const INITIAL_STATE = {
 const moment = require('moment');
 
 export default (state = INITIAL_STATE, action) => {
-  console.log('@@@@@@@@ ChatReducer @@@@@@@@');
-  console.log(action);
-
   switch (action.type) {
     case 'open_chat':
       const { id, fullname, photo, lastLogin } = action.payload;

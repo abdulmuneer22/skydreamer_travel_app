@@ -3,21 +3,29 @@ import { View, Image, Text } from 'react-native';
 
 class HolderOtherText extends Component {
   setSquareCorner() {
-    const { squareCorner, semiSquareCorner } = this.props;
-    if (squareCorner === true && semiSquareCorner === false) {
+    const { squareCorner, semiSquareCornerUp, completeSquareCorner, semiSquareCornerDown } = this.props;
+    if (squareCorner === true && semiSquareCornerUp === false) {
       return {
         borderTopLeftRadius: 10,
         borderBottomLeftRadius: 10,
         borderRadius: 50,
+        marginTop: 2,
       };
-    } else if (semiSquareCorner === true) {
+    } else if (semiSquareCornerUp === true) {
       return {
         borderTopLeftRadius: 10,
         borderRadius: 50,
         marginTop: 2,
       };
+    } else if (semiSquareCornerDown === true) {
+      return {
+        borderBottomLeftRadius: 10,
+        borderRadius: 50
+      };
     }
-    return { borderRadius: 50, borderBottomLeftRadius: 10 };
+
+    // default
+    return { borderRadius: 50 };
   }
 
   setMoreSpaceStyle() {
@@ -113,7 +121,6 @@ const styles = {
     flexDirection: 'row',
     justifyContent: 'flex-end',
     flexWrap: 'wrap',
-    marginTop: 0,
   },
 };
 

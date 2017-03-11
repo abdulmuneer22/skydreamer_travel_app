@@ -7,6 +7,7 @@
 // /   Name:           Date:        Description:
 // /-----------------------------------------------------------------
 import React, { Component } from 'react';
+import { Actions } from 'react-native-router-flux';
 import { View,
          Image,
          TextInput,
@@ -38,9 +39,18 @@ class InternalChat extends Component {
 
   onSendPressButton = () => {
     const text = this.state.text;
-    const type = 'SelfText';
+    if(text === '') {
+      return;
+    }
+
     // ChatList.addNewMessage(text, ChatList.state);
+    const type = 'SelfText';
+    this.setState({ text: '' });
     this.props.addNewMessage(type, text);
+  }
+
+  onBackPressButton = () => {
+    //TODO: write the back intent code
   }
 
   renderTopBar() {
@@ -56,7 +66,10 @@ class InternalChat extends Component {
     return (
       <View style={content}>
         <View style={{ flex: 1, flexDirection: 'row' }}>
-          <TouchableOpacity style={{ justifyContent: 'center' }}>
+          <TouchableOpacity
+            style={{ justifyContent: 'center' }}
+            onPress={this.onBackPressButton}
+          >
             <Icon3 name="ios-arrow-back" size={25} style={iconToolbarStyle} />
           </TouchableOpacity>
           <Image source={{ uri: photo }} style={profileImage} />
@@ -74,7 +87,6 @@ class InternalChat extends Component {
               name="dots-vertical"
               size={20}
               style={iconToolbarStyle}
-              onPress={this.onSendPressButton}
             />
           </TouchableOpacity>
         </View>
@@ -204,7 +216,6 @@ const styles = {
     backgroundColor: '#FFF8F6',
   },
 };
-
 
 const mapStateToProps = (state) => {
   console.log('mapStateToProps of InternalChat.js');

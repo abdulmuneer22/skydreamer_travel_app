@@ -141,5 +141,49 @@
         "photoSrc": "https://storage.skydreamer.io/profile/54ds564456sd.jpg"
     },
     "timestamp": 1488499497
+  },
+  {
+    "id": 13,
+    "type": "SelfText",
+    "text": "Beautiful place, let's go there!",
+    "user":
+    {
+        "userid": 1,
+        "photoSrc": "https://storage.skydreamer.io/profile/0100110.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 14,
+    "type": "SelfText",
+    "text": "Time to go!",
+    "user":
+    {
+        "userid": 1,
+        "photoSrc": "https://storage.skydreamer.io/profile/0100110.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 15,
+    "type": "OtherText",
+    "text": "Let's go the the party?",
+    "user":
+    {
+        "userid": 22,
+        "photoSrc": "https://storage.skydreamer.io/profile/54ds564456sd.jpg"
+    },
+    "timestamp": 1488499497
+  },
+  {
+    "id": 16,
+    "type": "SelfText",
+    "text": "Time to go!",
+    "user":
+    {
+        "userid": 1,
+        "photoSrc": "https://storage.skydreamer.io/profile/0100110.jpg"
+    },
+    "timestamp": 1488499497
   }
 ]

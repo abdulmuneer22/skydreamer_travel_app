@@ -46,33 +46,56 @@ class ChatList extends React.Component {
   }
 
   renderRow(chat, rowId, chatRows) {
+    var total = chatRows.length - 1;
+
     var hiddenProfile = false;
     var moreSpace = false;
     var squareCorner = false;
-    var semiSquareCorner = false;
+    var semiSquareCornerUp = false;
+    var semiSquareCornerDown = false;
 
     const previus = chatRows[Number(rowId) - 1];
     const current = chatRows[Number(rowId)];
     const next = chatRows[Number(rowId) + 1];
 
-    if (previus) {
-      if (current.user.userid === previus.user.userid) {
+    if (previus && next) {
+      //semiSquareCornerDown valiations
+      if ((current.user.userid !== previus.user.userid) && (current.user.userid === next.user.userid)) {
+        semiSquareCornerDown = true;
+      } else if ((current.user.userid === previus.user.userid) && (current.user.userid === next.user.userid)) {
         squareCorner = true;
-        hiddenProfile = true;
-      } else {
-        moreSpace = true;
+      } else if ((current.user.userid === previus.user.userid) && (current.user.userid !== next.user.userid)) {
+        semiSquareCornerUp = true;
       }
 
-      if (next) {
-        if (current.user.userid !== next.user.userid) {
-          semiSquareCorner = true;
-        }
+      if (current.user.userid !== previus.user.userid) {
+        moreSpace = true;
       }
     }
-    /*
-    console.log('semiSquareCorner', semiSquareCorner);
-    console.log('rowId', rowId);
-    */
+
+    if (previus) {
+      if (current.user.userid === previus.user.userid) {
+        hiddenProfile = true;
+      }
+
+      if (!next) {
+        if (current.user.userid === previus.user.userid) {
+          semiSquareCornerUp = true;
+        }
+      }
+
+    } else if (next) {
+      if (current.user.userid === next.user.userid) {
+        semiSquareCornerDown = true;
+      }
+    } 
+
+    if (!next) {
+      if (current.user.userid !== previus.user.userid) {
+        moreSpace = true;
+      }
+    }
+
     const { id, type, text, user, timestamp } = chat;
 
     switch (type) {
@@ -86,7 +109,8 @@ class ChatList extends React.Component {
             hiddenProfile={hiddenProfile}
             moreSpace={moreSpace}
             squareCorner={squareCorner}
-            semiSquareCorner={semiSquareCorner}
+            semiSquareCornerUp={semiSquareCornerUp}
+            semiSquareCornerDown={semiSquareCornerDown}
             key={rowId}
           />
         );
@@ -100,7 +124,8 @@ class ChatList extends React.Component {
             hiddenProfile={hiddenProfile}
             moreSpace={moreSpace}
             squareCorner={squareCorner}
-            semiSquareCorner={semiSquareCorner}
+            semiSquareCornerUp={semiSquareCornerUp}
+            semiSquareCornerDown={semiSquareCornerDown}
             key={rowId}
           />
         );
@@ -114,7 +139,8 @@ class ChatList extends React.Component {
             hiddenProfile={hiddenProfile}
             moreSpace={moreSpace}
             squareCorner={squareCorner}
-            semiSquareCorner={semiSquareCorner}
+            semiSquareCornerUp={semiSquareCornerUp}
+            semiSquareCornerDown={semiSquareCornerDown}
             key={rowId}
           />
         );
@@ -126,9 +152,9 @@ class ChatList extends React.Component {
 
   render() {
     const { chatRows } = this.state;
+    // keyboardDismissMode="on-drag"
     return (
       <ScrollView
-        keyboardDismissMode="on-drag"
         ref={component => this.scrollView = component}
         onContentSizeChange={(contentWidth, contentHeight) => {
           this.setState({ listHeight: contentHeight });

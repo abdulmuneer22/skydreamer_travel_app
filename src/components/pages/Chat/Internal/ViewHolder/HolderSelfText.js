@@ -16,23 +16,29 @@ class HolderSelfText extends Component {
   }
 
   setSquareCorners() {
-    const { squareCorner, semiSquareCorner } = this.props;
-    if (squareCorner === true && semiSquareCorner === false) {
+    const { squareCorner, semiSquareCornerUp, completeSquareCorner, semiSquareCornerDown } = this.props;
+    if (squareCorner === true && semiSquareCornerUp === false) {
       return {
         borderTopLeftRadius: 50,
         borderBottomLeftRadius: 50,
         borderRadius: 10,
         marginTop: 2,
       };
-    } else if (semiSquareCorner === true) {
+    } else if (semiSquareCornerUp === true) {
       return {
         borderTopRightRadius: 10,
         borderRadius: 50,
         marginTop: 2,
       };
+    } else if (semiSquareCornerDown === true) {
+      return {
+        borderBottomRightRadius: 10,
+        borderRadius: 50
+      };
     }
 
-    return { borderRadius: 50, borderBottomRightRadius: 10 };
+    // default
+    return { borderRadius: 50 };
   }
 
   renderText() {
