@@ -1,16 +1,16 @@
-// /-----------------------------------------------------------------
-// /   Class:          Chat.js
-// /   Description:    Render Chat Component
-// /   Author:         Guilherme Borges Bastos       Date: 28/02/2017
-// /   Notes:
-// /   Revision History:
-// /   Name:             Date:        Description:
-// /   Guilherme Bastos  07/03/17     Add InternalChat Component
-// /-----------------------------------------------------------------
-
+/**
+ * @Class:             Chat.js
+ * @Description:       Render Chat Component
+ * @Author:            Guilherme Borges Bastos     @Date: 28/02/2017
+ * @Notes:
+ * @Revision History:
+ * @Name:              @Date:      @Description:
+ * Guilherme Bastos    07/03/17    Add InternalChat Component
+ */
 import React, { Component } from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 import { View, AsyncStorage } from 'react-native';
+
 import LoginForm from './components/LoginForm';
 import Main from './components/Main';
 import InternalChat from './components/pages/Chat/Internal';
@@ -48,8 +48,7 @@ class RouterComponent extends Component {
            }
          });
      }
-   },
-   );
+   });
   }
 
   render() {
@@ -57,16 +56,31 @@ class RouterComponent extends Component {
     console.log(this.state.token);
     console.log(this.state);
 
-    if (this.state.loading) {
-      return <View />;
-    }
-
     return (
-      <Router key="root">
-        <Scene key="login" component={LoginForm} hideNavBar hideTabBar initial={!this.state.logged} />
-        <Scene key="chat" component={Main} hideNavBar hideTabBar initial={this.state.logged} />
-        <Scene key="internalChat" component={InternalChat} hideNavBar hideTabBar />
-      </Router>
+      this.state.loading ?
+        <View /> :
+        <Router key="root">
+          <Scene
+            key="login"
+            component={LoginForm}
+            hideNavBar
+            hideTabBar
+            initial={!this.state.logged}
+          />
+          <Scene
+            key="chat"
+            component={Main}
+            hideNavBar
+            hideTabBar
+            initial={this.state.logged}
+          />
+          <Scene
+            key="internalChat"
+            component={InternalChat}
+            hideNavBar
+            hideTabBar
+          />
+        </Router>
     );
   }
 }

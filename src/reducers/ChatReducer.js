@@ -7,13 +7,12 @@
 // /   Name:               Date:           Description:
 // /-----------------------------------------------------------------
 import { Actions } from 'react-native-router-flux';
+import moment from 'moment';
 import data from './ChatFakeList.json';
 
 const INITIAL_STATE = {
   data,
 };
-
-const moment = require('moment');
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
@@ -23,10 +22,10 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, data };
     case 'add_new_message':
       const { text, type } = action.payload;
-      var newMessageArr = {
+      const newMessageArr = {
         id: 568,
         text,
-        timestemp: moment().unix(),
+        timestamp: moment().unix(),
         type,
         user: {
           userid: 1,

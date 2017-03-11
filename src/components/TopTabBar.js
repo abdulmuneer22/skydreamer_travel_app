@@ -14,73 +14,6 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import Icon2 from 'react-native-vector-icons/SimpleLineIcons';
 import TopChatBar from './pages/Chat/TopChatBar';
 
-
-class TopTabBar extends Component {
-
-  constructor(props) {
-    super(props);
-    this.springValue = new Animated.Value(0.3);
-  }
-
-  state = { currentPage: 0, pages: ['Flight', 'Compass', 'Cards', 'Chat', 'User'] };
-
-  componentDidMount() {
-    this.spring();
-  }
-
-  componentDidUpdate() {
-    console.log('########### componentDidUpdate #############');
-    this.getCurrentMainPage();
-  }
-
-  spring() {
-    this.springValue.setValue(0.8);
-    Animated.spring(
-      this.springValue,
-      {
-        toValue: 1,
-        friction: 1,
-      },
-    ).start();
-  }
-
-  getCurrentMainPage = () => {
-    const { currentPage } = this.state;
-    console.log('getCurrentMainPage:', currentPage);
-  }
-
-  renderContainer() {
-    const { currentPage } = this.state;
-    const { content, iconStyle } = styles;
-
-    if (Number(currentPage) === 3) {
-      // Top Chat Bar
-      return (
-        <TopChatBar />
-      );
-    }
-    // default
-    return (
-      <View style={content}>
-        <View>
-          <Icon name="ios-arrow-back" size={30} style={[iconStyle, { marginTop: -5 }]} />
-        </View>
-        <View>
-          <Icon2 name="menu" size={20} style={iconStyle} />
-        </View>
-      </View>
-    );
-  }
-
-  render() {
-    return (
-      <View>
-        { this.renderContainer() }
-      </View>
-    );
-  }
-}
-
 const styles = {
   content: {
     flex: 1,
@@ -94,4 +27,85 @@ const styles = {
   },
 };
 
-export default TopTabBar;
+export default class TopTabBar extends Component {
+
+  constructor(props) {
+    super(props);
+    this.springValue = new Animated.Value(0.3);
+  }
+
+  state = {
+    urrentPage: 0,
+    pages: [
+      'Flight',
+      'Compass',
+      'Cards',
+      'Chat',
+      'User',
+    ],
+  };
+
+  componentDidMount() {
+    this.spring();
+  }
+
+  componentDidUpdate() {
+    console.log('########### componentDidUpdate #############');
+    this.getCurrentMainPage();
+  }
+
+  getCurrentMainPage = () => {
+    const { currentPage } = this.state;
+    console.log('getCurrentMainPage:', currentPage);
+  }
+
+  spring() {
+    this.springValue.setValue(0.8);
+    Animated.spring(
+      this.springValue,
+      {
+        toValue: 1,
+        friction: 1,
+      },
+    ).start();
+  }
+
+  renderContainer = () => {
+    const { currentPage } = this.state;
+    const { content, iconStyle } = styles;
+
+    if (Number(currentPage) === 3) {
+      // Top Chat Bar
+      return (
+        <TopChatBar />
+      );
+    }
+    // default
+    return (
+      <View style={content}>
+        <View>
+          <Icon
+            name="ios-arrow-back"
+            size={30}
+            style={[iconStyle, { marginTop: -5 }]}
+          />
+        </View>
+        <View>
+          <Icon2
+            name="menu"
+            size={20}
+            style={iconStyle}
+          />
+        </View>
+      </View>
+    );
+  }
+
+  render() {
+    return (
+      <View>
+        { this.renderContainer() }
+      </View>
+    );
+  }
+}

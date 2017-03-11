@@ -6,7 +6,14 @@
 // /   Revision History:
 // /   Name:               Date:           Description:
 // /   Guilherme Bastos    27/02/2017      Add action select_friend
+// /   Alberto Schiabel    10/03/2017      Imported types instead of using them
+// /                                       statically, removed useless lodash
 // /-----------------------------------------------------------------
+import {
+  SELECT_FRIEND,
+  SEARCH_FRIENDS,
+  LOAD_FRIENDS,
+} from '../actions/types';
 
 const INITIAL_STATE = {
   query: '',
@@ -14,23 +21,22 @@ const INITIAL_STATE = {
   searchArray: [],
   loading: false,
 };
-const _ = require('lodash');
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case 'select_friend':
+    case SELECT_FRIEND:
       return action.payload;
-    case 'LOAD_FRIENDS':
-      return { ...state, searchArray: action.payload, results: action.payload };
-    case 'SEARCH_FRIENDS':
+    case SEARCH_FRIENDS:
       let searchResults = [];
       const regex = new RegExp(action.payload, 'i');
       if (!action.payload) {
         searchResults = state.searchArray;
       } else {
-        searchResults = _.filter(state.searchArray, item => regex.test(item.fullname));
+        searchResults = state.searchArray.filter(item => regex.test(item.fullname));
       }
       return { ...state, query: action.payload, results: searchResults };
+    case LOAD_FRIENDS:
+      return { ...state, searchArray: action.payload, results: action.payload };
     default:
       return state;
   }

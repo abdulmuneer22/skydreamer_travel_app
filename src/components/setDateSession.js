@@ -1,229 +1,20 @@
-// /-----------------------------------------------------------------
-// /   Class:          SetDateSession.js
-// /   Description:    Render Data of departure and return Page
-// /   Author:         Guilherme Borges Bastos       Date: 21/02/2017
-// /   Notes:
-// /   Revision History:
-// /   Name:           Date:        Description:
-// /-----------------------------------------------------------------
+/**
+ * @Class:             SetDateSession.js
+ * @Description:       Render Data of departure and return Page
+ * @Author:            Guilherme Borges Bastos      @Date: 21/02/2017
+ * @Notes:
+ * @Revision History:
+ * @Name:              @Date:      @Description:
+ * Alberto Schiabel    11/03/2017  Refactored and split code
+ */
 import React, { Component } from 'react';
 import { Text, View, Switch } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import ButtonNext from './ButtonNext';
-import DatePicker from 'react-native-datepicker';
 import { Actions } from 'react-native-router-flux';
 
-class SetDateSession extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = { date: '20/02/2017',
-      dateReturn: '',
-      dateMonth: 'February',
-      dateReturnMonth: '',
-      minDate: '21/02/2017',
-      maxDate: '21/02/2019',
-      monthDeparture: false };
-  }
-
-
-  onNextPress() {
-    Actions.setAirportSession();
-  }
-
-  renderMiddleContent() {
-    const { textValue,
-            departureContainer,
-            returnContainer } = styles;
-
-    if (this.state.monthDeparture) {
-      return (
-
-        <View>
-          <View style={departureContainer}>
-            <Text style={textValue}>Departure Month:</Text>
-            <DatePicker
-              style={{ width: 200 }}
-              date={this.state.dateMonth}
-              mode="date"
-              placeholder="Select departure date"
-              format="MMMM"
-              minDate={this.state.minDate}
-              maxDate={this.state.maxDate}
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              iconSource={require('../images/icon-calendar.png')}
-              onDateChange={dateMonth => this.setState({ dateMonth })}
-              customStyles={{
-                dateIcon: {
-                  width: 40,
-                },
-                dateText: {
-                  color: '#fff',
-                  fontSize: 25,
-                  textAlign: 'left',
-                },
-                dateInput: {
-                  borderWidth: 0,
-                },
-              }}
-            />
-          </View>
-
-          <View style={returnContainer}>
-            <Text style={textValue}>Return Month:</Text>
-            <DatePicker
-              style={{ width: 200 }}
-              date={this.state.dateReturnMonth}
-              mode="date"
-              placeholder="Select return date"
-              format="MMMM"
-              minDate={this.state.dateMonth}
-              confirmBtnText="Confirm"
-              cancelBtnText="Cancel"
-              iconSource={require('../images/icon-calendar.png')}
-              onDateChange={dateReturnMonth => this.setState({ dateReturnMonth })}
-              customStyles={{
-                dateIcon: {
-                  width: 40,
-                },
-                dateText: {
-                  color: '#fff',
-                  fontSize: 25,
-                  textAlign: 'left',
-                },
-                dateInput: {
-                  borderWidth: 0,
-                },
-              }}
-            />
-          </View>
-        </View>
-      );
-    }
-
-    return (
-      <View>
-        <View style={departureContainer}>
-          <Text style={textValue}>Departure Day:</Text>
-          <DatePicker
-            style={{ width: 200 }}
-            date={this.state.date}
-            mode="date"
-            placeholder="Select departure date"
-            format="DD/MM/YYYY"
-            minDate={this.state.minDate}
-            maxDate={this.state.maxDate}
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            iconSource={require('../images/icon-calendar.png')}
-            onDateChange={date => this.setState({ date })}
-            customStyles={{
-              dateIcon: {
-                width: 40,
-              },
-              dateText: {
-                color: '#fff',
-                fontSize: 25,
-                textAlign: 'left',
-              },
-              dateInput: {
-                borderWidth: 0,
-              },
-            }}
-          />
-        </View>
-
-        <View style={returnContainer}>
-          <Text style={textValue}>Return Day:</Text>
-          <DatePicker
-            style={{ width: 200 }}
-            date={this.state.dateReturn}
-            mode="date"
-            placeholder="Select return date"
-            format="DD/MM/YYYY"
-            minDate={this.state.date}
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            iconSource={require('../images/icon-calendar.png')}
-            onDateChange={date => this.setState({ dateReturn: date })}
-            customStyles={{
-              dateIcon: {
-                width: 40,
-              },
-              dateText: {
-                color: '#fff',
-                fontSize: 25,
-                textAlign: 'left',
-              },
-              dateInput: {
-                borderWidth: 0,
-              },
-            }}
-          />
-        </View>
-      </View>
-    );
-  }
-
-  renderSwitchContent() {
-    const { switchContainer,
-            textSwitchValue,
-            textSwitchSelectedValue } = styles;
-
-    if (this.state.monthDeparture) {
-      return (
-        <View style={switchContainer}>
-          <Text style={textSwitchValue}>Day</Text>
-          <Switch
-            style={{ marginTop: 10, marginBottom: 10 }}
-            onValueChange={value => this.setState({ monthDeparture: value })}
-            value={this.state.monthDeparture}
-          />
-          <Text style={textSwitchSelectedValue}>Month</Text>
-        </View>
-      );
-    }
-
-    return (
-      <View style={switchContainer}>
-        <Text style={textSwitchSelectedValue}>Day</Text>
-        <Switch
-          style={{ marginTop: 10, marginBottom: 10 }}
-          onValueChange={value => this.setState({ monthDeparture: value })}
-          value={this.state.monthDeparture}
-        />
-        <Text style={textSwitchValue}>Month</Text>
-      </View>
-    );
-  }
-
-  render() {
-    const { linearGradient,
-            textTitle } = styles;
-
-    return (
-      <LinearGradient
-        colors={['#A71FAD', '#350DFE']}
-        style={linearGradient}
-      >
-        <Text style={textTitle}>
-            Pick up date of departure and return or a month?
-          </Text>
-
-        { this.renderSwitchContent() }
-
-        { this.renderMiddleContent() }
-
-        <ButtonNext onPress={this.onNextPress.bind(this)}>
-            Choose the airport
-          </ButtonNext>
-
-      </LinearGradient>
-    );
-  }
-}
-
+import { TripMonthSelection, TripDaySelection } from './SetDateSessionElements';
+import ButtonNext from './ButtonNext';
+import IconCalendar from '../images/icon-calendar.png';
 
 // Later on in your styles..
 const styles = {
@@ -280,4 +71,131 @@ const styles = {
   },
 };
 
-export default SetDateSession;
+export default class SetDateSession extends Component {
+
+  state = {
+    date: '20/02/2017',
+    dateReturn: '',
+    dateMonth: 'February',
+    dateReturnMonth: '',
+    minDate: '21/02/2017',
+    maxDate: '21/02/2019',
+    monthDeparture: false,
+  };
+
+  onNextPress = () => {
+    Actions.SetAirportSession();
+  }
+
+  updateDateMonth = (dateMonth) => {
+    this.setState({
+      dateMonth,
+    });
+  }
+
+  updateDateReturnMonth = (dateReturnMonth) => {
+    this.setState({
+      dateReturnMonth,
+    });
+  }
+
+  updateDate = (date) => {
+    this.setState({
+      date,
+    });
+  }
+
+  updateDateReturn = (dateReturn) => {
+    this.setState({
+      dateReturn,
+    });
+  }
+
+  renderMiddleContent = () => {
+    const {
+      dateMonth,
+      dateReturnMonth,
+      date,
+      dateReturn,
+      minDate,
+      maxDate,
+      monthDeparture,
+    } = this.state;
+    return (
+      monthDeparture ?
+        <TripMonthSelection
+          dateMonth={dateMonth}
+          dateReturnMonth={dateReturnMonth}
+          minDate={minDate}
+          maxDate={maxDate}
+          updateDateMonth={this.updateDateMonth}
+          updateDateReturnMonth={this.updateDateReturnMonth}
+          iconCalendar={IconCalendar}
+        /> :
+        <TripDaySelection
+          date={date}
+          dateReturn={dateReturn}
+          minDate={minDate}
+          maxDate={maxDate}
+          updateDate={this.updateDate}
+          updateDateReturn={this.updateDateReturn}
+          iconCalendar={IconCalendar}
+        />
+    );
+  }
+
+  renderSwitchContent() {
+    const {
+      switchContainer,
+      textSwitchValue,
+      textSwitchSelectedValue,
+    } = styles;
+    const { monthDeparture } = this.state;
+
+    return (
+      <View style={switchContainer}>
+        <Text style={monthDeparture ? textSwitchValue : textSwitchSelectedValue}>Day</Text>
+        <Switch
+          style={{ marginTop: 10, marginBottom: 10 }}
+          value={monthDeparture}
+          onValueChange={newMonthDeparture =>
+            this.setState({ monthDeparture: newMonthDeparture })
+          }
+        />
+        <Text
+          style={monthDeparture ?
+            textSwitchSelectedValue :
+            textSwitchValue
+          }
+        >
+          Month
+        </Text>
+      </View>
+    );
+  }
+
+  render() {
+    const {
+      linearGradient,
+      textTitle,
+    } = styles;
+
+    return (
+      <LinearGradient
+        colors={['#A71FAD', '#350DFE']}
+        style={linearGradient}
+      >
+        <Text style={textTitle}>
+          Pick up date of departure and return or a month?
+        </Text>
+
+        { this.renderSwitchContent() }
+        { this.renderMiddleContent() }
+
+        <ButtonNext onPress={this.onNextPress}>
+          Choose the airport
+        </ButtonNext>
+      </LinearGradient>
+    );
+  }
+}
