@@ -1,11 +1,5 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { View, Text } from 'react-native';
-
-const HolderDateSeparator = ({ timestamp }) => (
-  <View style={styles.spinnerStyle}>
-    <Text style={styles.text}>{timestamp}</Text>
-  </View>
-  );
 
 const styles = {
   spinnerStyle: {
@@ -23,4 +17,16 @@ const styles = {
   },
 };
 
-export { HolderDateSeparator };
+const HolderDateSeparator = ({ timestamp }) => (
+  <View style={styles.spinnerStyle}>
+    <Text style={styles.text}>{timestamp}</Text>
+  </View>
+);
+
+HolderDateSeparator.propTypes = {
+  timestamp: PropTypes.string.isRequired,
+};
+
+export {
+  HolderDateSeparator
+};

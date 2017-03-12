@@ -16,7 +16,7 @@ import ViewPager from 'react-native-viewpager';
 // redux connection here is only to test fbApis
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { facebookApi } from '../actions';
+import { facebookApiActions } from '../actions';
 
 import BottomTabBar from './BottomTabBar';
 import TopTabBar from './TopTabBar';
@@ -98,7 +98,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    console.log('actions', facebookApi);
+    console.log('facebookApiActions', facebookApiActions);
     console.log('this.props inside Main.js', this.props);
   }
 
@@ -187,7 +187,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fbActions: bindActionCreators(facebookApi, dispatch),
+  fbActions: bindActionCreators(facebookApiActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

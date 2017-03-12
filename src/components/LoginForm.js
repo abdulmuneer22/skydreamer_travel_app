@@ -6,10 +6,7 @@ import { Text,
          Animated } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { emailChanged,
-         passwordChanged,
-         loginUser,
-         loginUserViaFacebook } from '../actions';
+import { authActions } from '../actions';
 import { CardSection,
          Spinner,
          Input } from './common';
@@ -49,11 +46,6 @@ const styles = {
 
 class LoginForm extends Component {
 
-  constructor(props) {
-    super(props);
-    this.springValue = new Animated.Value(0.3);
-  }
-
   static propTypes = {
     actions: PropTypes.object.isRequired,
     email: PropTypes.string,
@@ -61,6 +53,11 @@ class LoginForm extends Component {
     loading: PropTypes.bool,
     error: PropTypes.string,
   };
+
+  constructor(props) {
+    super(props);
+    this.springValue = new Animated.Value(0.3);
+  }
 
   componentDidMount() {
     this.spring();
@@ -185,12 +182,7 @@ const mapStateToProps = ({ auth }) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({
-    emailChanged,
-    passwordChanged,
-    loginUser,
-    loginUserViaFacebook,
-  }, dispatch),
+  actions: bindActionCreators(authActions, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

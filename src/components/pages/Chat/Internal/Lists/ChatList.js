@@ -1,69 +1,75 @@
-// /-----------------------------------------------------------------
-// /   Class:          FriendList.js
-// /   Description:    Render the chat list from Redux
-// /   Author:         Guilherme Borges Bastos       Date: 02/03/2017
-// /   Notes:
-// /   Revision History:
-// /   Name:           Date:        Description:
-// /-----------------------------------------------------------------
-import React from 'react';
+/**
+ * @Class:             ChatList.js
+ * @Parent:            Friend.js
+ * @Description:       Render the chat list from Redux
+ * @Author:            Guilherme Borges Bastos      @Date: 02/03/2017
+ * @Notes:
+ * @Revision History:
+ * @Name:              @Date:      @Description:
+ * Alberto Schiabel    12/03/2017  eslint, removed useless actions, removed
+ *                                 useless componentWillMount, fixed typo
+ */
+import React, { Component, PropTypes } from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import * as actions from '../../../../../actions';
 // npm i -S react-native-invertible-scroll-view
 
 import {
-         // HolderDateSeparator,
-         HolderOtherText,
-         HolderSelfText,
-       } from '../ViewHolder';
+  // HolderDateSeparator,
+  HolderOtherText,
+  HolderSelfText,
+} from '../ViewHolder';
 
 export const addNewMessage = (text) => {
   console.log('export const addNewMessage', text);
 };
 
-class ChatList extends React.Component {
+class ChatList extends Component {
+
+  static propTypes = {
+    chats: PropTypes.object.isRequired,
+  };
 
   constructor(props) {
     super(props);
     this.state = {
-      chatRows: null,
+      chatRows: props.chats.data,
       listHeight: 0,
       scrollViewHeight: 0,
     };
   }
 
-  componentWillMount() {
-    this.setState({ chatRows: this.props.chats.data });
-  }
-
   componentWillReceiveProps() { // nextProps
-    this.setState({ chatRows: this.props.chats.data });
+    this.setState({
+      chatRows: this.props.chats.data,
+    });
   }
 
   componentDidUpdate() {
     this.scrollView.scrollToEnd({ animated: true });
   }
 
-  renderRow(chat, rowId, chatRows) {
-
-    var hiddenProfile = false;
-    var moreSpace = false;
-    var squareCorner = false;
-    var semiSquareCornerUp = false;
-    var semiSquareCornerDown = false;
+  renderRow = (chat, rowId, chatRows) => {
+    let hiddenProfile = false;
+    let moreSpace = false;
+    let squareCorner = false;
+    let semiSquareCornerUp = false;
+    let semiSquareCornerDown = false;
 
     const previus = chatRows[Number(rowId) - 1];
     const current = chatRows[Number(rowId)];
     const next = chatRows[Number(rowId) + 1];
 
     if (previus && next) {
-      //semiSquareCornerDown valiations
-      if ((current.user.userid !== previus.user.userid) && (current.user.userid === next.user.userid)) {
+      // semiSquareCornerDown valiations
+      if ((current.user.userid !== previus.user.userid) &&
+          (current.user.userid === next.user.userid)) {
         semiSquareCornerDown = true;
-      } else if ((current.user.userid === previus.user.userid) && (current.user.userid === next.user.userid)) {
+      } else if ((current.user.userid === previus.user.userid) &&
+                 (current.user.userid === next.user.userid)) {
         squareCorner = true;
-      } else if ((current.user.userid === previus.user.userid) && (current.user.userid !== next.user.userid)) {
+      } else if ((current.user.userid === previus.user.userid) &&
+                 (current.user.userid !== next.user.userid)) {
         semiSquareCornerUp = true;
       }
 
@@ -82,7 +88,6 @@ class ChatList extends React.Component {
           semiSquareCornerUp = true;
         }
       }
-
     } else if (next) {
       if (current.user.userid === next.user.userid) {
         semiSquareCornerDown = true;
@@ -148,22 +153,26 @@ class ChatList extends React.Component {
     }
   }
 
-
   render() {
     const { chatRows } = this.state;
+    const { chats } = this.props;
     // keyboardDismissMode="on-drag"
     return (
       <ScrollView
-        ref={component => this.scrollView = component}
+        ref={(component) => { this.scrollView = component; }}
         onContentSizeChange={(contentWidth, contentHeight) => {
-          this.setState({ listHeight: contentHeight });
+          this.setState({
+            listHeight: contentHeight,
+          });
         }}
         onLayout={(e) => {
-          const height = e.nativeEvent.layout.heigh;
-          this.setState({ scrollViewHeight: height });
+          const height = e.nativeEvent.layout.height;
+          this.setState({
+            scrollViewHeight: height,
+          });
         }}
       >
-        {this.props.chats.data.map((chat, i) => this.renderRow(chat, i, chatRows))}
+        {chats.data.map((chat, i) => this.renderRow(chat, i, chatRows))}
       </ScrollView>
     );
   }
@@ -175,4 +184,4 @@ const mapStateToProps = state =>
   console.log(state);*/
    ({ chats: state.chats });
 
-export default connect(mapStateToProps, actions)(ChatList);
+export default connect(mapStateToProps, null)(ChatList);
