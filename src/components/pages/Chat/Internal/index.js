@@ -15,13 +15,16 @@ import { View,
          TouchableOpacity,
          StatusBar } from 'react-native';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import moment from 'moment';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import Icon4 from 'react-native-vector-icons/Entypo';
+
 import ChatList from './Lists/ChatList';
+import { chatActions } from '../../../../actions';
 
 const styles = {
   iconStyle: {
@@ -104,7 +107,7 @@ const styles = {
 class InternalChat extends Component {
 
   static propTypes = {
-    addNewMessage: PropTypes.func.isRequired,
+    chatActions: PropTypes.object.isRequired,
     fullname: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,
     lastLogin: PropTypes.any.isRequired,
@@ -129,7 +132,7 @@ class InternalChat extends Component {
     // ChatList.addNewMessage(text, ChatList.state);
     const type = 'SelfText';
     this.setState({ text: '' });
-    this.props.addNewMessage(type, text);
+    this.props.chatActions.addNewMessage(type, text);
   }
 
   onBackPressButton = () => {
@@ -252,4 +255,8 @@ const mapStateToProps = (state) => {
   return { text, type };
 };
 
-export default connect(mapStateToProps, null)(InternalChat);
+const mapDispatchToProps = (dispatch) => ({
+  chatActions: bindActionCreators(chatActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(InternalChat);

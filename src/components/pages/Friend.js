@@ -33,7 +33,7 @@ class Friend extends Component {
 
   static propTypes = {
     friendActions: PropTypes.object.isRequired,
-    query: PropTypes.string.isRequired,
+    query: PropTypes.string,
   };
 
   onSearch = (query) => {
@@ -65,7 +65,7 @@ class Friend extends Component {
 }
 
 const mapStateToProps = ({ selectedFriendId }) => ({
-  query: selectedFriendId,
+  query: selectedFriendId.query,
 });
 
 const mapDispatchToProps = (dispatch) => ({

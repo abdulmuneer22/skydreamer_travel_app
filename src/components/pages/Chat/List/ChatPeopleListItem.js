@@ -20,6 +20,9 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/SimpleLineIcons';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { chatActions } from '../../../../actions';
 
 const styles = {
   onlineUserSign: {
@@ -121,8 +124,8 @@ class ChatPeopleListItem extends Component {
   static propTypes = {
     chat: PropTypes.object.isRequired,
     expanded: PropTypes.bool.isRequired,
-    openChat: PropTypes.func.isRequired,
-    selectedFriend: PropTypes.func.isRequired,
+    openChat: PropTypes.func,
+    selectedFriend: PropTypes.func,
   };
 
   state = {
@@ -271,7 +274,7 @@ class ChatPeopleListItem extends Component {
     } = styles;
     const {
       chat,
-      openChat,
+      chatActions,
       selectedFriend,
     } = this.props;
     const { id, fullname, photo, lastLogin } = chat;
@@ -279,7 +282,7 @@ class ChatPeopleListItem extends Component {
     return (
       <TouchableWithoutFeedback
         style={container}
-        onPress={() => openChat(id, fullname, photo, lastLogin)}
+        onPress={() => chatActions.openChat(id, fullname, photo, lastLogin)}
         onLongPress={() => selectedFriend(id)}
       >
         <View>
@@ -303,4 +306,8 @@ const mapStateToProps = (state, ownProps) => {
   return { expanded };
 };
 
-export default connect(mapStateToProps, null)(ChatPeopleListItem);
+const mapDispatchToProps = (dispatch) => ({
+  chatActions: bindActionCreators(chatActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatPeopleListItem);

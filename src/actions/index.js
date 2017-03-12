@@ -13,7 +13,7 @@
 import * as facebookApiActions from './FacebookApiActions';
 import * as authActions from './AuthActions';
 import * as friendActions from './FriendActions';
-
+import * as chatActions from './ChatActions';
 export * from './AuthActions';
 export * from './FriendActions';
 export * from './PickerActions';
@@ -21,5 +21,6 @@ export * from './ChatActions';
 export {
   facebookApiActions,
   authActions,
-  friendActions
+  friendActions,
+  chatActions
 };
