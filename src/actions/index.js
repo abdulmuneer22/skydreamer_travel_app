@@ -10,10 +10,17 @@
 // /   Alberto Schiabel    09/03/2017      Added FacebookApiActions
 // /-----------------------------------------------------------------
 
-import * as facebookApi from './FacebookApiActions';
-
+import * as facebookApiActions from './FacebookApiActions';
+import * as authActions from './AuthActions';
+import * as friendActions from './FriendActions';
+import * as chatActions from './ChatActions';
 export * from './AuthActions';
 export * from './FriendActions';
 export * from './PickerActions';
 export * from './ChatActions';
-export { facebookApi };
+export {
+  facebookApiActions,
+  authActions,
+  friendActions,
+  chatActions
+};

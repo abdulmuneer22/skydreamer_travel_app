@@ -1,20 +1,42 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import ViewPager from 'react-native-viewpager';
+
 import ChatPeopleList from './List/ChatPeopleList';
 
-class Chat extends Component {
+const styles = {
+  container: {
+    flex: 1,
+    marginBottom: 60,
+    marginTop: 50,
+  },
+  viewPager: {
+    flex: 1,
+  },
+  title: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    fontSize: 25,
+    color: '#999',
+  },
+  viewPagerContainer: {
+    flex: 1,
+  },
+};
 
-  state = { dataSource: null, currentPage: 0, pages: ['People', 'Groups'] };
+export default class Chat extends Component {
 
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     this.dataSource = new ViewPager.DataSource({
       pageHasChanged: (p1, p2) => p1 !== p2,
     });
-
-    this.setState({
-      dataSource: this.dataSource.cloneWithPages(this.state.pages),
-    });
+    const pages = ['People', 'Groups'];
+    this.state = {
+      dataSource: this.dataSource.cloneWithPages(pages),
+      currentPage: 0,
+      pages,
+    };
   }
 
   onChangePage(data) {
@@ -39,26 +61,3 @@ class Chat extends Component {
     );
   }
 }
-
-const styles = {
-  container: {
-    flex: 1,
-    marginBottom: 60,
-    marginTop: 50,
-  },
-  viewPager: {
-    flex: 1,
-  },
-  title: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    fontSize: 25,
-    color: '#999',
-  },
-  viewPagerContainer: {
-    flex: 1,
-  },
-};
-
-
-export default Chat;

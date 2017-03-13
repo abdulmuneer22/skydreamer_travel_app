@@ -1,17 +1,44 @@
-import React, { Component } from 'react';
-import { ScrollView, View, Platform, TextInput, Text } from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import {
+  ScrollView,
+  View,
+  Text,
+} from 'react-native';
+import { some, includes } from 'lodash';
+// import Contacts from 'react-native-contacts';
+// import { connect } from 'react-redux';
 import Contact from './common/Contact';
-import { connect } from 'react-redux';
-import { contactsSelected, searchQuery, contactsLoaded, contactsSearch } from '../actions';
-import { Input, Card, Spinner, CardSection } from './common';
+// import { contactsSelected, searchQuery, contactsLoaded, contactsSearch } from '../actions';
+import {
+  Input,
+  /* Card,
+  Spinner,*/
+  CardSection,
+} from './common';
 import ButtonNext from './ButtonNext';
-import LinearGradient from 'react-native-linear-gradient';
 
-class ContactPicker extends Component {
+const styles = {
+  viewPagerContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#4578A3',
+  },
+};
+
+export default class ContactPicker extends Component {
+
+  static propTypes = {
+    contactsSelected: PropTypes.func.isRequired,
+    searchQuery: PropTypes.func.isRequired,
+    contactsSearch: PropTypes.func.isRequired,
+    contacts: PropTypes.array.isRequired,
+    searchResults: PropTypes.array.isRequired,
+    query: PropTypes.string.isRequired,
+  };
+
   componentWillMount() {
         // Get contacts
-
-    const Contacts = require('react-native-contacts');
     const filteredList = [];
         /*
         Contacts.getAll((err, contacts) => {
@@ -30,27 +57,45 @@ class ContactPicker extends Component {
         this.props.contactsSearch(filteredList);*/
   }
 
-  onButtonPress() {
+  onButtonPress = () => {
     this.props.contactsSelected();
   }
 
   renderList() {
-    if (this.props.searchResults.length == 0) {
+    if (this.props.searchResults.length === 0) {
       return (<Text> No contacts found</Text>);
     }
     return this.props.searchResults.map(contact => (
-      <Contact key={contact.key} contact={contact} givenName={contact.givenName} selected={contact.selected} middleName={contact.middleName} familyName={contact.familyName} />
-      ));
+      <Contact
+        key={contact.key}
+        contact={contact}
+        givenName={contact.givenName}
+        selected={contact.selected}
+        middleName={contact.middleName}
+        familyName={contact.familyName}
+      />
+    ));
   }
 
-  onSearch(searchQuery) {
-    this.props.searchQuery(searchQuery);
+  onSearch = (searchQuery) => {
+    const {
+      /**
+       * you shouldn't put a reference to a prop that has the same name of the
+       * argument passed to the method.
+       */
+      searchQuery,
+      contactsSearch,
+      contacts,
+    } = this.props;
+    searchQuery(searchQuery);
     let searchResults = [];
     if (!searchQuery) {
-      this.props.contactsSearch(this.props.contacts);
+      contactsSearch(contacts);
     } else {
-      searchResults = _.filter(this.props.contacts, item => _.some(item.givenName, name => _.includes(name, searchQuery)));
-      this.props.contactsSearch(searchResults);
+      searchResults = contacts.filter(item =>
+        item => some(item.givenName, name => includes(name, searchQuery)),
+      );
+      contactsSearch(searchResults);
     }
   }
 
@@ -61,7 +106,7 @@ class ContactPicker extends Component {
         <CardSection>
           <Input
             placeholder="search"
-            onChangeText={this.onSearch.bind(this)}
+            onChangeText={this.onSearch}
             value={this.props.query}
           />
         </CardSection>
@@ -69,29 +114,19 @@ class ContactPicker extends Component {
         <ScrollView>
           {this.renderList()}
         </ScrollView>
-        <ButtonNext onPress={this.onButtonPress.bind(this)}>
-                Next
-            </ButtonNext>
+        <ButtonNext onPress={this.onButtonPress}>
+          Next
+        </ButtonNext>
       </View>
     );
   }
 }
 
-const styles = {
-
-  viewPagerContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#4578A3',
-  },
-};
-
-
+/*
 const mapStateToProps = ({ picker }) => {
   console.log(picker);
   const { contacts, query, searchResults } = picker;
   return { contacts, query, searchResults };
 };
-
+*/
 // export default connect(mapStateToProps, {contactsSelected, contactsLoaded, contactsSearch, searchQuery})(ContactPicker);

@@ -33,7 +33,7 @@ class HolderSelfText extends Component {
     } else if (semiSquareCornerDown === true) {
       return {
         borderBottomRightRadius: 10,
-        borderRadius: 50
+        borderRadius: 50,
       };
     }
 

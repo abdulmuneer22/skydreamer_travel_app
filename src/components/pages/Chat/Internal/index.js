@@ -1,148 +1,30 @@
-// /-----------------------------------------------------------------
-// /   Class:          Chat.js
-// /   Description:    Render Chat Component
-// /   Author:         Guilherme Borges Bastos       Date: 28/02/2017
-// /   Notes:
-// /   Revision History:
-// /   Name:           Date:        Description:
-// /-----------------------------------------------------------------
-import React, { Component } from 'react';
-import { Actions } from 'react-native-router-flux';
+/**
+ * @Class:             Chat.js
+ * @Description:       Render Chat Component
+ * @Author:            Guilherme Borges Bastos      @Date: 28/02/2017
+ * @Notes:
+ * @Revision History:
+ * @Name:              @Date:      @Description:
+ * Alberto Schiabel    12/03/2017  Removed useless actions, eslint
+ */
+import React, { Component, PropTypes } from 'react';
 import { View,
          Image,
          TextInput,
          Text,
          TouchableOpacity,
          StatusBar } from 'react-native';
-
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import moment from 'moment';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Icon2 from 'react-native-vector-icons/FontAwesome';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 import Icon4 from 'react-native-vector-icons/Entypo';
+
 import ChatList from './Lists/ChatList';
-import * as actions from '../../../../actions';
-
-const moment = require('moment');
-
-class InternalChat extends Component {
-  state = {
-    behavior: 'position',
-    modalOpen: true,
-    text: '',
-  };
-
-  onChangeText = (text) => {
-    this.setState({ text });
-  }
-
-  onSendPressButton = () => {
-    const text = this.state.text;
-    if(text === '') {
-      return;
-    }
-
-    // ChatList.addNewMessage(text, ChatList.state);
-    const type = 'SelfText';
-    this.setState({ text: '' });
-    this.props.addNewMessage(type, text);
-  }
-
-  onBackPressButton = () => {
-    //TODO: write the back intent code
-  }
-
-  renderTopBar() {
-    const { content, iconToolbarStyle, profileImage, chatTitle, chatSubTitle } = styles;
-    // const { id, fullname, photo, lastMessage, lastLogin } = this.props;
-    const { fullname, photo, lastLogin } = this.props;
-    // TODO: refactor the code to add timezone and Language format
-    const dateA = moment(1489068939);
-    const dateB = moment(lastLogin);
-
-    const lastLoginStr = dateB.from(dateA);
-
-    return (
-      <View style={content}>
-        <View style={{ flex: 1, flexDirection: 'row' }}>
-          <TouchableOpacity
-            style={{ justifyContent: 'center' }}
-            onPress={this.onBackPressButton}
-          >
-            <Icon3 name="ios-arrow-back" size={25} style={iconToolbarStyle} />
-          </TouchableOpacity>
-          <Image source={{ uri: photo }} style={profileImage} />
-          <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-around', marginLeft: 10, paddingTop: 10, paddingBottom: 10 }}>
-            <Text style={chatTitle}>{fullname}</Text>
-            <Text style={chatSubTitle}>{lastLoginStr}</Text>
-          </View>
-        </View>
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity style={{ justifyContent: 'center' }}>
-            <Icon4 name="attachment" size={20} style={iconToolbarStyle} />
-          </TouchableOpacity>
-          <TouchableOpacity style={{ justifyContent: 'center' }}>
-            <Icon
-              name="dots-vertical"
-              size={20}
-              style={iconToolbarStyle}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
-
-  render() {
-    const { fullCointainerStyle,
-            containerChatList,
-            viewInputContainer,
-            textInput,
-            iconStyle } = styles;
-
-    return (
-      <View style={fullCointainerStyle}>
-        <StatusBar
-          backgroundColor="black"
-        />
-
-        {this.renderTopBar()}
-
-        <View style={containerChatList}>
-          <ChatList />
-        </View>
-
-        <View style={viewInputContainer}>
-          <TextInput
-            placeholderStyle={{ fontFamily: 'Poppins-Regular', fontSize: 18, color: '#AFA3C6' }}
-            placeholder="Write a message"
-            placeholderTextColor={'#AFA3C6'}
-            underlineColorAndroid={'white'}
-            onChangeText={this.onChangeText}
-            style={textInput}
-            multiline
-            value={this.state.text}
-          />
-          <TouchableOpacity style={{ justifyContent: 'center' }}>
-            <Icon name="emoticon-happy" size={25} style={iconStyle} />
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ justifyContent: 'center' }}
-            onPress={this.onSendPressButton}
-          >
-            <Icon2
-              name="send-o"
-              size={25}
-              style={iconStyle}
-            />
-          </TouchableOpacity>
-        </View>
-      </View>
-    );
-  }
-}
-
+import { chatActions } from '../../../../actions';
 
 const styles = {
   iconStyle: {
@@ -215,7 +97,155 @@ const styles = {
     height: null,
     backgroundColor: '#FFF8F6',
   },
+  placeholderStyle: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 18,
+    color: '#AFA3C6',
+  },
 };
+
+class InternalChat extends Component {
+
+  static propTypes = {
+    chatActions: PropTypes.object.isRequired,
+    fullname: PropTypes.string.isRequired,
+    photo: PropTypes.string.isRequired,
+    lastLogin: PropTypes.any.isRequired,
+  };
+
+  state = {
+    behavior: 'position',
+    modalOpen: true,
+    text: '',
+  };
+
+  onChangeText = (text) => {
+    this.setState({ text });
+  }
+
+  onSendPressButton = () => {
+    const { text } = this.state;
+    if (text === '') {
+      return;
+    }
+
+    // ChatList.addNewMessage(text, ChatList.state);
+    const type = 'SelfText';
+    this.setState({ text: '' });
+    this.props.chatActions.addNewMessage(type, text);
+  }
+
+  onBackPressButton = () => {
+    // TODO: write the back intent code
+  }
+
+  renderTopBar() {
+    const {
+      content,
+      iconToolbarStyle,
+      profileImage,
+      chatTitle,
+      chatSubTitle,
+    } = styles;
+    // const { id, fullname, photo, lastMessage, lastLogin } = this.props;
+    const {
+      fullname,
+      photo,
+      lastLogin,
+    } = this.props;
+    // TODO: refactor the code to add timezone and Language format
+    const dateA = moment(1489068939);
+    const dateB = moment(lastLogin);
+
+    const lastLoginStr = dateB.from(dateA);
+
+    return (
+      <View style={content}>
+        <View style={{ flex: 1, flexDirection: 'row' }}>
+          <TouchableOpacity
+            style={{ justifyContent: 'center' }}
+            onPress={this.onBackPressButton}
+          >
+            <Icon3 name="ios-arrow-back" size={25} style={iconToolbarStyle} />
+          </TouchableOpacity>
+          <Image source={{ uri: photo }} style={profileImage} />
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'column',
+              justifyContent: 'space-around',
+              marginLeft: 10,
+              paddingTop: 10,
+              paddingBottom: 10 }}
+          >
+            <Text style={chatTitle}>{fullname}</Text>
+            <Text style={chatSubTitle}>{lastLoginStr}</Text>
+          </View>
+        </View>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity style={{ justifyContent: 'center' }}>
+            <Icon4 name="attachment" size={20} style={iconToolbarStyle} />
+          </TouchableOpacity>
+          <TouchableOpacity style={{ justifyContent: 'center' }}>
+            <Icon
+              name="dots-vertical"
+              size={20}
+              style={iconToolbarStyle}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+
+  render() {
+    const { fullCointainerStyle,
+            containerChatList,
+            viewInputContainer,
+            textInput,
+            iconStyle } = styles;
+
+    return (
+      <View style={fullCointainerStyle}>
+        <StatusBar
+          backgroundColor="black"
+        />
+
+        {this.renderTopBar()}
+
+        <View style={containerChatList}>
+          <ChatList />
+        </View>
+
+        <View style={viewInputContainer}>
+          <TextInput
+            placeholderStyle={styles.placeholderStyle}
+            placeholder="Write a message"
+            placeholderTextColor={'#AFA3C6'}
+            underlineColorAndroid={'white'}
+            onChangeText={this.onChangeText}
+            style={textInput}
+            multiline
+            value={this.state.text}
+          />
+          <TouchableOpacity style={{ justifyContent: 'center' }}>
+            <Icon name="emoticon-happy" size={25} style={iconStyle} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ justifyContent: 'center' }}
+            onPress={this.onSendPressButton}
+          >
+            <Icon2
+              name="send-o"
+              size={25}
+              style={iconStyle}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
 
 const mapStateToProps = (state) => {
   console.log('mapStateToProps of InternalChat.js');
@@ -225,4 +255,8 @@ const mapStateToProps = (state) => {
   return { text, type };
 };
 
-export default connect(mapStateToProps, actions)(InternalChat);
+const mapDispatchToProps = (dispatch) => ({
+  chatActions: bindActionCreators(chatActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(InternalChat);
