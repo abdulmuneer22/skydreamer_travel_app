@@ -1,18 +1,18 @@
-// /-----------------------------------------------------------------
-// /   Class:          FriendListItem.js
-// /   Description:    Render FriendList row layout
-// /   Author:         Guilherme Borges Bastos       Date: 27/02/2017
-// /   Notes:
-// /   Revision History:
-// /   Name:           Date:        Description:
-// /-----------------------------------------------------------------
+///-----------------------------------------------------------------
+///   Class:          FriendListItem.js
+///   Description:    Render FriendList row layout
+///   Author:         Guilherme Borges Bastos       Date: 27/02/2017
+///   Notes:
+///   Revision History:
+///   Name:           Date:        Description:
+///-----------------------------------------------------------------
 import React, { Component } from 'react';
 import {
   Text,
   TouchableWithoutFeedback,
   View,
   Image,
-  Animated,
+  Animated
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -29,11 +29,15 @@ class ChatPeopleListItem extends Component {
     };
   }
 
+  componentDidMount() {
+  }
+
+
   componentWillUpdate() {
     // LayoutAnimation.spring();
     Animated.timing(          // Uses easing functions
        this.state.fadeAnim,   // The value to drive
-       { toValue: 1, duration: 800 },         // Configuration
+       { toValue: 1, duration: 800 }         // Configuration
      ).start();
   }
 
@@ -45,20 +49,20 @@ class ChatPeopleListItem extends Component {
       return (
         <Animated.View style={{ flexDirection: 'row', flex: 0.533, opacity: this.state.fadeAnim }}>
           <View style={{ flex: 0.02 }}>
-            <Icon3 name="md-arrow-dropleft" size={45} style={{ color: '#F0E6E4', marginTop: 8 }} />
+            <Icon3 name='md-arrow-dropleft' size={45} style={{ color: '#F0E6E4', marginTop: 8 }} />
           </View>
           <View style={[rowOptionContainer, { backgroundColor: '#F0E6E4', flex: 0.493 }]}>
             <View style={{ flex: 0.25, borderColor: '#ccc', borderRightWidth: 1 }}>
-              <Icon name="call" size={20} style={iconOptionStyle} />
+              <Icon name='call' size={20} style={iconOptionStyle} />
             </View>
             <View style={{ flex: 0.25, borderColor: '#ccc', borderRightWidth: 1 }}>
-              <Icon name="chat-bubble-outline" size={20} style={iconOptionStyle} />
+              <Icon name='chat-bubble-outline' size={20} style={iconOptionStyle} />
             </View>
             <View style={{ flex: 0.25, borderColor: '#ccc', borderRightWidth: 1 }}>
-              <Icon2 name="location-pin" size={20} style={iconOptionStyle} />
+              <Icon2 name='location-pin' size={20} style={iconOptionStyle} />
             </View>
             <View style={{ flex: 0.25 }}>
-              <Icon2 name="user-unfollow" size={20} style={[iconOptionStyle, { color: 'red' }]} />
+              <Icon2 name='user-unfollow' size={20} style={[iconOptionStyle, { color: 'red' }]} />
             </View>
           </View>
         </Animated.View>
@@ -67,16 +71,16 @@ class ChatPeopleListItem extends Component {
   }
 
   renderRowOptions() {
-    const { chat, expanded } = this.props;
-    const { id } = chat;
+    const { library, expanded } = this.props;
+    const { id } = library;
     const { timeStyle, pendingMessageStyle, renderRowOptionsStyle } = styles;
     if (!expanded) {
       return (
         <View style={renderRowOptionsStyle}>
-          <Text style={timeStyle}>02:24 PM</Text>
+          <Text style={timeStyle}>12:24</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 5 }}>
             {id === 5 &&
-              <Icon3 name="md-volume-off" size={20} />
+              <Icon3 name='md-volume-off' size={20} />
             }
             {id < 5 &&
               <Text style={pendingMessageStyle}>{id + 1}</Text>
@@ -88,8 +92,8 @@ class ChatPeopleListItem extends Component {
   }
 
   renderInfoFriend() {
-    const { chat, expanded } = this.props;
-    const { id, fullname, lastMessage } = chat;
+    const { library, expanded } = this.props;
+    const { id, fullname, lastMessage } = library;
     const { nameStyle, placeStyle } = styles;
     if (expanded) {
       return (
@@ -109,8 +113,8 @@ class ChatPeopleListItem extends Component {
   }
 
   renderOnlineUserSign() {
-    const { chat } = this.props;
-    const { id } = chat;
+    const { library } = this.props;
+    const { id } = library;
     const { onlineUserSign } = styles;
     if (id === 0 || id === 1 || id === 3 || id === 5) {
       return (
@@ -124,7 +128,7 @@ class ChatPeopleListItem extends Component {
             rowContainer,
             profileImage } = styles;
 
-    const { id, fullname, photo, lastLogin } = this.props.chat;
+    const { id, fullname, photo, lastLogin } = this.props.friend;
 
     return (
       <TouchableWithoutFeedback
@@ -149,8 +153,9 @@ class ChatPeopleListItem extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const expanded = state.selectedFriendId === ownProps.chat.id;
-  return { expanded };
+  //todo: refactor aqui
+  const expanded = state.selectedFriendId === ownProps.library.id;
+  return { expanded: expanded };
 };
 
 const styles = {
@@ -163,7 +168,7 @@ const styles = {
     borderWidth: 3,
     position: 'absolute',
     right: 9,
-    bottom: 9,
+    bottom: 9
   },
   profileImage: {
     backgroundColor: 'transparent',
@@ -171,38 +176,38 @@ const styles = {
     marginTop: 7,
     width: 50,
     height: 50,
-    borderRadius: 50,
+    borderRadius: 50
   },
   iconStyle: {
     color: '#A89DC5',
     alignSelf: 'center',
-    marginTop: 15,
+    marginTop: 15
   },
   nameStyle: {
     fontSize: 17,
-    fontFamily: 'NotoSans-Bold',
+    fontFamily: 'NotoSans-Bold'
   },
   placeStyle: {
     fontSize: 13,
-    fontFamily: 'NotoSans-light',
+    fontFamily: 'NotoSans-light'
   },
   timeStyle: {
     fontSize: 12,
     fontFamily: 'NotoSans-light',
-    color: '#787878',
+    color: '#FF6D00',
     textAlign: 'right',
-    marginRight: 6,
+    marginRight: 6
   },
   renderRowOptionsStyle: {
-    flex: 0.2,
+    flex: 0.15,
     justifyContent: 'space-around',
     paddingTop: 5,
     marginBottom: 5,
-    marginRight: 10,
+    marginRight: 10
   },
   pendingMessageStyle: {
-    fontSize: 11,
-    backgroundColor: '#5DC144',
+    fontSize: 13,
+    backgroundColor: '#FF6D00',
     borderRadius: 50,
     fontFamily: 'NotoSans-light',
     color: '#fff',
@@ -212,12 +217,12 @@ const styles = {
     textAlign: 'center',
     paddingLeft: 5,
     paddingRight: 5,
-    height: 17,
+    height: 20
   },
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
+    alignItems: 'center'
   },
   rowContainer: {
     flex: 1,
@@ -225,7 +230,7 @@ const styles = {
     borderBottomWidth: 1.5,
     borderColor: '#E3F9F9',
     height: 65,
-    backgroundColor: '#FBFCFC',
+    backgroundColor: '#FBFCFC'
   },
   rowOptionContainer: {
     flex: 0.533,
@@ -235,13 +240,13 @@ const styles = {
     marginTop: 10,
     marginBottom: 10,
     borderRadius: 7,
-    marginRight: 10,
+    marginRight: 10
   },
   iconOptionStyle: {
     color: '#A89DC5',
     alignSelf: 'center',
-    marginTop: 10,
-  },
+    marginTop: 10
+  }
 };
 
 export default connect(mapStateToProps, actions)(ChatPeopleListItem);

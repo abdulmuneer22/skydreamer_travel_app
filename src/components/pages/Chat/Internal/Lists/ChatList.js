@@ -47,11 +47,11 @@ class ChatList extends React.Component {
 
   renderRow(chat, rowId, chatRows) {
 
-    var hiddenProfile = false;
-    var moreSpace = false;
-    var squareCorner = false;
-    var semiSquareCornerUp = false;
-    var semiSquareCornerDown = false;
+    let hiddenProfile = false;
+    let moreSpace = false;
+    let squareCorner = false;
+    let semiSquareCornerUp = false;
+    let semiSquareCornerDown = false;
 
     const previus = chatRows[Number(rowId) - 1];
     const current = chatRows[Number(rowId)];
@@ -82,7 +82,6 @@ class ChatList extends React.Component {
           semiSquareCornerUp = true;
         }
       }
-
     } else if (next) {
       if (current.user.userid === next.user.userid) {
         semiSquareCornerDown = true;
