@@ -1,19 +1,11 @@
-import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import React, { PropTypes } from 'react';
+import {
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 
-const Button = ({ onPress, children }) => {
-  const { buttonStyle, textStyle } = styles;
-
-  return (
-    <TouchableOpacity onPress={onPress} style={buttonStyle}>
-      <Text style={textStyle}>
-        {children}
-      </Text>
-    </TouchableOpacity>
-  );
-};
-
-const styles = {
+const styles = StyleSheet.create({
   textStyle: {
     alignSelf: 'center',
     color: '#007aff',
@@ -32,6 +24,23 @@ const styles = {
     marginLeft: 5,
     marginRight: 5,
   },
+});
+
+const Button = ({ onPress, children }) => {
+  const { buttonStyle, textStyle } = styles;
+
+  return (
+    <TouchableOpacity onPress={onPress} style={buttonStyle}>
+      <Text style={textStyle}>
+        {children}
+      </Text>
+    </TouchableOpacity>
+  );
 };
 
-export { Button };
+Button.propTypes = {
+  onPress: PropTypes.func.isRequired,
+  children: PropTypes.node.isRequired,
+};
+
+export default Button;

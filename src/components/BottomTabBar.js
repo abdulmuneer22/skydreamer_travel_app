@@ -13,7 +13,18 @@ import { View, AsyncStorage } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import TabBarIcon from './TabBarIcon';
 
-class BottomTabBar extends Component {
+const styles = {
+  content: {
+    flex: 1,
+    flexDirection: 'row',
+    paddingLeft: 15,
+    paddingRight: 15,
+    backgroundColor: '#FFFFFF',
+    elevation: 10,
+  },
+};
+
+export default class BottomTabBar extends Component {
 
   state = {
     selected: 'Flight',
@@ -24,7 +35,7 @@ class BottomTabBar extends Component {
     plusFriendNum: 2,
   };
 
-  animateBubble(index) {
+  animateBubble = (index) => {
     switch (index) {
       case 0:
         this.flightComponent.spring();
@@ -46,54 +57,51 @@ class BottomTabBar extends Component {
     }
   }
 
-  isActive(index) {
-    if (index === this.state.selected) {
-      return true;
-    }
-    return false;
-  }
+  isActive = index => (
+    index === this.state.selected
+  );
 
-  addNewFlightBubble(num = null) {
+  addNewFlightBubble = (num = null) => {
     const currentNum = this.state.chatNum;
     this.setState({ chatNum: currentNum + 1 });
     this.flightComponent.spring();
   }
 
-  addNewCompassBubble(num = null) {
+  addNewCompassBubble = (num = null) => {
     const currentNum = this.state.notificationNum;
     this.setState({ notificationNum: currentNum + 1 });
     this.compassComponent.spring();
   }
 
-  addNewCardBubble(num = null) {
+  addNewCardBubble = (num = null) => {
     const currentNum = this.state.mapNum;
     this.setState({ mapNum: currentNum + 1 });
     this.cardComponent.spring();
   }
 
-  addNewChatBubble(num = null) {
+  addNewChatBubble = (num = null) => {
     const currentNum = this.state.friendNum;
     this.setState({ friendNum: currentNum + 1 });
     this.chatComponent.spring();
   }
 
-  addNewFriendBubble(num = null) {
+  addNewFriendBubble = (num = null) => {
     const currentNum = this.state.plusFriendNum;
     this.setState({ plusFriendNum: currentNum + 1 });
     this.friendComponent.spring();
   }
 
-  clearTokenAuth() {
+  clearTokenAuth = () => {
     AsyncStorage.setItem('token', null);
     Actions.login();
   }
 
-  changeActiveIcon(index) {
+  changeActiveIcon = (index) => {
     const parent = this._reactInternalInstance._currentElement._owner._instance;
     parent.setCurrentPage(index);
   }
 
-  renderTabBar(parent) {
+  renderTabBar = (parent) => {
     const size = 26;
 
     return (
@@ -147,16 +155,3 @@ class BottomTabBar extends Component {
     );
   }
 }
-
-const styles = {
-  content: {
-    flex: 1,
-    flexDirection: 'row',
-    paddingLeft: 15,
-    paddingRight: 15,
-    backgroundColor: '#FFFFFF',
-    elevation: 10,
-  },
-};
-
-export default BottomTabBar;

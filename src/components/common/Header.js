@@ -1,19 +1,12 @@
 // Import libraries for making a component
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { PropTypes } from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+} from 'react-native';
 
-// Make a component
-const Header = (props) => {
-  const { textStyle, viewStyle } = styles;
-
-  return (
-    <View style={viewStyle}>
-      <Text style={textStyle}>{props.headerText}</Text>
-    </View>
-  );
-};
-
-const styles = {
+const styles = StyleSheet.create({
   viewStyle: {
     backgroundColor: '#F8F8F8',
     justifyContent: 'center',
@@ -29,7 +22,22 @@ const styles = {
   textStyle: {
     fontSize: 20,
   },
+});
+
+// Make a component
+const Header = ({ headerText }) => {
+  const { textStyle, viewStyle } = styles;
+
+  return (
+    <View style={viewStyle}>
+      <Text style={textStyle}>{headerText}</Text>
+    </View>
+  );
+};
+
+Header.propTypes = {
+  headerText: PropTypes.string.isRequired,
 };
 
 // Make the component available to other parts of the app
-export { Header };
+export default Header;

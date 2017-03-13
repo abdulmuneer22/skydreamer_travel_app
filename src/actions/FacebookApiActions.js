@@ -114,7 +114,7 @@ const sendFacebookAppInviteSuccess = result => ({
   result,
 });
 
-const sendFacebookAppInviteCancelled = result => ({
+const sendFacebookAppInviteCancelled = () => ({
   type: SEND_FB_APP_INVITE_CANCELLED,
 });
 

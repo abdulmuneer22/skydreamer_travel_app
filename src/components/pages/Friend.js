@@ -47,7 +47,7 @@ class Friend extends Component {
   render() {
     const {
       container,
-      searchBar
+      searchBar,
     } = styles;
 
     return (
@@ -68,7 +68,7 @@ const mapStateToProps = ({ selectedFriendId }) => ({
   query: selectedFriendId.query,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   friendActions: bindActionCreators(friendActions, dispatch),
 });
 

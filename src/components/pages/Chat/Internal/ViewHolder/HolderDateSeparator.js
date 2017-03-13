@@ -28,5 +28,5 @@ HolderDateSeparator.propTypes = {
 };
 
 export {
-  HolderDateSeparator
+  HolderDateSeparator,
 };
