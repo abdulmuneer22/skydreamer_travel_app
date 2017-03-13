@@ -49,7 +49,12 @@ class ChatList extends Component {
     this.scrollView.scrollToEnd({ animated: true });
   }
 
+<<<<<<< HEAD
+  renderRow(chat, rowId, chatRows) {
+
+=======
   renderRow = (chat, rowId, chatRows) => {
+>>>>>>> 75c7e7da268e9a5cab247dd1fa215b5fd7ccc4a8
     let hiddenProfile = false;
     let moreSpace = false;
     let squareCorner = false;
