@@ -1,313 +1,188 @@
 /**
- * @Class:             ChatPeopleListItem.js
- * @Parent:            ChatPeopleList.js
- * @Description:       Render the list of friends from Redux
- * @Author:            Guilherme Borges Bastos      @Date: 27/02/2017
+ * @Class:             ChatList.js
+ * @Parent:            Friend.js
+ * @Description:       Render the chat list from Redux
+ * @Author:            Guilherme Borges Bastos      @Date: 02/03/2017
  * @Notes:
  * @Revision History:
  * @Name:              @Date:      @Description:
- * Alberto Schiabel    12/03/2017  eslint, removed useless actions
+ * Alberto Schiabel    12/03/2017  eslint, removed useless actions, removed
+ *                                 useless componentWillMount, fixed typo
  */
 import React, { Component, PropTypes } from 'react';
-import {
-  Text,
-  TouchableWithoutFeedback,
-  View,
-  Image,
-  Animated
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import Icon2 from 'react-native-vector-icons/SimpleLineIcons';
-import Icon3 from 'react-native-vector-icons/Ionicons';
+import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// npm i -S react-native-invertible-scroll-view
 
-import { chatActions } from '../../../../actions';
+import {
+  // HolderDateSeparator,
+  HolderOtherText,
+  HolderSelfText,
+} from '../ViewHolder';
 
-const styles = {
-  onlineUserSign: {
-    backgroundColor: '#51CA31',
-    width: 17,
-    height: 17,
-    borderRadius: 50,
-    borderColor: '#FFF8F6',
-    borderWidth: 3,
-    position: 'absolute',
-    right: 9,
-    bottom: 9
-  },
-  profileImage: {
-    backgroundColor: 'transparent',
-    alignSelf: 'center',
-    marginTop: 7,
-    width: 50,
-    height: 50,
-    borderRadius: 50
-  },
-  iconStyle: {
-    color: '#A89DC5',
-    alignSelf: 'center',
-    marginTop: 15
-  },
-  nameStyle: {
-    fontSize: 17,
-    fontFamily: 'NotoSans-Bold'
-  },
-  placeStyle: {
-    fontSize: 13,
-    fontFamily: 'NotoSans-light'
-  },
-  timeStyle: {
-    fontSize: 12,
-    fontFamily: 'NotoSans-light',
-    color: '#FF6D00',
-    textAlign: 'right',
-    marginRight: 6
-  },
-  renderRowOptionsStyle: {
-    flex: 0.15,
-    justifyContent: 'space-around',
-    paddingTop: 5,
-    marginBottom: 5,
-    marginRight: 10
-  },
-  pendingMessageStyle: {
-    fontSize: 13,
-    backgroundColor: '#FF6D00',
-    borderRadius: 50,
-    fontFamily: 'NotoSans-light',
-    color: '#fff',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    alignItems: 'center',
-    textAlign: 'center',
-    paddingLeft: 5,
-    paddingRight: 5,
-    height: 20
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  rowContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    borderBottomWidth: 1.5,
-    borderColor: '#E3F9F9',
-    height: 65,
-    backgroundColor: '#FBFCFC'
-  },
-  rowOptionContainer: {
-    flex: 0.533,
-    flexDirection: 'row',
-    borderBottomWidth: 2,
-    borderColor: '#E6DBD9',
-    marginTop: 10,
-    marginBottom: 10,
-    borderRadius: 7,
-    marginRight: 10
-  },
-  iconOptionStyle: {
-    color: '#A89DC5',
-    alignSelf: 'center',
-    marginTop: 10,
-  },
-  iconContainerButLastOne: {
-    borderColor: '#ccc',
-    borderRightWidth: 1,
-  },
+export const addNewMessage = (text) => {
+  console.log('export const addNewMessage', text);
 };
 
-class ChatPeopleListItem extends Component {
+class ChatList extends Component {
 
   static propTypes = {
-    chat: PropTypes.object.isRequired,
-    expanded: PropTypes.bool.isRequired,
-    openChat: PropTypes.func,
-    selectedFriend: PropTypes.func,
+    chats: PropTypes.object.isRequired,
   };
 
-  state = {
-    fadeAnim: new Animated.Value(0), // init opacity 0
+  constructor(props) {
+    super(props);
+    this.state = {
+      chatRows: props.chats.data,
+      listHeight: 0,
+      scrollViewHeight: 0,
+    };
   }
 
-  componentWillUpdate() {
-    // LayoutAnimation.spring();
-    Animated.timing(          // Uses easing functions
-       this.state.fadeAnim,   // The value to drive
-       { toValue: 1, duration: 800 },         // Configuration
-     ).start();
+  componentWillReceiveProps() { // nextProps
+    this.setState({
+      chatRows: this.props.chats.data,
+    });
   }
 
-  renderMoreOptions() {
-    const {
-      iconOptionStyle,
-      rowOptionContainer,
-      iconContainerButLastOne,
-    } = styles;
-
-    return (
-      this.props.expanded &&
-        <Animated.View
-          style={{
-            flexDirection: 'row',
-            flex: 0.533,
-            opacity: this.state.fadeAnim }}
-        >
-          <View style={{ flex: 0.02 }}>
-            <Icon3
-              name="md-arrow-dropleft"
-              size={45}
-              style={{ color: '#F0E6E4', marginTop: 8 }}
-            />
-          </View>
-          <View
-            style={[
-              rowOptionContainer, {
-                backgroundColor: '#F0E6E4',
-                flex: 0.493,
-              },
-            ]}
-          >
-            <View
-              style={[{ flex: 0.25 }, iconContainerButLastOne]}
-            >
-              <Icon
-                name="call"
-                size={20}
-                style={iconOptionStyle}
-              />
-            </View>
-            <View style={[{ flex: 0.25 }, iconContainerButLastOne]}>
-              <Icon
-                name="chat-bubble-outline"
-                size={20}
-                style={iconOptionStyle}
-              />
-            </View>
-            <View
-              style={[{ flex: 0.25 }, iconContainerButLastOne]}
-            >
-              <Icon2
-                name="location-pin"
-                size={20}
-                style={iconOptionStyle}
-              />
-            </View>
-            <View style={{ flex: 0.25 }}>
-              <Icon2
-                name="user-unfollow"
-                size={20}
-                style={[iconOptionStyle, { color: 'red' }]}
-              />
-            </View>
-          </View>
-        </Animated.View>
-    );
+  componentDidUpdate() {
+    this.scrollView.scrollToEnd({ animated: true });
   }
 
-  renderRowOptions() {
-    const { chat, expanded } = this.props;
-    const { id } = chat;
-    const { timeStyle, pendingMessageStyle, renderRowOptionsStyle } = styles;
-    return (
-      !expanded &&
-        <View style={renderRowOptionsStyle}>
-          <Text style={timeStyle}>02:24 PM</Text>
-          <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 5 }}>
-            {id === 5 &&
-              <Icon3 name="md-volume-off" size={20} />
-            }
-            {id < 5 &&
-              <Text style={pendingMessageStyle}>{id + 1}</Text>
-            }
-          </View>
-        </View>
-    );
-  }
 
-  renderInfoFriend() {
-    const {
-      chat,
-      expanded,
-    } = this.props;
-    const {
-      fullname,
-      lastMessage,
-    } = chat;
-    const {
-      nameStyle,
-      placeStyle,
-    } = styles;
-    if (expanded) {
-      return (
-        <View style={{ flex: 0.266, paddingTop: 10 }}>
-          <Text style={nameStyle}>{fullname}</Text>
-          <Text style={placeStyle}>{lastMessage}</Text>
-        </View>
-      );
+  renderRow = (chat, rowId, chatRows) => {
+    let hiddenProfile = false;
+    let moreSpace = false;
+    let squareCorner = false;
+    let semiSquareCornerUp = false;
+    let semiSquareCornerDown = false;
+
+    const previus = chatRows[Number(rowId) - 1];
+    const current = chatRows[Number(rowId)];
+    const next = chatRows[Number(rowId) + 1];
+
+    if (previus && next) {
+      // semiSquareCornerDown valiations
+      if ((current.user.userid !== previus.user.userid) &&
+          (current.user.userid === next.user.userid)) {
+        semiSquareCornerDown = true;
+      } else if ((current.user.userid === previus.user.userid) &&
+                 (current.user.userid === next.user.userid)) {
+        squareCorner = true;
+      } else if ((current.user.userid === previus.user.userid) &&
+                 (current.user.userid !== next.user.userid)) {
+        semiSquareCornerUp = true;
+      }
+
+      if (current.user.userid !== previus.user.userid) {
+        moreSpace = true;
+      }
     }
 
-    return (
-      <View style={{ flex: 0.65, paddingTop: 10 }}>
-        <Text style={nameStyle}>{fullname}</Text>
-        <Text style={placeStyle}>{lastMessage}</Text>
-      </View>
-    );
-  }
+    if (previus) {
+      if (current.user.userid === previus.user.userid) {
+        hiddenProfile = true;
+      }
 
-  renderOnlineUserSign() {
-    const { id } = this.props.chat;
-    const { onlineUserSign } = styles;
-    return (
-      (id === 0 || id === 1 || id === 3 || id === 5) &&
-        <View style={onlineUserSign} />
-    );
+      if (!next) {
+        if (current.user.userid === previus.user.userid) {
+          semiSquareCornerUp = true;
+        }
+      }
+    } else if (next) {
+      if (current.user.userid === next.user.userid) {
+        semiSquareCornerDown = true;
+      }
+    }
+
+    if (!next) {
+      if (current.user.userid !== previus.user.userid) {
+        moreSpace = true;
+      }
+    }
+
+    const { id, type, text, user, timestamp } = chat;
+
+    switch (type) {
+      case 'DateSeparator':
+        return (
+          <HolderOtherText
+            id={id}
+            photoSrc={user.photoSrc}
+            timestamp={timestamp}
+            text={text}
+            hiddenProfile={hiddenProfile}
+            moreSpace={moreSpace}
+            squareCorner={squareCorner}
+            semiSquareCornerUp={semiSquareCornerUp}
+            semiSquareCornerDown={semiSquareCornerDown}
+            key={rowId}
+          />
+        );
+      case 'OtherText':
+        return (
+          <HolderOtherText
+            id={id}
+            photoSrc={user.photoSrc}
+            timestamp={timestamp}
+            text={text}
+            hiddenProfile={hiddenProfile}
+            moreSpace={moreSpace}
+            squareCorner={squareCorner}
+            semiSquareCornerUp={semiSquareCornerUp}
+            semiSquareCornerDown={semiSquareCornerDown}
+            key={rowId}
+          />
+        );
+      case 'SelfText':
+        return (
+          <HolderSelfText
+            id={id}
+            photoSrc={user.photoSrc}
+            timestamp={timestamp}
+            text={text}
+            hiddenProfile={hiddenProfile}
+            moreSpace={moreSpace}
+            squareCorner={squareCorner}
+            semiSquareCornerUp={semiSquareCornerUp}
+            semiSquareCornerDown={semiSquareCornerDown}
+            key={rowId}
+          />
+        );
+      default:
+        return {};
+    }
   }
 
   render() {
-    const {
-      container,
-      rowContainer,
-      profileImage,
-    } = styles;
-    const {
-      chat,
-      chatActions,
-      selectedFriend,
-    } = this.props;
-    const { id, fullname, photo, lastLogin } = chat;
-
+    const { chatRows } = this.state;
+    const { chats } = this.props;
+    // keyboardDismissMode="on-drag"
     return (
-      <TouchableWithoutFeedback
-        style={container}
-        onPress={() => chatActions.openChat(id, fullname, photo, lastLogin)}
-        onLongPress={() => selectedFriend(id)}
+      <ScrollView
+        ref={(component) => { this.scrollView = component; }}
+        onContentSizeChange={(contentWidth, contentHeight) => {
+          this.setState({
+            listHeight: contentHeight,
+          });
+        }}
+        onLayout={(e) => {
+          const height = e.nativeEvent.layout.height;
+          this.setState({
+            scrollViewHeight: height,
+          });
+        }}
       >
-        <View>
-          <View style={rowContainer}>
-            <View style={{ flex: 0.2 }}>
-              <Image source={{ uri: photo }} style={profileImage} />
-              {this.renderOnlineUserSign()}
-            </View>
-            {this.renderMoreOptions()}
-            {this.renderInfoFriend()}
-            {this.renderRowOptions()}
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
+        {chats.data.map((chat, i) => this.renderRow(chat, i, chatRows))}
+      </ScrollView>
     );
   }
+
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const expanded = state.selectedFriendId === ownProps.chat.id;
-  return { expanded };
-};
+const mapStateToProps = state =>
+  /* console.log('mapStateToProps of ChatList.js');
+  console.log(state);*/
+   ({ chats: state.chats });
 
-const mapDispatchToProps = dispatch => ({
-  chatActions: bindActionCreators(chatActions, dispatch),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ChatPeopleListItem);
+export default connect(mapStateToProps, null)(ChatList);
