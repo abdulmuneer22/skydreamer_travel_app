@@ -1,9 +1,14 @@
+import {
+  OPEN_CHAT,
+  ADD_NEW_MESSAGE
+} from './types';
+
 export const openChat = (id, fullname, photo, lastLogin) => ({
-  type: 'open_chat',
+  type: OPEN_CHAT,
   payload: { id, fullname, photo, lastLogin },
 });
 
 export const addNewMessage = (type, text) => ({
-  type: 'add_new_message',
+  type: ADD_NEW_MESSAGE,
   payload: { type, text },
 });

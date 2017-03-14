@@ -6,15 +6,16 @@
  * @Revision History:
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    12/03/2017  eslint, refactored
+ * Alberto Schiabel    14/03/2017  refactored actions and common import
  */
 import React, { Component, PropTypes } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { Searchbar } from '.././common';
+import { Searchbar } from 'skydreamer/common';
 import FriendList from './Lists/FriendList';
-import { friendActions } from '../../actions';
+import { friendActions } from 'skydreamer/actions';
 
 const styles = {
   title: {

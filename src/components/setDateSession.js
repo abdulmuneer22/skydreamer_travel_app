@@ -6,6 +6,7 @@
  * @Revision History:
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    11/03/2017  Refactored and split code
+ * Alberto Schiabel    14/03/2017  refactored images import
  */
 import React, { Component } from 'react';
 import { Text, View, Switch } from 'react-native';
@@ -14,7 +15,7 @@ import { Actions } from 'react-native-router-flux';
 
 import { TripMonthSelection, TripDaySelection } from './SetDateSessionElements';
 import ButtonNext from './ButtonNext';
-import IconCalendar from '../images/icon-calendar.png';
+import IconCalendar from 'skydreamer/images/icon-calendar.png';
 
 // Later on in your styles..
 const styles = {

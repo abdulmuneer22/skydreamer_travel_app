@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 // missing import of Boody, ListItem, and CheckBox
-import { pickerActions } from '../../actions';
+import { pickerActions } from 'skydreamer/actions';
 
 class Contact extends Component {
 

@@ -7,6 +7,7 @@
  * @Revision History:
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    13/03/2017  eslint, refactored
+ * Alberto Schiabel    14/03/2017  refactored actions import
  */
 import React, { Component, PropTypes } from 'react';
 import {
@@ -23,7 +24,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import Icon2 from 'react-native-vector-icons/SimpleLineIcons';
 import Icon3 from 'react-native-vector-icons/Ionicons';
 
-import { friendActions } from '../../../actions';
+import { friendActions } from 'skydreamer/actions';
 
 const styles = StyleSheet.create({
   onlineUserSign: {

@@ -6,6 +6,7 @@
  * @Revision History:
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    11/03/2017  Fixed eslint, removed bind
+ * Alberto Schiabel    14/03/2017  refactored images import
  */
 import React, { Component } from 'react';
 import { Text, Image, View } from 'react-native';
@@ -13,6 +14,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import Slider from 'react-native-slider';
 import { Actions } from 'react-native-router-flux';
 import ButtonNext from './ButtonNext';
+
+import MapImage from 'skydreamer/images/map.png';
 
 // Later on in your styles..
 const styles = {
@@ -81,7 +84,7 @@ export default class SetPriceSession extends Component {
       >
         <Image
           style={{height: 150}}
-          source={require('../images/map.png')}
+          source={MapImage}
         />
         <View style={textContainer}>
           <Text style={pageNumber}>

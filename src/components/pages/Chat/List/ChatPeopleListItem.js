@@ -7,6 +7,7 @@
  * @Revision History:
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    12/03/2017  eslint, removed useless actions
+ * Alberto Schiabel    14/03/2017  refactored actions import
  */
 import React, { Component, PropTypes } from 'react';
 import {
@@ -22,7 +23,7 @@ import Icon3 from 'react-native-vector-icons/Ionicons';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { chatActions } from '../../../../actions';
+import { chatActions } from 'skydreamer/actions';
 
 const styles = {
   onlineUserSign: {

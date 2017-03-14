@@ -6,6 +6,7 @@
  * @Revision History:
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    12/03/2017  Removed useless actions, eslint
+ * Alberto Schiabel    14/03/2017  refactored actions import
  */
 import React, { Component, PropTypes } from 'react';
 import { View,
@@ -24,7 +25,7 @@ import Icon3 from 'react-native-vector-icons/Ionicons';
 import Icon4 from 'react-native-vector-icons/Entypo';
 
 import ChatList from './Lists/ChatList';
-import { chatActions } from '../../../../actions';
+import { chatActions } from 'skydreamer/actions';
 
 const styles = {
   iconStyle: {

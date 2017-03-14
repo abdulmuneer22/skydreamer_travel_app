@@ -6,15 +6,15 @@ import { Text,
          Animated } from 'react-native';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { authActions } from '../actions';
+import { authActions } from 'skydreamer/actions';
 import { CardSection,
          Spinner,
-         Input } from './common';
+         Input } from 'skydreamer/common';
 import ButtonLogin from './ButtonLogin';
 import FacebookLoginButton from './FacebookLoginButton';
 
-import ImgLoginBg from '../images/login-bg.jpg';
-import ImgLogo from '../images/logo.png';
+import ImgLoginBg from 'skydreamer/images/login-bg.jpg';
+import ImgLogo from 'skydreamer/images/logo.png';
 
 const styles = {
   errorTextStyle: {

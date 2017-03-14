@@ -7,6 +7,7 @@
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    10/03/2017  Imported types instead of using
  *                                 them statically, removed useless consts
+ * Alberto Schiabel    14/03/2017  added import types, refactored actions import
  */
 import {
   CONTACTS_CHECKED,
@@ -15,7 +16,7 @@ import {
   SEARCH_QUERY,
   CONTACTS_SEARCH,
   CONTACTS_LOADED,
-} from '../actions/types';
+} from 'skydreamer/actions/types';
 
 const INITIAL_STATE = {
   query: null,

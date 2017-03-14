@@ -15,7 +15,7 @@ import {
   LOGIN_FACEBOOK_SUCCESS,
   LOGIN_FACEBOOK_FAIL,
   LOGIN_FACEBOOK,
-} from '../actions/types';
+} from 'skydreamer/actions/types';
 
 const INITIAL_STATE = {
   email: 'guilhermeborgesbastos@gmail.com',

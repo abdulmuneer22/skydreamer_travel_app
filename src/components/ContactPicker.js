@@ -7,14 +7,14 @@ import {
 import { some, includes } from 'lodash';
 // import Contacts from 'react-native-contacts';
 // import { connect } from 'react-redux';
-import Contact from './common/Contact';
 // import { contactsSelected, searchQuery, contactsLoaded, contactsSearch } from '../actions';
 import {
   Input,
+  Contact,
   /* Card,
   Spinner,*/
   CardSection,
-} from './common';
+} from 'skydreamer/common';
 import ButtonNext from './ButtonNext';
 
 const styles = {

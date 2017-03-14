@@ -1,12 +1,3 @@
-// /-----------------------------------------------------------------
-// /   Namespace:      Main.js
-// /   Class:          Location.js
-// /   Description:    Render MapView
-// /   Author:         Guilherme Borges Bastos       Date: 27/02/2017
-// /   Notes:
-// /   Revision History:
-// /   Name:           Date:        Description:
-// /-----------------------------------------------------------------
 /**
  * @Namespace:         Main.js
  * @Class:             Location.js
@@ -16,12 +7,13 @@
  * @Revision History:
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    11/03/2017  eslint, refactored
+ * Alberto Schiabel    14/03/2017  refactored images import
  */
 import React, { Component, PropTypes } from 'react';
 import { Text, View, Dimensions, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 
-import flagImg from '../../images/flag-blue.png';
+import flagImg from 'skydreamer/images/flag-blue.png';
 
 const { width, height } = Dimensions.get('window');
 

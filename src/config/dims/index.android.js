@@ -17,6 +17,11 @@ const dims = {
   cardPadding: 15,
   chatUserPadding: 5,
   chatFriendMargin: 10,
+  iconSize: {
+    small: 20,
+    medium: 30,
+    large: 45,
+  },
 };
 
 export default dims;

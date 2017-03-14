@@ -1,19 +1,19 @@
-// /-----------------------------------------------------------------
-// /   Class:          FriendSelectionReducer.js
-// /   Description:    switch the action connected with Friend reducer
-// /   Author:         Guilherme Borges Bastos       Date: 15/02/2017
-// /   Notes:
-// /   Revision History:
-// /   Name:               Date:           Description:
-// /   Guilherme Bastos    27/02/2017      Add action select_friend
-// /   Alberto Schiabel    10/03/2017      Imported types instead of using them
-// /                                       statically, removed useless lodash
-// /-----------------------------------------------------------------
+/**
+ * @Class:             FriendSelectionReducer.js
+ * @Description:       switch the action connected with Friend reducer
+ * @Author:            Guilherme Borges Bastos      @Date: 15/02/2017
+ * @Notes:
+ * @Revision History:
+ * @Name:              @Date:      @Description:
+ * Guilherme Bastos    27/02/2017  added action select_friend
+ * Alberto Schiabel    10/03/2017  imported types instead of using them, statically, removed lodash
+ * Alberto Schiabel    14/03/2017  added import types, refactored actions import
+ */
 import {
   SELECT_FRIEND,
   SEARCH_FRIENDS,
   LOAD_FRIENDS,
-} from '../actions/types';
+} from 'skydreamer/actions/types';
 
 const INITIAL_STATE = {
   query: '',

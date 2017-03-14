@@ -13,6 +13,8 @@ export const SELECT_FRIEND = 'SELECT_FRIEND';
 export const SEARCH_FRIENDS = 'SEARCH_FRIENDS';
 export const LOAD_FRIENDS = 'LOAD_FRIENDS';
 
+export const OPEN_CHAT = 'OPEN_CHAT';
+export const ADD_NEW_MESSAGE = 'ADD_NEW_MESSAGE';
 /**
  * Author: Alberto Schiabel
  * Scope: handling facebook auth flow

@@ -7,13 +7,14 @@
  * @Revision History:
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    11/03/2017  eslint, refactored
+ * Alberto Schiabel    14/03/2017  refactored actions import
  */
 import React, { Component, PropTypes } from 'react';
 import { ListView, View, Text } from 'react-native';
 import { connect } from 'react-redux';
 import FriendListItem from './FriendListItem';
 
-import { loadFriends } from '../../../actions';
+import { loadFriends } from 'skydreamer/actions';
 
 const styles = {
   container: {

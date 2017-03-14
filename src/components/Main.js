@@ -16,7 +16,7 @@ import ViewPager from 'react-native-viewpager';
 // redux connection here is only to test fbApis
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { facebookApiActions } from '../actions';
+import { facebookApiActions } from 'skydreamer/actions';
 
 import BottomTabBar from './BottomTabBar';
 import TopTabBar from './TopTabBar';

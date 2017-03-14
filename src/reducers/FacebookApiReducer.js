@@ -5,6 +5,7 @@
  * @Notes:
  * @Revision History:
  * @Name:              @Date:      @Description:
+ * Alberto Schiabel    14/03/2017  refactored actions import
  */
 import {
   SHARE_FB_LINK_WITH_COMMENT_DEFINED_BY_THE_USER,
@@ -18,7 +19,7 @@ import {
   SEND_FB_APP_INVITE_SUCCESS,
   SEND_FB_APP_INVITE_FAIL,
   SEND_FB_APP_INVITE_CANCELLED,
-} from '../actions/types';
+} from 'skydreamer/actions/types';
 
 const INITIAL_STATE = {
   shareFbLinkWithCommentDefinedByTheUserResult: null,
