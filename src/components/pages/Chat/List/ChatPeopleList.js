@@ -30,7 +30,7 @@ class ChatPeopleList extends Component {
     this.dataSource = ds.cloneWithRows(props.friends);
   }
 
-  renderRow = (friend) => (
+  renderRow = friend => (
     <ChatPeopleListItem chat={friend} />
   );
 

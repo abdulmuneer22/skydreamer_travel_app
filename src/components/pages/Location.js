@@ -17,7 +17,7 @@
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    11/03/2017  eslint, refactored
  */
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Text, View, Dimensions, StyleSheet } from 'react-native';
 import MapView from 'react-native-maps';
 
@@ -56,7 +56,11 @@ const styles = StyleSheet.create({
 export default class Location extends Component {
 
   static propTypes = {
-    provider: MapView.ProviderPropType,
+    provider: PropTypes.string,
+  };
+
+  static defaultProps = {
+    provider: 'google',
   };
 
   state = {
@@ -76,8 +80,8 @@ export default class Location extends Component {
         initialRegion={this.state.region}
         onPress={this.onMapPress}
         loadingEnabled
-        loadingIndicatorColor="#666666"
-        loadingBackgroundColor="#eeeeee"
+        loadingIndicatorColor="#666"
+        loadingBackgroundColor="#eee"
       >
         <MapView.Marker
           coordinate={{

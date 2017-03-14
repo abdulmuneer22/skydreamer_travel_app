@@ -1,30 +1,13 @@
-import React from 'react';
-import { TextInput, View, TouchableOpacity } from 'react-native';
+import React, { PropTypes } from 'react';
+import {
+  TextInput,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-const Searchbar = ({ value, onChangeText, onPress, placeholder, secureTextEntry, placeholderColor, underlineColor }) => {
-  const { inputStyle, containerStyle } = styles;
-  return (
-    <View style={containerStyle}>
-      <TextInput
-        secureTextEntry={secureTextEntry}
-        placeholder={placeholder}
-        placeholderStyle={{ fontFamily: 'NotoSans-Regular', fontSize: 18 }}
-        autoCorrect={false}
-        style={inputStyle}
-        value={value}
-        onChangeText={onChangeText}
-        placeholderTextColor={placeholderColor || 'white'}
-        underlineColorAndroid={underlineColor || 'white'}
-      />
-      <TouchableOpacity onPress={onPress}>
-        <Icon name="clear" size={20} />
-      </TouchableOpacity>
-    </View>
-  );
-};
-
-const styles = {
+const styles = StyleSheet.create({
   inputStyle: {
     color: '#000',
     paddingRight: 5,
@@ -51,6 +34,52 @@ const styles = {
     position: 'relative',
 
   },
+});
+
+const Searchbar = (props) => {
+  const {
+    value,
+    onChangeText,
+    onPress,
+    placeholder,
+    secureTextEntry,
+    placeholderColor,
+    underlineColor,
+  } = props;
+  const { inputStyle, containerStyle } = styles;
+
+  return (
+    <View style={containerStyle}>
+      <TextInput
+        secureTextEntry={secureTextEntry}
+        placeholder={placeholder}
+        placeholderStyle={{ fontFamily: 'NotoSans-Regular', fontSize: 18 }}
+        autoCorrect={false}
+        style={inputStyle}
+        value={value}
+        onChangeText={onChangeText}
+        placeholderTextColor={placeholderColor || 'white'}
+        underlineColorAndroid={underlineColor || 'white'}
+      />
+      <TouchableOpacity onPress={onPress}>
+        <Icon name="clear" size={20} />
+      </TouchableOpacity>
+    </View>
+  );
 };
 
-export { Searchbar };
+Searchbar.propTypes = {
+  value: PropTypes.string,
+  onChangeText: PropTypes.func.isRequired,
+  onPress: PropTypes.func.isRequired,
+  secureTextEntry: PropTypes.string,
+  placeholder: PropTypes.string.isRequired,
+  placeholderColor: PropTypes.string,
+  underlineColor: PropTypes.string,
+};
+
+Searchbar.defaultProps = {
+  value: '',
+};
+
+export default Searchbar;

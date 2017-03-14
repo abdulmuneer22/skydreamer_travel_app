@@ -1,7 +1,40 @@
-import React from 'react';
-import { TextInput, View } from 'react-native';
+import React, { PropTypes } from 'react';
+import {
+  TextInput,
+  View,
+  StyleSheet,
+} from 'react-native';
 
-const Input = ({ value, onChangeText, placeholder, secureTextEntry, placeholderColor, underlineColor }) => {
+const styles = StyleSheet.create({
+  inputStyle: {
+    color: '#FFF',
+    paddingRight: 5,
+    paddingLeft: 5,
+    marginRight: 15,
+    marginLeft: 15,
+    paddingBottom: 20,
+    fontSize: 18,
+    lineHeight: 35,
+    flex: 1,
+    fontFamily: 'Poppins-Regular',
+  },
+  containerStyle: {
+    height: 50,
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+});
+
+const Input = (props) => {
+  const {
+    value,
+    onChangeText,
+    placeholder,
+    secureTextEntry,
+    placeholderColor,
+    underlineColor,
+  } = props;
   const { inputStyle, containerStyle } = styles;
 
   return (
@@ -21,25 +54,13 @@ const Input = ({ value, onChangeText, placeholder, secureTextEntry, placeholderC
   );
 };
 
-const styles = {
-  inputStyle: {
-    color: '#FFF',
-    paddingRight: 5,
-    paddingLeft: 5,
-    marginRight: 15,
-    marginLeft: 15,
-    paddingBottom: 20,
-    fontSize: 18,
-    lineHeight: 35,
-    flex: 1,
-    fontFamily: 'Poppins-Regular',
-  },
-  containerStyle: {
-    height: 50,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
+Input.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChangeText: PropTypes.func.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  secureTextEntry: PropTypes.string.isRequired,
+  placeholderColor: PropTypes.string.isRequired,
+  underlineColor: PropTypes.string.isRequired,
 };
 
-export { Input };
+export default Input;

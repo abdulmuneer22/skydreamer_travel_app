@@ -49,7 +49,8 @@ class ChatList extends Component {
     this.scrollView.scrollToEnd({ animated: true });
   }
 
-  renderRow(chat, rowId, chatRows) {
+
+  renderRow = (chat, rowId, chatRows) => {
     let hiddenProfile = false;
     let moreSpace = false;
     let squareCorner = false;

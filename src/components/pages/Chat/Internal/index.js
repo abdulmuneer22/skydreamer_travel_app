@@ -255,7 +255,7 @@ const mapStateToProps = (state) => {
   return { text, type };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   chatActions: bindActionCreators(chatActions, dispatch),
 });
 

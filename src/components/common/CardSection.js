@@ -1,13 +1,10 @@
-import React from 'react';
-import { View } from 'react-native';
+import React, { PropTypes } from 'react';
+import {
+  View,
+  StyleSheet,
+} from 'react-native';
 
-const CardSection = props => (
-  <View style={[styles.containerStyle, props.style]}>
-    {props.children}
-  </View>
-  );
-
-const styles = {
+const styles = StyleSheet.create({
   containerStyle: {
     padding: 5,
     justifyContent: 'flex-start',
@@ -15,6 +12,17 @@ const styles = {
     backgroundColor: 'transparent',
     position: 'relative',
   },
+});
+
+const CardSection = ({ children, style }) => (
+  <View style={[styles.containerStyle, style]}>
+    {children}
+  </View>
+);
+
+CardSection.propTypes = {
+  children: PropTypes.node.isRequired,
+  style: PropTypes.object.isRequired,
 };
 
-export { CardSection };
+export default CardSection;

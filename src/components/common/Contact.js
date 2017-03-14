@@ -1,33 +1,75 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
+import React, { Component, PropTypes } from 'react';
+import { Text } from 'react-native';
 import { connect } from 'react-redux';
-import { contactsChecked, contactsUnchecked } from '../../actions';
+import { bindActionCreators } from 'redux';
+
+// missing import of Boody, ListItem, and CheckBox
+import { pickerActions } from '../../actions';
 
 class Contact extends Component {
-  state = { check: !this.props.selected };
-  onContactCheck(contact) {
-    const check = this.state.check;
-    this.setState({ check: this.props.selected });
+
+  static propTypes = {
+    selected: PropTypes.bool.isRequired,
+    pickerActions: PropTypes.object.isRequired,
+    givenName: PropTypes.string.isRequired,
+    middleName: PropTypes.string.isRequired,
+    familyName: PropTypes.string.isRequired,
+    contacts: PropTypes.array.isRequired,
+  };
+
+  state = {
+    check: !this.props.selected,
+  };
+
+  onContactCheck = (contact) => {
+    const {
+      selected,
+      pickerActions,
+    } = this.props;
+    const {
+      contactsChecked,
+      contactsUnchecked,
+    } = pickerActions;
+
+    const { check } = this.state;
+    this.setState({
+      check: selected,
+    });
     // Call the redux action
-    if (!check) this.props.contactsChecked(contact);
-    else this.props.contactsUnchecked(contact);
+    if (!check) {
+      contactsChecked(contact);
+    } else {
+      contactsUnchecked(contact);
+    }
   }
 
   render() {
+    const {
+      contacts,
+      givenName,
+      middleName,
+      familyName,
+    } = this.props;
     return (
-      <ListItem onPress={() => this.onContactCheck(this.props.contacts)}>
+      <ListItem onPress={this.onContactCheck(contacts)}>
         <Body>
-          <Text>{this.props.givenName} {this.props.middleName} {this.props.familyName}</Text>
+          <Text>{givenName} {middleName} {familyName}</Text>
         </Body>
         <CheckBox
           checked={this.state.check}
-          onPress={() => this.onContactCheck(this.props.contacts)}
+          onPress={this.onContactCheck(contacts)}
         />
       </ListItem>
     );
   }
 }
 
-const mapStateToProps = state => ({ contacts: state.picker.contacts });
+const mapStateToProps = ({ picker }) => ({
+  contacts: picker.contacts,
+});
 
-export default connect(mapStateToProps, { contactsChecked, contactsUnchecked })(Contact);
+const mapDispatchToProps = dispatch => ({
+  pickerActions: bindActionCreators(pickerActions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Contact);
