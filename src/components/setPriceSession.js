@@ -8,7 +8,7 @@
  * Alberto Schiabel    11/03/2017  Fixed eslint, removed bind
  */
 import React, { Component } from 'react';
-import { Text } from 'react-native';
+import { Text, Image, View } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import Slider from 'react-native-slider';
 import { Actions } from 'react-native-router-flux';
@@ -21,24 +21,35 @@ const styles = {
     width: null,
     height: null,
   },
-  textValue: {
-    color: '#FFF',
+  textContainer: {
     marginTop: 25,
-    marginRight: 25,
-    marginLeft: 25,
-    fontSize: 55,
-    fontFamily: 'NotoSans-Regular',
+    marginRight: 45,
+    marginLeft: 45
+  },
+  textValue: {
+    color: '#f77633',
+    fontSize: 70,
+    fontFamily: 'Poppins-Light',
     justifyContent: 'flex-start',
   },
+  upperTitle: {
+    color: '#000',
+    fontSize: 20,
+    lineHeight: 40,
+    fontFamily: 'Poppins-Light',
+    alignSelf: 'center',
+  },
+  pageNumber: {
+    color: '#8f9fb6',
+    fontSize: 20,
+    fontFamily: 'Poppins-Regular',
+    textAlign: 'left',
+  },
   textTitle: {
-    color: '#FFF',
-    marginTop: 25,
-    marginRight: 25,
-    marginLeft: 25,
-    paddingBottom: 20,
-    fontSize: 35,
-    lineHeight: 50,
-    fontFamily: 'NotoSans-Regular',
+    color: '#000',
+    fontSize: 30,
+    lineHeight: 40,
+    fontFamily: 'Poppins-Bold',
     alignSelf: 'center',
   },
   slider: {
@@ -60,23 +71,33 @@ export default class SetPriceSession extends Component {
   }
 
   render() {
-    const { linearGradient, textTitle, slider, textValue } = styles;
+    const { linearGradient, textContainer, upperTitle, pageNumber, textTitle, slider, textValue } = styles;
     const { value } = this.state;
 
     return (
       <LinearGradient
-        colors={['#EE3030', '#A71FAD']}
+        colors={['#ffff', '#ffff']}
         style={linearGradient}
       >
-        <Text style={textTitle}>
-          How much do you want to spend for your flight?
-        </Text>
-
-        <Text style={textValue}>US$ {value}</Text>
-
+        <Image
+          style={{height: 150}}
+          source={require('../images/map.png')}
+        />
+        <View style={textContainer}>
+          <Text style={pageNumber}>
+            1/6
+          </Text>
+          <Text style={upperTitle}>
+            How much do you want to
+          </Text>
+          <Text style={textTitle}>
+            Spend for your flight?
+          </Text>
+          <Text style={textValue}>{value}$</Text>
+        </View>
         <Slider
           value={value}
-          step={1}
+          step={50}
           minimumValue={50}
           maximumValue={3000}
           minimumTrackTintColor="#1B9AF7"
@@ -86,9 +107,8 @@ export default class SetPriceSession extends Component {
           trackStyle={{ position: 'relative' }}
           onValueChange={newValue => this.setState({ value: newValue })}
         />
-
         <ButtonNext onPress={this.onNextPress}>
-          Choose the date
+          >
         </ButtonNext>
       </LinearGradient>
     );
