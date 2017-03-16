@@ -8,11 +8,14 @@
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    12/03/2017  eslint, removed useless actions, removed
  *                                 useless componentWillMount, fixed typo
+ * Guilherme Bastos    16/03/2017  Added chatMessagesFetch from Firebase
  */
+
 import React, { Component, PropTypes } from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-// npm i -S react-native-invertible-scroll-view
+import { chatMessagesFetch } from '../../../../../actions';
+import lodash from 'lodash';
 
 import {
   // HolderDateSeparator,
@@ -37,9 +40,16 @@ class ChatList extends Component {
       listHeight: 0,
       scrollViewHeight: 0,
     };
+
+    this.props.chatMessagesFetch();
+
+    console.log('############# ChatList() componentWillMount ##############');
+    console.log('props', this.props);
+
   }
 
-  componentWillReceiveProps() { // nextProps
+
+  componentWillReceiveProps(nextProps) { // nextProps
     this.setState({
       chatRows: this.props.chats.data,
     });
@@ -150,7 +160,7 @@ class ChatList extends Component {
           />
         );
       default:
-        return {};
+        return (<Text>Not defined</Text>);
     }
   }
 
@@ -180,9 +190,13 @@ class ChatList extends Component {
 
 }
 
-const mapStateToProps = state =>
-  /* console.log('mapStateToProps of ChatList.js');
-  console.log(state);*/
-   ({ chats: state.chats });
 
-export default connect(mapStateToProps, null)(ChatList);
+const mapStateToProps = state => {
+  const chats = lodash.map(state.chats, (val, uid) => {
+    return { ...val, uid };
+  });
+
+  return { chats };
+};
+
+export default connect(mapStateToProps, { chatMessagesFetch })(ChatList);

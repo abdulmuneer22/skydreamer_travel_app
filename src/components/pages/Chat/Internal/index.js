@@ -249,9 +249,6 @@ class InternalChat extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('mapStateToProps of InternalChat.js');
-  console.log(state);
-
   const { text, type } = state;
   return { text, type };
 };

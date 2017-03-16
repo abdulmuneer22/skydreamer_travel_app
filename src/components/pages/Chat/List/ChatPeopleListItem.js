@@ -209,19 +209,21 @@ class ChatPeopleListItem extends Component {
   }
 
   renderRowOptions() {
-    const { chat, expanded } = this.props;
-    const { id } = chat;
+    const { uid } = this.props.chat;
     const { timeStyle, pendingMessageStyle, renderRowOptionsStyle } = styles;
+
+    const expanded = false;
+
     return (
       !expanded &&
         <View style={renderRowOptionsStyle}>
           <Text style={timeStyle}>02:24 PM</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 5 }}>
-            {id === 5 &&
+            {uid === 5 &&
               <Icon3 name="md-volume-off" size={20} />
             }
-            {id < 5 &&
-              <Text style={pendingMessageStyle}>{id + 1}</Text>
+            {uid < 5 &&
+              <Text style={pendingMessageStyle}>{uid + 1}</Text>
             }
           </View>
         </View>
@@ -229,18 +231,16 @@ class ChatPeopleListItem extends Component {
   }
 
   renderInfoFriend() {
-    const {
-      chat,
-      expanded,
-    } = this.props;
-    const {
-      fullname,
-      lastMessage,
-    } = chat;
-    const {
-      nameStyle,
-      placeStyle,
-    } = styles;
+
+    const { nameStyle, placeStyle } = styles;
+
+    const { first_name, last_name } = this.props.chat;
+    const fullname = first_name + ' ' + last_name;
+
+    const lastMessage = 'test last message from Firebase...';
+
+    const expanded = false;
+
     if (expanded) {
       return (
         <View style={{ flex: 0.266, paddingTop: 10 }}>
@@ -259,37 +259,33 @@ class ChatPeopleListItem extends Component {
   }
 
   renderOnlineUserSign() {
-    const { id } = this.props.chat;
+    const { uid } = this.props.chat;
     const { onlineUserSign } = styles;
     return (
-      (id === 0 || id === 1 || id === 3 || id === 5) &&
+      (uid === 0 || uid === 1 || uid === 3 || uid === 5) &&
         <View style={onlineUserSign} />
     );
   }
 
   render() {
-    const {
-      container,
-      rowContainer,
-      profileImage,
-    } = styles;
-    const {
-      chat,
-      chatActions,
-      selectedFriend,
-    } = this.props;
-    const { id, fullname, photo, lastLogin } = chat;
+    const { container, rowContainer, profileImage } = styles;
+    const { chatActions, selectedFriend } = this.props;
+    const { uid, first_name, last_name, photo } = this.props.chat;
+    const fullname = first_name + ' ' + last_name;
+
+    //FAKE
+    const lastLogin = 1489692626;
 
     return (
       <TouchableWithoutFeedback
         style={container}
-        onPress={() => chatActions.openChat(id, fullname, photo, lastLogin)}
-        onLongPress={() => selectedFriend(id)}
+        onPress={() => chatActions.openChat(uid, fullname, photo, lastLogin)}
+        onLongPress={() => selectedFriend(uid)}
       >
         <View>
           <View style={rowContainer}>
             <View style={{ flex: 0.2 }}>
-              <Image source={{ uri: photo }} style={profileImage} />
+              <Image source={{ uri: 'https://storage.skydreamer.io/profile/' + photo }} style={profileImage} />
               {this.renderOnlineUserSign()}
             </View>
             {this.renderMoreOptions()}
@@ -303,7 +299,7 @@ class ChatPeopleListItem extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  const expanded = state.selectedFriendId === ownProps.chat.id;
+  const expanded = state.selectedFriendId === ownProps.chat.uid;
   return { expanded };
 };
 
