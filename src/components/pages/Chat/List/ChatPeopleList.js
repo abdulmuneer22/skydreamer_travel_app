@@ -22,7 +22,7 @@ const styles = {
 };
 
 //FAKE userId
-const userId = 1;
+const userId = '148976189158cbf663d375d';
 
 class ChatPeopleList extends Component {
 
@@ -68,6 +68,10 @@ class ChatPeopleList extends Component {
 
 
 const mapStateToProps = state => {
+
+  console.log('**** mapStateToProps ChatPeopleList() ****');
+  console.log(state.chats);
+
   const chats = state.chats;
   return { chats };
 };

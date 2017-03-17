@@ -52,15 +52,15 @@ const styles = {
   },
   nameStyle: {
     fontSize: 17,
-    fontFamily: 'NotoSans-Bold'
+    fontFamily: 'Poppins-Regular'
   },
   placeStyle: {
     fontSize: 13,
-    fontFamily: 'NotoSans-light'
+    fontFamily: 'Poppins-light'
   },
   timeStyle: {
     fontSize: 12,
-    fontFamily: 'NotoSans-light',
+    fontFamily: 'Poppins-light',
     color: '#FF6D00',
     textAlign: 'right',
     marginRight: 6
@@ -76,7 +76,7 @@ const styles = {
     fontSize: 13,
     backgroundColor: '#FF6D00',
     borderRadius: 50,
-    fontFamily: 'NotoSans-light',
+    fontFamily: 'Poppins-light',
     color: '#fff',
     flexWrap: 'wrap',
     justifyContent: 'center',
@@ -141,75 +141,8 @@ class ChatPeopleListItem extends Component {
      ).start();
   }
 
-  renderMoreOptions() {
-    const {
-      iconOptionStyle,
-      rowOptionContainer,
-      iconContainerButLastOne,
-    } = styles;
-
-    return (
-      this.props.expanded &&
-        <Animated.View
-          style={{
-            flexDirection: 'row',
-            flex: 0.533,
-            opacity: this.state.fadeAnim }}
-        >
-          <View style={{ flex: 0.02 }}>
-            <Icon3
-              name="md-arrow-dropleft"
-              size={45}
-              style={{ color: '#F0E6E4', marginTop: 8 }}
-            />
-          </View>
-          <View
-            style={[
-              rowOptionContainer, {
-                backgroundColor: '#F0E6E4',
-                flex: 0.493,
-              },
-            ]}
-          >
-            <View
-              style={[{ flex: 0.25 }, iconContainerButLastOne]}
-            >
-              <Icon
-                name="call"
-                size={20}
-                style={iconOptionStyle}
-              />
-            </View>
-            <View style={[{ flex: 0.25 }, iconContainerButLastOne]}>
-              <Icon
-                name="chat-bubble-outline"
-                size={20}
-                style={iconOptionStyle}
-              />
-            </View>
-            <View
-              style={[{ flex: 0.25 }, iconContainerButLastOne]}
-            >
-              <Icon2
-                name="location-pin"
-                size={20}
-                style={iconOptionStyle}
-              />
-            </View>
-            <View style={{ flex: 0.25 }}>
-              <Icon2
-                name="user-unfollow"
-                size={20}
-                style={[iconOptionStyle, { color: 'red' }]}
-              />
-            </View>
-          </View>
-        </Animated.View>
-    );
-  }
-
   renderRowOptions() {
-    const { uid } = this.props.chat;
+    const { key } = this.props.chat;
     const { timeStyle, pendingMessageStyle, renderRowOptionsStyle } = styles;
 
     const expanded = false;
@@ -219,10 +152,10 @@ class ChatPeopleListItem extends Component {
         <View style={renderRowOptionsStyle}>
           <Text style={timeStyle}>02:24 PM</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 5 }}>
-            {uid === 5 &&
+            {key === 5 &&
               <Icon3 name="md-volume-off" size={20} />
             }
-            {uid < 5 &&
+            {key < 5 &&
               <Text style={pendingMessageStyle}>{uid + 1}</Text>
             }
           </View>
@@ -234,26 +167,35 @@ class ChatPeopleListItem extends Component {
 
     const { nameStyle, placeStyle } = styles;
 
-    const { first_name, last_name } = this.props.chat;
-    const fullname = first_name + ' ' + last_name;
+    const { key, uid, photo, type } = this.props.chat;
+    var title = '';
+    var subTitle = '';
 
-    const lastMessage = 'test last message from Firebase...';
+    if (type === 'friend') {
+      const { first_name, last_name } = this.props.chat;
+      title = first_name + ' ' + last_name;
+      subTitle = 'Firebase live database working...';
+    } else {
+      const { group_name, group_description } = this.props.chat;
+      title = group_name;
+      subTitle = group_description;
+    }
 
     const expanded = false;
 
     if (expanded) {
       return (
         <View style={{ flex: 0.266, paddingTop: 10 }}>
-          <Text style={nameStyle}>{fullname}</Text>
-          <Text style={placeStyle}>{lastMessage}</Text>
+          <Text style={nameStyle}>{title}</Text>
+          <Text style={placeStyle}>{subTitle}</Text>
         </View>
       );
     }
 
     return (
       <View style={{ flex: 0.65, paddingTop: 10 }}>
-        <Text style={nameStyle}>{fullname}</Text>
-        <Text style={placeStyle}>{lastMessage}</Text>
+        <Text style={nameStyle}>{title}</Text>
+        <Text style={placeStyle}>{subTitle}</Text>
       </View>
     );
   }
@@ -270,16 +212,23 @@ class ChatPeopleListItem extends Component {
   render() {
     const { container, rowContainer, profileImage } = styles;
     const { chatActions, selectedFriend } = this.props;
-    const { uid, first_name, last_name, photo } = this.props.chat;
-    const fullname = first_name + ' ' + last_name;
+    const { key, uid, photo, type } = this.props.chat;
+    var title = '';
 
+    if (type === 'friend') {
+      const { first_name, last_name } = this.props.chat;
+      title = first_name + ' ' + last_name;
+    } else {
+      const { group_name } = this.props.chat;
+      title = group_name;
+    }
     //FAKE
     const lastLogin = 1489692626;
 
     return (
       <TouchableWithoutFeedback
         style={container}
-        onPress={() => chatActions.openChat(uid, fullname, photo, lastLogin)}
+        onPress={() => chatActions.openChat(uid, title, photo, lastLogin)}
         onLongPress={() => selectedFriend(uid)}
       >
         <View>
@@ -288,7 +237,6 @@ class ChatPeopleListItem extends Component {
               <Image source={{ uri: 'https://storage.skydreamer.io/profile/' + photo }} style={profileImage} />
               {this.renderOnlineUserSign()}
             </View>
-            {this.renderMoreOptions()}
             {this.renderInfoFriend()}
             {this.renderRowOptions()}
           </View>

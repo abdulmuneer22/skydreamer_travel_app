@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import lodash from 'lodash';
 import {
   OPEN_CHAT,
   ADD_NEW_MESSAGE,
@@ -28,13 +29,24 @@ export const chatMessagesFetch = (route, chatId) => {
 // firebase.database().ref(`/users/${userId}/friends/${friendUserId}/messages`)
 // export const chatListFetch = (userId, friendUserId) => {
 
+
 export const chatListFetch = (userId) => {
+
   return (dispatch) => {
-    firebase.database().ref(`/users/${userId}/friends`)
-      .on('value', snapshot => {
-        console.log(' *** ChatActions -> chatListFetch() ***');
-        console.log(snapshot.val());
-        dispatch({ type: CHAT_LIST_FETCH_SUCCESS, payload: snapshot.val() });
-      });
+    var chatUsers  = [];
+    var mergedArr = [];
+
+    var ref = firebase.app().database().ref(`/users/${userId}/friends`);
+
+    ref.on('value', snapshot => {
+       console.log(' ******** ChatActions -> chatUsers called ********');
+       chatUsers = snapshot.val();
+       firebase.database().ref(`/users/${userId}/groups`)
+         .on('value', snapshot2 => {
+           console.log(' ******** ChatActions -> chatGroups called ********');
+           mergedArr = lodash.merge(snapshot2.val(), chatUsers);
+           dispatch({ type: CHAT_LIST_FETCH_SUCCESS, payload: mergedArr });
+         });
+     });
   };
 };
