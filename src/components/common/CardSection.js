@@ -21,8 +21,7 @@ const CardSection = ({ children, style }) => (
 );
 
 CardSection.propTypes = {
-  children: PropTypes.node.isRequired,
-  style: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired
 };
 
 export default CardSection;

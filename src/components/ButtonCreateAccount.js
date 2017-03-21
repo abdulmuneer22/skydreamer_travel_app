@@ -3,26 +3,25 @@ import { Text, TouchableOpacity } from 'react-native';
 
 const styles = {
   textStyle: {
-    alignSelf: 'center',
-    color: '#FFF',
-    fontSize: 18,
-    fontWeight: '600',
-    paddingTop: 13,
-    paddingBottom: 10,
+    fontSize: 13,
+    textAlign: 'center',
+    color: 'white',
+    fontFamily: 'Poppins-SemiBold',
+    marginTop: 7
   },
   buttonStyle: {
     flex: 1,
     alignSelf: 'stretch',
-    backgroundColor: '#159fdb',
+    backgroundColor: '#ee4e16',
     borderRadius: 25,
-    marginLeft: 35,
-    marginRight: 35,
-    marginTop: 10,
-    height: 50,
+    marginLeft: 50,
+    marginRight: 50,
+    height: 35,
+    elevation: 2
   },
 };
 
-const ButtonLogin = ({ onPress, children }) => {
+const ButtonCreateAccount = ({ onPress, children }) => {
   const { buttonStyle, textStyle } = styles;
 
   return (
@@ -34,9 +33,9 @@ const ButtonLogin = ({ onPress, children }) => {
   );
 };
 
-ButtonLogin.propTypes = {
+ButtonCreateAccount.propTypes = {
   onPress: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
 };
 
-export default ButtonLogin;
+export default ButtonCreateAccount;
