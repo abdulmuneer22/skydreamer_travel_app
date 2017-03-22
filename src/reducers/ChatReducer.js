@@ -29,7 +29,7 @@ export default (state = INITIAL_STATE, action) => {
       return action.payload;
     case CHAT_LIST_FETCH_SUCCESS:
       console.log('CHAT_LIST_FETCH_SUCCESS', action.payload);
-      return action.payload;
+      return action.payload; // CHANGE THIS in something like Object.assign({}, state, chats: action.payload);
       // return {chats: action.payload};
     case OPEN_CHAT:
       const { id, fullname, photo, lastLogin } = action.payload;

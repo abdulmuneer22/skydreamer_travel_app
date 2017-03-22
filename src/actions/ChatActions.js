@@ -35,18 +35,20 @@ export const chatListFetch = (userId) => {
      // console.log('chatListFetch called');
      var channelsArr  = [];
      var query = firebase.database().ref(`/users/${userId}/channels`).orderByKey();
-     query.once("value").then(function(snapshot) {
+     query.once("value")
+     .then((snapshot) => {
         const totalNum = snapshot.numChildren();
         var i = 1;
         // console.log('Size', snapshot.numChildren());
-        snapshot.forEach(function(channels) {
+        snapshot.forEach((channels) => {
           // key of user's channels
           var channelKey = channels.key;
           // childData will be the actual contents of the child
           var childData = channels.val();
           if (childData) {
             var channelRef = firebase.database().ref('/channels/'+ channelKey);
-            channelRef.once('value').then(function(channelByKey) {
+            channelRef.once('value')
+            .then((channelByKey) => {
               var key = channelByKey.key;
               var type = channelByKey.val().type;
               var dataChannelByKey = channelByKey.val();
@@ -55,20 +57,22 @@ export const chatListFetch = (userId) => {
               if(type === 'single') {
                 var members = dataChannelByKey.members;
                 //look on member list the friend from this logged userId
-                Object.keys(members).forEach(function(key) {
+                Object.keys(members).forEach((key) => {
                     if(key !== userId) {
                       // console.log('Other Friend:');
                       // console.log(key, members[key]);
                       //take the friend of this channelByKey
                       var queryFriendUser = firebase.database().ref(`/users/${key}`).orderByKey();
-                      queryFriendUser.once("value").then(function(friendUser) {
+                      queryFriendUser.once("value")
+                      .then((friendUser) => {
                         // console.log('friendUser > Obj:', friendUser.val());
                         // dataChannelByKey.friendObj = friendUser.val();
                         dataChannelByKey.first_name = friendUser.val().first_name;
                         dataChannelByKey.last_name = friendUser.val().last_name;
                         dataChannelByKey.photo = friendUser.val().photo;
-                      }, function(error) {
-                        console.error(error);
+                      })
+                      .catch((error) => {
+                        console.error('Error in ChatActions.chatListFetch promise chain', error);
                       });
                     }
                 });
@@ -93,8 +97,9 @@ export const chatListFetch = (userId) => {
             });
           }
         });
-      }, function(error) {
-        console.error(error);
+      })
+      .catch((error) => {
+        console.error('Error in ChatActions.chatListFetch promise', error);
      });
   };
 };

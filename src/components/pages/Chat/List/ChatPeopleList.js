@@ -73,12 +73,12 @@ class ChatPeopleList extends Component {
   }
 }
 
-
+// CHANGE THIS ONE
 const mapStateToProps = state => {
 
   console.log('**** mapStateToProps ChatPeopleList() ****');
   console.log(state.chats);
-  
+
   return { chats: state.chats };
 };
 
