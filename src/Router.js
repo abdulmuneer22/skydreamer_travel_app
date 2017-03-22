@@ -9,7 +9,7 @@
  */
 import React, { Component } from 'react';
 import { Scene, Router } from 'react-native-router-flux';
-import { View, AsyncStorage } from 'react-native';
+import { View } from 'react-native';
 import firebase from 'firebase';
 
 import LoginForm from './components/LoginForm';
@@ -17,7 +17,7 @@ import Main from './components/Main';
 import InternalChat from './components/pages/Chat/Internal';
 
 class RouterComponent extends Component {
-  state = { logged: false, loading: true, token: '' };
+  state = { logged: false, loading: true };
 
   componentWillMount() {
     this.subscribe = firebase.auth().onAuthStateChanged((user) => {

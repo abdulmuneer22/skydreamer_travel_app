@@ -70,7 +70,7 @@ class FriendList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
+  // console.log(state);
   return { friends: state.friends, results: state.selectedFriendId.results };
 };
 

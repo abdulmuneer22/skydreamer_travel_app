@@ -19,14 +19,18 @@ import {
   CHAT_MESSAGES_FETCH_SUCCESS
 } from 'skydreamer/actions/types';
 
-const INITIAL_STATE = {};
+const INITIAL_STATE = {
+  chats: []
+};
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CHAT_MESSAGES_FETCH_SUCCESS:
       return action.payload;
     case CHAT_LIST_FETCH_SUCCESS:
+      console.log('CHAT_LIST_FETCH_SUCCESS', action.payload);
       return action.payload;
+      // return {chats: action.payload};
     case OPEN_CHAT:
       const { id, fullname, photo, lastLogin } = action.payload;
       Actions.internalChat({ id, fullname, photo, lastLogin });
