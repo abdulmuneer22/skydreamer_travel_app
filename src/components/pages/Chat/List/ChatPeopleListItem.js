@@ -142,38 +142,51 @@ class ChatPeopleListItem extends Component {
   }
 
   renderRowOptions() {
-    const { key } = this.props.chat;
+    const { type } = this.props.chat;
     const { timeStyle, pendingMessageStyle, renderRowOptionsStyle } = styles;
-
     const expanded = false;
+
+    // var number = '10';
+    var number = Math.floor((Math.random() * 8));
 
     return (
       !expanded &&
         <View style={renderRowOptionsStyle}>
           <Text style={timeStyle}>02:24 PM</Text>
           <View style={{ flexDirection: 'row', justifyContent: 'flex-end', marginRight: 5 }}>
-            {key === 5 &&
+            {type === 'group' &&
               <Icon3 name="md-volume-off" size={20} />
             }
-            {key < 5 &&
-              <Text style={pendingMessageStyle}>{uid + 1}</Text>
+            {type === 'single' &&
+              <Text style={pendingMessageStyle}>{number}</Text>
             }
           </View>
         </View>
     );
   }
 
+  /*
+  created_at: 1490117516
+  group_description: ""
+  group_name: ""
+  members: Object
+  num_of_users: 2
+  status: "active"
+  type: "single"
+  */
   renderInfoFriend() {
 
     const { nameStyle, placeStyle } = styles;
 
-    const { key, uid, photo, type } = this.props.chat;
+    const { photo, type } = this.props.chat;
+
     var title = '';
     var subTitle = '';
 
-    if (type === 'friend') {
-      const { first_name, last_name } = this.props.chat;
-      title = first_name + ' ' + last_name;
+    // console.log('photo', photo);
+    if (type === 'single') {
+      const { friend } = this.props.chat;
+      title = '';
       subTitle = 'Firebase live database working...';
     } else {
       const { group_name, group_description } = this.props.chat;
@@ -201,10 +214,10 @@ class ChatPeopleListItem extends Component {
   }
 
   renderOnlineUserSign() {
-    const { uid } = this.props.chat;
+    const { type } = this.props.chat;
     const { onlineUserSign } = styles;
     return (
-      (uid === 0 || uid === 1 || uid === 3 || uid === 5) &&
+      (type === 'group') &&
         <View style={onlineUserSign} />
     );
   }
@@ -212,29 +225,39 @@ class ChatPeopleListItem extends Component {
   render() {
     const { container, rowContainer, profileImage } = styles;
     const { chatActions, selectedFriend } = this.props;
-    const { key, uid, photo, type } = this.props.chat;
-    var title = '';
+    const { photo, type, first_name, last_name } = this.props.chat;
 
-    if (type === 'friend') {
-      const { first_name, last_name } = this.props.chat;
-      title = first_name + ' ' + last_name;
+    var title = '';
+    var folder = '';
+
+    if (type === 'single') {
+      folder = 'profile/';
+      console.log('this.props.chat', this.props.chat);
+      console.log('first_name', first_name);
+      console.log('last_name', last_name);
+      // title = friend.first_name  + ' ' + friend.last_name;
+      title = '';
     } else {
       const { group_name } = this.props.chat;
+      folder = 'groups/';
       title = group_name;
     }
+
     //FAKE
     const lastLogin = 1489692626;
+
+    console.log('folder', folder);
 
     return (
       <TouchableWithoutFeedback
         style={container}
-        onPress={() => chatActions.openChat(uid, title, photo, lastLogin)}
-        onLongPress={() => selectedFriend(uid)}
+        onPress={() => chatActions.openChat(null, title, photo, lastLogin)}
+        onLongPress={() => selectedFriend(null)}
       >
         <View>
           <View style={rowContainer}>
             <View style={{ flex: 0.2 }}>
-              <Image source={{ uri: 'https://storage.skydreamer.io/profile/' + photo }} style={profileImage} />
+              <Image source={{ uri: 'https://storage.skydreamer.io/' + folder + photo }} style={profileImage} />
               {this.renderOnlineUserSign()}
             </View>
             {this.renderInfoFriend()}
