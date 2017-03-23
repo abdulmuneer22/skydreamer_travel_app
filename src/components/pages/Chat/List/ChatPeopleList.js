@@ -10,7 +10,8 @@
 import React, { Component, PropTypes } from 'react';
 import lodash from 'lodash';
 import firebase from 'firebase';
-import { ListView, View } from 'react-native';
+import { ListView, View, Text } from 'react-native';
+import { Spinner } from '../../../common';
 import { connect } from 'react-redux';
 
 import { chatListFetch } from '../../../../actions';
@@ -43,43 +44,85 @@ class ChatPeopleList extends Component {
 
   componentWillMount() {
     this.props.chatListFetch(userId);
-    this.createDataSource(this.props.chats);
+    this.createDataSource(this.props.channels);
   }
 
   componentWillReceiveProps(nextProps) {
     this.createDataSource(nextProps);
   }
 
-  createDataSource({ chats }) {
-    this.dataSource = ds.cloneWithRows(chats);
+  createDataSource({ channels }) {
+    if(channels) {
+      this.dataSource = ds.cloneWithRows(channels);
+    }
   }
 
-  renderRow = chat => (
-    <ChatPeopleListItem chat={chat} />
-  );
+  renderRow(channel, sectionID, rowID, singleChannels) {
+    /*
+    console.log('####### renderRow ########');
+    console.log('channel', channel);
+    console.log('sectionID', sectionID);
+    console.log('rowID', rowID);
+    console.log('singleChannels', singleChannels);
+    console.log('');
+    console.log('');
+    const { type, members, photo } = channel;
+    console.log('members>', members);
+    console.log('photo>', photo);
+    if (type === 'single') {
+      var friendKey = null;
+      var singleChannel = null;
+      Object.keys(members).forEach(function(key) {
+          if(key !== userId) {
+            friendKey = key;
+          }
+      });
+      console.log('Object.keys(): friendKey:', friendKey);
+      singleChannel = singleChannels.friendKey;
+    }
+    console.log('singleChannel:::', singleChannel, friendKey);
+    */
+    return <ChatPeopleListItem channels={channel} singleChannels={singleChannels} />
+  };
 
   render() {
     const { container } = styles;
+    const { isFetching, channels, singleChannels } = this.props;
+
+    console.log('isFetching', isFetching);
+    console.log('render() singleChannels:::', singleChannels);
+
+    if(isFetching === true) {
+      return (
+        <View style={container}>
+          <Spinner />
+        </View>
+      );
+    }
+    if(channels.length > 0) {
+      return (
+        <View style={container}>
+          <ListView
+            enableEmptySections
+            style={container}
+            dataSource={this.dataSource}
+            renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID, singleChannels)}
+          />
+        </View>
+      );
+    }
+
     return (
-      <View style={container}>
-        <ListView
-          enableEmptySections
-          style={container}
-          dataSource={this.dataSource}
-          renderRow={this.renderRow}
-        />
-      </View>
+      <View style={container} />
     );
+
   }
 }
 
-// CHANGE THIS ONE
-const mapStateToProps = state => {
-
-  console.log('**** mapStateToProps ChatPeopleList() ****');
-  console.log(state.chats);
-
-  return { chats: state.chats };
-};
+const mapStateToProps = (state) => ({
+    channels: state.chats.channels,
+    singleChannels: state.chats.singleChannels,
+    isFetching: state.chats.isFetching
+});
 
 export default connect(mapStateToProps, { chatListFetch })(ChatPeopleList);

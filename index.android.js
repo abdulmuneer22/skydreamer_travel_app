@@ -14,8 +14,9 @@
  npm install react-native-viewpager --save
  npm install react-native-maps --save
  npm install react-native-fbsdk --save
- npm install --save firebase
+ npm instal l --save firebase
  npm install moment --save
+ npm install --save redux-logger
 
  To install fonts
  http://stackoverflow.com/questions/38564125/how-do-i-add-custom-font-in-react-native-not-using-xcode

@@ -3,8 +3,9 @@ import lodash from 'lodash';
 import {
   OPEN_CHAT,
   ADD_NEW_MESSAGE,
-  CHAT_LIST_FETCH_SUCCESS,
-  CHAT_MESSAGES_FETCH_SUCCESS
+  CHAT_MESSAGES_FETCH_SUCCESS,
+  START_FETCHING_CHANNELS,
+  RECEIVED_CHANNELS,
 } from './types';
 
 export const openChat = (id, fullname, photo, lastLogin) => ({
@@ -15,6 +16,14 @@ export const openChat = (id, fullname, photo, lastLogin) => ({
 export const addNewMessage = (type, text) => ({
   type: ADD_NEW_MESSAGE,
   payload: { type, text },
+});
+
+export const startFetchingChannels = () => ({
+    type: START_FETCHING_CHANNELS
+});
+
+export const receivedChannels = () => ({
+    type: RECEIVED_CHANNELS
 });
 
 export const chatMessagesFetch = (route, chatId) => {
@@ -31,24 +40,22 @@ export const chatMessagesFetch = (route, chatId) => {
 
 
 export const chatListFetch = (userId) => {
-  return (dispatch) => {
-     // console.log('chatListFetch called');
+  return function (dispatch) {
+     dispatch(startFetchingChannels());
      var channelsArr  = [];
+     var singleChannelsArr  = [];
      var query = firebase.database().ref(`/users/${userId}/channels`).orderByKey();
-     query.once("value")
-     .then((snapshot) => {
+     query.once("value").then(function(snapshot) {
         const totalNum = snapshot.numChildren();
         var i = 1;
-        // console.log('Size', snapshot.numChildren());
-        snapshot.forEach((channels) => {
+        snapshot.forEach(function(channels) {
           // key of user's channels
           var channelKey = channels.key;
           // childData will be the actual contents of the child
           var childData = channels.val();
           if (childData) {
             var channelRef = firebase.database().ref('/channels/'+ channelKey);
-            channelRef.once('value')
-            .then((channelByKey) => {
+            channelRef.once('value').then(function(channelByKey) {
               var key = channelByKey.key;
               var type = channelByKey.val().type;
               var dataChannelByKey = channelByKey.val();
@@ -57,49 +64,38 @@ export const chatListFetch = (userId) => {
               if(type === 'single') {
                 var members = dataChannelByKey.members;
                 //look on member list the friend from this logged userId
-                Object.keys(members).forEach((key) => {
+                Object.keys(members).forEach(function(key) {
                     if(key !== userId) {
-                      // console.log('Other Friend:');
-                      // console.log(key, members[key]);
                       //take the friend of this channelByKey
                       var queryFriendUser = firebase.database().ref(`/users/${key}`).orderByKey();
-                      queryFriendUser.once("value")
-                      .then((friendUser) => {
-                        // console.log('friendUser > Obj:', friendUser.val());
-                        // dataChannelByKey.friendObj = friendUser.val();
+                      queryFriendUser.once("value").then(function(friendUser) {
+                        var friendUserKey = channelByKey.key;
+                        singleChannelsArr[friendUserKey] = friendUser.val();
+                        //@TODO: we need to receive this props on ChatPeopleListItem
                         dataChannelByKey.first_name = friendUser.val().first_name;
                         dataChannelByKey.last_name = friendUser.val().last_name;
                         dataChannelByKey.photo = friendUser.val().photo;
-                      })
-                      .catch((error) => {
-                        console.error('Error in ChatActions.chatListFetch promise chain', error);
+                        //*/
+                      }, function(error) {
+                        console.error(error);
                       });
                     }
                 });
               }
-              /*
-              console.log('---------------------------------------------------------');
-              console.log('TYPE', type);
-              console.log('members', members);
-              console.log('channelByKey', channelByKey);
-              console.log('channelByKey.key', channelByKey.key);
-              console.log('dataChannelByKey', dataChannelByKey);
-              console.log('channelByKey.val().noteObject', channelByKey.val());
-              console.log('---------------------------------------------------------');
-              console.log('');*/
-              //channelsArr.push({key: channelByKey.val()})
               channelsArr.push(dataChannelByKey);
               if(i === totalNum) {
-                console.log('ChannelsArr', channelsArr);
-                dispatch({ type: CHAT_LIST_FETCH_SUCCESS, payload: channelsArr });
+                  dispatch({
+                      type: RECEIVED_CHANNELS,
+                      channels: channelsArr,
+                      singleChannels: singleChannelsArr
+                  });
               }
               i++;
             });
           }
         });
-      })
-      .catch((error) => {
-        console.error('Error in ChatActions.chatListFetch promise', error);
+      }, function(error) {
+        console.error(error);
      });
   };
 };

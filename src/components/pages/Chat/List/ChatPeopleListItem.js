@@ -123,8 +123,8 @@ const styles = {
 class ChatPeopleListItem extends Component {
 
   static propTypes = {
-    chat: PropTypes.object.isRequired,
-    expanded: PropTypes.bool.isRequired,
+    channels: PropTypes.object.isRequired,
+    singleChannels: PropTypes.array.isRequired,
     openChat: PropTypes.func,
     selectedFriend: PropTypes.func,
   };
@@ -142,7 +142,7 @@ class ChatPeopleListItem extends Component {
   }
 
   renderRowOptions() {
-    const { type } = this.props.chat;
+    const { type } = this.props.channels;
     const { timeStyle, pendingMessageStyle, renderRowOptionsStyle } = styles;
     const expanded = false;
 
@@ -178,18 +178,18 @@ class ChatPeopleListItem extends Component {
 
     const { nameStyle, placeStyle } = styles;
 
-    const { photo, type } = this.props.chat;
+    const { photo, type } = this.props.channels;
 
     var title = '';
     var subTitle = '';
 
     // console.log('photo', photo);
     if (type === 'single') {
-      const { friend } = this.props.chat;
-      title = '';
+      const { last_name, first_name } = this.props.channels;
+      title = first_name + ' - ' + last_name;
       subTitle = 'Firebase live database working...';
     } else {
-      const { group_name, group_description } = this.props.chat;
+      const { group_name, group_description } = this.props.channels;
       title = group_name;
       subTitle = group_description;
     }
@@ -214,7 +214,7 @@ class ChatPeopleListItem extends Component {
   }
 
   renderOnlineUserSign() {
-    const { type } = this.props.chat;
+    const { type } = this.props.channels;
     const { onlineUserSign } = styles;
     return (
       (type === 'group') &&
@@ -225,28 +225,27 @@ class ChatPeopleListItem extends Component {
   render() {
     const { container, rowContainer, profileImage } = styles;
     const { chatActions, selectedFriend } = this.props;
-    const { photo, type, first_name, last_name } = this.props.chat;
+    const { photo, type, first_name, last_name } = this.props.channels;
 
     var title = '';
     var folder = '';
 
     if (type === 'single') {
       folder = 'profile/';
-      console.log('this.props.chat', this.props.chat);
+      console.log('this.props.channels', this.props.channels);
       console.log('first_name', first_name);
       console.log('last_name', last_name);
+      console.log('');
       // title = friend.first_name  + ' ' + friend.last_name;
       title = '';
     } else {
-      const { group_name } = this.props.chat;
+      const { group_name } = this.props.channels;
       folder = 'groups/';
       title = group_name;
     }
 
     //FAKE
     const lastLogin = 1489692626;
-
-    console.log('folder', folder);
 
     return (
       <TouchableWithoutFeedback
@@ -269,13 +268,8 @@ class ChatPeopleListItem extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  const expanded = state.selectedFriendId === ownProps.chat.uid;
-  return { expanded };
-};
-
 const mapDispatchToProps = dispatch => ({
   chatActions: bindActionCreators(chatActions, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChatPeopleListItem);
+export default connect(null, mapDispatchToProps)(ChatPeopleListItem);
