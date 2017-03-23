@@ -9,6 +9,7 @@
  */
 import React, { Component, PropTypes } from 'react';
 import lodash from 'lodash';
+import firebase from 'firebase';
 import { ListView, View } from 'react-native';
 import { connect } from 'react-redux';
 
@@ -21,29 +22,35 @@ const styles = {
   },
 };
 
-//FAKE userId
-const userId = '148976189158cbf663d375d';
+const userId = null;
+
+const ds = new ListView.DataSource({
+  rowHasChanged: (r1, r2) => r1 !== r2
+});
 
 class ChatPeopleList extends Component {
 
+  constructor() {
+     super();
+     var user = firebase.auth().currentUser;
+     if (user != null) {
+       userId = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+                           // this value to authenticate with your backend server, if
+                           // you have one. Use User.getToken() instead.
+     }
+     console.log('chatListFetch UserId:', userId);
+ }
+
   componentWillMount() {
     this.props.chatListFetch(userId);
-    console.log('####### componentWillMount chatListFetch() #############');
-    console.log(this.props);
-    this.createDataSource(this.props);
+    this.createDataSource(this.props.chats);
   }
 
   componentWillReceiveProps(nextProps) {
-    // nextProps are the next set of props that this component
-    // will be rendered with
-    // this.props is still the old set of props
     this.createDataSource(nextProps);
   }
 
   createDataSource({ chats }) {
-    const ds = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => r1 !== r2
-    });
     this.dataSource = ds.cloneWithRows(chats);
   }
 
@@ -66,14 +73,13 @@ class ChatPeopleList extends Component {
   }
 }
 
-
+// CHANGE THIS ONE
 const mapStateToProps = state => {
 
   console.log('**** mapStateToProps ChatPeopleList() ****');
   console.log(state.chats);
 
-  const chats = state.chats;
-  return { chats };
+  return { chats: state.chats };
 };
 
 export default connect(mapStateToProps, { chatListFetch })(ChatPeopleList);
