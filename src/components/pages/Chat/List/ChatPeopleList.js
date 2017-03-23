@@ -90,7 +90,14 @@ class ChatPeopleList extends Component {
     const { isFetching, channels, singleChannels } = this.props;
 
     console.log('isFetching', isFetching);
-    console.log('render() singleChannels:::', singleChannels);
+    console.log('render() channels:::', channels);
+    if (channels === undefined) {
+      return (
+        <View style={container}>
+          <Spinner />
+        </View>
+      );
+    }
 
     if(isFetching === true) {
       return (

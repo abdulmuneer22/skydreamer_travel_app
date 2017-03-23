@@ -10,7 +10,7 @@ import {
 
 export const openChat = (id, fullname, photo, lastLogin) => ({
   type: OPEN_CHAT,
-  payload: { id, fullname, photo, lastLogin },
+  metaInfo: { id, fullname, photo, lastLogin },
 });
 
 export const addNewMessage = (type, text) => ({

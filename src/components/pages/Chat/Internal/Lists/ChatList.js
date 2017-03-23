@@ -1,66 +1,59 @@
-/**
- * @Class:             ChatList.js
- * @Parent:            Friend.js
- * @Description:       Render the chat list from Redux
- * @Author:            Guilherme Borges Bastos      @Date: 02/03/2017
- * @Notes:
- * @Revision History:
- * @Name:              @Date:      @Description:
- * Alberto Schiabel    12/03/2017  eslint, removed useless actions, removed
- *                                 useless componentWillMount, fixed typo
- * Guilherme Bastos    16/03/2017  Added chatMessagesFetch from Firebase
- */
-
-import React, { Component, PropTypes } from 'react';
+// /-----------------------------------------------------------------
+// /   Class:          FriendList.js
+// /   Description:    Render the chat list from Redux
+// /   Author:         Guilherme Borges Bastos       Date: 02/03/2017
+// /   Notes:
+// /   Revision History:
+// /   Name:           Date:        Description:
+// /-----------------------------------------------------------------
+import React from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import { chatMessagesFetch } from '../../../../../actions';
-import lodash from 'lodash';
+import * as actions from '../../../../../actions';
 
 import {
-  // HolderDateSeparator,
-  HolderOtherText,
-  HolderSelfText,
-} from '../ViewHolder';
+         // HolderDateSeparator,
+         HolderOtherText,
+         HolderSelfText,
+       } from '../ViewHolder';
 
 export const addNewMessage = (text) => {
   console.log('export const addNewMessage', text);
 };
 
-class ChatList extends Component {
-
-  static propTypes = {
-    chats: PropTypes.object.isRequired,
-  };
+class ChatList extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      chatRows: props.chats.data,
+      rendered: false,
+      chatRows: null,
       listHeight: 0,
       scrollViewHeight: 0,
     };
-
-    this.props.chatMessagesFetch();
-
-    console.log('############# ChatList() componentWillMount ##############');
-    console.log('props', this.props);
-
   }
 
+  componentWillMount() {
+    this.setState({ chatRows: this.props.messages });
+  }
 
-  componentWillReceiveProps(nextProps) { // nextProps
-    this.setState({
-      chatRows: this.props.chats.data,
-    });
+  componentDidMount() {
+    this.setState({ rendered: true });
+  }
+
+  componentWillReceiveProps() { // nextProps
+    this.setState({ chatRows: this.props.messages });
   }
 
   componentDidUpdate() {
-    this.scrollView.scrollToEnd({ animated: true });
+    this.scrollView.scrollToEnd({ animated: this.state.rendered });
   }
 
+  componentWillUnmount() {
+    this.setState({ rendered: true });
+  }
 
-  renderRow = (chat, rowId, chatRows) => {
+  renderRow(chat, rowId, chatRows) {
     let hiddenProfile = false;
     let moreSpace = false;
     let squareCorner = false;
@@ -72,15 +65,12 @@ class ChatList extends Component {
     const next = chatRows[Number(rowId) + 1];
 
     if (previus && next) {
-      // semiSquareCornerDown valiations
-      if ((current.user.userid !== previus.user.userid) &&
-          (current.user.userid === next.user.userid)) {
+      //semiSquareCornerDown valiations
+      if ((current.user.userid !== previus.user.userid) && (current.user.userid === next.user.userid)) {
         semiSquareCornerDown = true;
-      } else if ((current.user.userid === previus.user.userid) &&
-                 (current.user.userid === next.user.userid)) {
+      } else if ((current.user.userid === previus.user.userid) && (current.user.userid === next.user.userid)) {
         squareCorner = true;
-      } else if ((current.user.userid === previus.user.userid) &&
-                 (current.user.userid !== next.user.userid)) {
+      } else if ((current.user.userid === previus.user.userid) && (current.user.userid !== next.user.userid)) {
         semiSquareCornerUp = true;
       }
 
@@ -160,43 +150,34 @@ class ChatList extends Component {
           />
         );
       default:
-        return (<Text>Not defined</Text>);
+        return {};
     }
   }
 
+
   render() {
-    const { chatRows } = this.state;
-    const { chats } = this.props;
+    const { messages } = this.props;
+    console.log('messages', messages);
     // keyboardDismissMode="on-drag"
     return (
       <ScrollView
-        ref={(component) => { this.scrollView = component; }}
+        ref={component => this.scrollView = component}
         onContentSizeChange={(contentWidth, contentHeight) => {
-          this.setState({
-            listHeight: contentHeight,
-          });
+          this.setState({ listHeight: contentHeight });
         }}
         onLayout={(e) => {
           const height = e.nativeEvent.layout.height;
-          this.setState({
-            scrollViewHeight: height,
-          });
+          this.setState({ scrollViewHeight: height });
         }}
       >
-        {chats.data.map((chat, i) => this.renderRow(chat, i, chatRows))}
+        {messages.map((chat, i) => this.renderRow(chat, i, messages))}
       </ScrollView>
     );
   }
-
 }
 
+const mapStateToProps = (state) => ({
+    messages: state.chats.messages
+});
 
-const mapStateToProps = state => {
-  const chats = lodash.map(state.chats, (val, uid) => {
-    return { ...val, uid };
-  });
-
-  return { chats };
-};
-
-export default connect(mapStateToProps, { chatMessagesFetch })(ChatList);
+export default connect(mapStateToProps, actions)(ChatList);

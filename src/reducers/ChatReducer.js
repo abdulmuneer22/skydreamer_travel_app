@@ -23,6 +23,7 @@ import {
 } from 'skydreamer/actions/types';
 
 const INITIAL_STATE = {
+  data,
   channels: [],
   singleChannels: [],
   isFetching: false
@@ -46,9 +47,11 @@ export default (state = INITIAL_STATE, action) => {
       //return action.payload; // CHANGE THIS in something like Object.assign({}, state, chats: action.payload);
       // return {chats: action.payload};
     case OPEN_CHAT:
-      const { id, fullname, photo, lastLogin } = action.payload;
+      const { id, fullname, photo, lastLogin } = action.metaInfo;
       Actions.internalChat({ id, fullname, photo, lastLogin });
-      return { ...state, data };
+      return Object.assign({}, ...state, {
+        messages: data
+      });
     case ADD_NEW_MESSAGE:
       const { text, type } = action.payload;
       const newMessageArr = {
