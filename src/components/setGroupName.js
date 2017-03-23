@@ -1,18 +1,15 @@
 /**
- * @Class:             SetAirportSession.js
- * @Description:       Render Airport Session Page
- * @Author:            Guilherme Borges Bastos     @Date: 21/02/2017
+ * @Class:             SetGroupName.js
+ * @Description:       Render Group naming page
+ * @Author:            Paol Pirruccio     @Date: 23/03/2017
  * @Notes:
  * @Revision History:
  * @Name:              @Date:      @Description:
- * Alberto Schiabel    11/03/2017  Fixed eslint, slightly refactored
  */
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import Slider from 'react-native-slider';
 import { Actions } from 'react-native-router-flux';
-
-import ButtonNext from './ButtonNext';
 
 // Later on in your styles..
 const styles = {
@@ -65,7 +62,7 @@ const styles = {
 };
 
 
-export default class SetAirportSession extends Component {
+export default class SetGroupName extends Component {
 
   state = {
     value: "AMS",
@@ -87,13 +84,13 @@ export default class SetAirportSession extends Component {
     return (
       <View style={styles.textContainer}>
         <Text style={styles.pageNumber}>
-          2/5
+          6/6
         </Text>
         <Text style={styles.upperTitle}>
-          Where do you
+          Enter the
         </Text>
         <Text style={styles.textTitle}>
-          Want to fly from?
+          Name of the group
         </Text>
         <Text style={styles.textValue}>{value}</Text>
       </View>
