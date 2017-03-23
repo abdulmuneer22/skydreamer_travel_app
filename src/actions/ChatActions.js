@@ -75,7 +75,7 @@ export const chatListFetch = (userId) =>
             if(type === 'single') {
               let members = dataChannelByKey.members;
               //look on member list the friend from this logged userId
-              Object.keys(members).forEach((memberKey) => {
+              Object.keys(members).forEach((memberKey, memberKeyIndex) => {
                 if(memberKey !== userId) {
                   //take the friend of this channelByKey
                   let queryFriendUser = firebase.database().ref(`/users/${memberKey}`).orderByKey();
@@ -93,6 +93,22 @@ export const chatListFetch = (userId) =>
                     dataChannelByKey.first_name = first_name;
                     dataChannelByKey.last_name = last_name;
                     dataChannelByKey.photo = photo;
+
+                    return dataChannelByKey;
+                  })
+                  .then((dataChannelByKey) => {
+                    console.log('returned dataChannelByKey', dataChannelByKey, totalNum, channelsArr.length);
+                    console.log('Object.keys(members).length, memberKeyIndex, index', Object.keys(members).length, memberKeyIndex, index);
+                    /*
+                    We should dispatch here, because this is the last block that is executed in this Promise mess.
+                    When we arrive here, we should merge our array with the dataChannelByKey one, which represents a single item every time.
+
+                    dispatch({
+                        type: RECEIVED_CHANNELS,
+                        channels: channelsArr,
+                        singleChannels: singleChannelsArr //empty
+                    });
+                    */
                   })
                   .catch((error) => {
                     console.error("Error retrieving friendUser inside Object.keys loop in chatListFetch", error);
