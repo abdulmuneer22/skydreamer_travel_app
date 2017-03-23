@@ -14,9 +14,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import Slider from 'react-native-slider';
 import { Actions } from 'react-native-router-flux';
 import ButtonNext from './ButtonNext';
-
-import MapImage from 'skydreamer/images/map.png';
-
+import SessionGradient from './SessionGradient';
 // Later on in your styles..
 const styles = {
   linearGradient: {
@@ -25,35 +23,39 @@ const styles = {
     height: null,
   },
   textContainer: {
-    marginTop: 25,
-    marginRight: 45,
-    marginLeft: 45
+    flex: 1,
+
   },
   textValue: {
-    color: '#f77633',
-    fontSize: 70,
+    color: '#ffffff',
+    fontSize: 78,
     fontFamily: 'Poppins-Light',
     justifyContent: 'flex-start',
   },
   upperTitle: {
-    color: '#000',
-    fontSize: 20,
-    lineHeight: 40,
+    color: '#ffffff',
+    fontSize: 25,
+    lineHeight: 20,
     fontFamily: 'Poppins-Light',
-    alignSelf: 'center',
+    textAlign: 'left',
   },
   pageNumber: {
-    color: '#8f9fb6',
+    color: '#ffffff',
     fontSize: 20,
     fontFamily: 'Poppins-Regular',
     textAlign: 'left',
   },
+  sign: {
+    color: '#ffffff',
+    fontSize: 15,
+    fontFamily: 'Poppins-Regular',
+  },
   textTitle: {
-    color: '#000',
-    fontSize: 30,
-    lineHeight: 40,
+    color: '#ffffff',
+    fontSize: 36,
+    lineHeight: 50,
     fontFamily: 'Poppins-Bold',
-    alignSelf: 'center',
+    textAlign: 'left',
   },
   slider: {
     height: 10,
@@ -74,29 +76,23 @@ export default class SetPriceSession extends Component {
   }
 
   render() {
-    const { linearGradient, textContainer, upperTitle, pageNumber, textTitle, slider, textValue } = styles;
+    const { linearGradient, textContainer, upperTitle, pageNumber, textTitle, slider, sign, textValue } = styles;
     const { value } = this.state;
 
     return (
-      <LinearGradient
-        colors={['#ffff', '#ffff']}
-        style={linearGradient}
-      >
-        <Image
-          style={{height: 150}}
-          source={MapImage}
-        />
+      <View>
         <View style={textContainer}>
           <Text style={pageNumber}>
-            1/6
+            1/5
           </Text>
           <Text style={upperTitle}>
             How much do you want to
           </Text>
           <Text style={textTitle}>
-            Spend for your flight?
+            Spend to fly?
           </Text>
           <Text style={textValue}>{value}$</Text>
+
         </View>
         <Slider
           value={value}
@@ -110,10 +106,7 @@ export default class SetPriceSession extends Component {
           trackStyle={{ position: 'relative' }}
           onValueChange={newValue => this.setState({ value: newValue })}
         />
-        <ButtonNext onPress={this.onNextPress}>
-          >
-        </ButtonNext>
-      </LinearGradient>
+      </View>
     );
   }
 }
