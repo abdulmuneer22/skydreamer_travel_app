@@ -25,7 +25,7 @@ import {
 const INITIAL_STATE = {
   channels: [],
   singleChannels: [],
-  isFetching: false
+  isFetching: null,
 };
 
 export default (state = INITIAL_STATE, action) => {

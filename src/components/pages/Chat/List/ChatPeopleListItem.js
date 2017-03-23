@@ -224,15 +224,16 @@ class ChatPeopleListItem extends Component {
 
   render() {
     const { container, rowContainer, profileImage } = styles;
-    const { chatActions, selectedFriend } = this.props;
-    const { photo, type, first_name, last_name } = this.props.channels;
+    const { chatActions, selectedFriend, channels } = this.props;
+    const { photo, type, first_name, last_name } = channels;
 
     var title = '';
     var folder = '';
 
     if (type === 'single') {
       folder = 'profile/';
-      console.log('this.props.channels', this.props.channels);
+      console.log('this.props.channels', channels);
+      console.log('this.props.channels', JSON.stringify(channels, null, 2));
       console.log('first_name', first_name);
       console.log('last_name', last_name);
       console.log('');

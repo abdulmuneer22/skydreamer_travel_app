@@ -10,54 +10,32 @@
 import React, { Component, PropTypes } from 'react';
 import lodash from 'lodash';
 import firebase from 'firebase';
-import { ListView, View, Text } from 'react-native';
+import { ListView } from 'react-native';
 import { Spinner } from '../../../common';
 import { connect } from 'react-redux';
 
 import { chatListFetch } from '../../../../actions';
 import ChatPeopleListItem from './ChatPeopleListItem';
 
-const styles = {
-  container: {
-    flex: 1,
-  },
-};
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 
-const userId = null;
+export default class ChatPeopleList extends Component {
 
-const ds = new ListView.DataSource({
-  rowHasChanged: (r1, r2) => r1 !== r2
-});
+  static propTypes = {
+    isLoading: PropTypes.bool,
+    channels: PropTypes.array,
+    singleChannel: PropTypes.object,
+  };
 
-class ChatPeopleList extends Component {
-
-  constructor() {
-     super();
-     var user = firebase.auth().currentUser;
-     if (user != null) {
-       userId = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
-                           // this value to authenticate with your backend server, if
-                           // you have one. Use User.getToken() instead.
-     }
-     console.log('chatListFetch UserId:', userId);
- }
-
-  componentWillMount() {
-    this.props.chatListFetch(userId);
-    this.createDataSource(this.props.channels);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.createDataSource(nextProps);
-  }
-
-  createDataSource({ channels }) {
-    if(channels) {
-      this.dataSource = ds.cloneWithRows(channels);
-    }
+  constructor(props) {
+     super(props);
+     this.dataSource = ds.cloneWithRows(props.channels);
+     console.log('props@ChatPeopleList', props);
+     console.log('props@ChatPeopleList str', JSON.stringify(props, null, 2));
   }
 
   renderRow(channel, sectionID, rowID, singleChannels) {
+    console.log('arguments@renderRow', arguments);
     /*
     console.log('####### renderRow ########');
     console.log('channel', channel);
@@ -85,44 +63,31 @@ class ChatPeopleList extends Component {
     return <ChatPeopleListItem channels={channel} singleChannels={singleChannels} />
   };
 
-  render() {
-    const { container } = styles;
-    const { isFetching, channels, singleChannels } = this.props;
+  componentWillReceiveProps(nextProps) {
+    console.log("nextProps", nextProps);
+    console.log("nextProps str", JSON.stringify(nextProps, null, 2));
+    this.dataSource = ds.cloneWithRows(nextProps.channels);
+  }
 
-    console.log('isFetching', isFetching);
+  render() {
+    const { isLoading, channels, singleChannels } = this.props;
+
+    console.log('isLoading', isLoading);
     console.log('render() singleChannels:::', singleChannels);
 
-    if(isFetching === true) {
+    if(isLoading || isLoading === null) {
       return (
-        <View style={container}>
-          <Spinner />
-        </View>
+        <Spinner />
+      );
+    } else {
+      return (
+        <ListView
+          enableEmptySections
+          style={{flex: 1}}
+          dataSource={this.dataSource}
+          renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID, singleChannels)}
+        />
       );
     }
-    if(channels.length > 0) {
-      return (
-        <View style={container}>
-          <ListView
-            enableEmptySections
-            style={container}
-            dataSource={this.dataSource}
-            renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID, singleChannels)}
-          />
-        </View>
-      );
-    }
-
-    return (
-      <View style={container} />
-    );
-
   }
 }
-
-const mapStateToProps = (state) => ({
-    channels: state.chats.channels,
-    singleChannels: state.chats.singleChannels,
-    isFetching: state.chats.isFetching
-});
-
-export default connect(mapStateToProps, { chatListFetch })(ChatPeopleList);

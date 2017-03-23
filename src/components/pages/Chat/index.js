@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import ViewPager from 'react-native-viewpager';
-import ChatPeopleList from './List/ChatPeopleList';
+import ChatPeopleListContainer from './List/ChatPeopleListContainer';
 
 const styles = {
   container: {
@@ -25,12 +25,17 @@ const styles = {
 
 export default class Chat extends Component {
 
+  constructor(props) {
+    super(props);
+    console.log('pages/Chat/index.js');
+  }
+
   render() {
     // const parent = this._reactInternalInstance._currentElement._owner._instance;
     const { container } = styles;
     return (
       <View style={container}>
-        <ChatPeopleList />
+        <ChatPeopleListContainer />
       </View>
     );
   }
