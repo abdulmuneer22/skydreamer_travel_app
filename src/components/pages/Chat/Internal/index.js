@@ -106,7 +106,7 @@ const styles = {
 };
 
 class InternalChat extends Component {
-
+  
   static propTypes = {
     chatActions: PropTypes.object.isRequired,
     fullname: PropTypes.string.isRequired,
@@ -154,6 +154,7 @@ class InternalChat extends Component {
       photo,
       lastLogin,
     } = this.props;
+
     // TODO: refactor the code to add timezone and Language format
     const dateA = moment(1489068939);
     const dateB = moment(lastLogin);
