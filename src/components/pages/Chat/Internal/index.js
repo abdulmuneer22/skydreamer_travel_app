@@ -106,7 +106,7 @@ const styles = {
 };
 
 class InternalChat extends Component {
-  
+
   static propTypes = {
     chatActions: PropTypes.object.isRequired,
     fullname: PropTypes.string.isRequired,
@@ -152,8 +152,10 @@ class InternalChat extends Component {
     const {
       fullname,
       photo,
-      lastLogin,
+      lastLogin
     } = this.props;
+
+    let folder = 'groups/';
 
     // TODO: refactor the code to add timezone and Language format
     const dateA = moment(1489068939);
@@ -170,7 +172,7 @@ class InternalChat extends Component {
           >
             <Icon3 name="ios-arrow-back" size={25} style={iconToolbarStyle} />
           </TouchableOpacity>
-          <Image source={{ uri: photo }} style={profileImage} />
+          <Image source={{ uri: 'https://storage.skydreamer.io/' + folder + photo }} style={profileImage} />
           <View
             style={{
               flex: 1,

@@ -66,7 +66,9 @@ export default class ChatPeopleList extends Component {
   componentWillReceiveProps(nextProps) {
     console.log("nextProps", nextProps);
     console.log("nextProps str", JSON.stringify(nextProps, null, 2));
-    this.dataSource = ds.cloneWithRows(nextProps.channels);
+    if(nextProps.channels) {
+      this.dataSource = ds.cloneWithRows(nextProps.channels);
+    }
   }
 
   render() {

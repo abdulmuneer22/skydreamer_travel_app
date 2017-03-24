@@ -8,15 +8,17 @@ import {
   RECEIVED_CHANNELS,
 } from './types';
 
-export const openChat = (id, fullname, photo, lastLogin) => ({
+export const openChat = (id, fullname, folder, photo, lastLogin) => ({
   type: OPEN_CHAT,
-  metaInfo: { id, fullname, photo, lastLogin },
+  metaInfo: { id, fullname, folder, photo, lastLogin },
 });
 
-export const addNewMessage = (type, text) => ({
-  type: ADD_NEW_MESSAGE,
-  payload: { type, text },
-});
+export const addNewMessage = (type, text) => {
+  console.log('addNewMessage:', type, text);
+  return (dispatch) => {
+      dispatch({ type: ADD_NEW_MESSAGE, message: { type, text } });
+  };
+};
 
 export const startFetchingChannels = () => ({
     type: START_FETCHING_CHANNELS

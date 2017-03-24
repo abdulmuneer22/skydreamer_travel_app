@@ -20,7 +20,7 @@ const styles = {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    elevation: 8,
+    elevation: 8
   },
   iconStyle: {
     color: '#020201',
@@ -75,11 +75,12 @@ export default class TopTabBar extends Component {
     const { currentPage } = this.state;
     const { content, iconStyle } = styles;
 
-    if (Number(currentPage) === 3) {
+    //if (Number(currentPage) === 3) {
       // Top Chat Bar
       return (
         <TopChatBar />
       );
+/*
     }
     // default
     return (
@@ -99,7 +100,7 @@ export default class TopTabBar extends Component {
           />
         </View>
       </View>
-    );
+    );*/
   }
 
   render() {

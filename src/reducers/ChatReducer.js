@@ -53,7 +53,8 @@ export default (state = INITIAL_STATE, action) => {
         messages: data
       });
     case ADD_NEW_MESSAGE:
-      const { text, type } = action.payload;
+      const { text, type } = action.message;
+      console.log('addNewMessage: ADD_NEW_MESSAGE', type, text);
       const newMessageArr = {
         id: 568,
         text,
@@ -65,7 +66,8 @@ export default (state = INITIAL_STATE, action) => {
         },
       };
       data.push(newMessageArr);
-      return { ...state, data };
+      console.log('addNewMessage: ADD_NEW_MESSAGE DATA:', data);
+      return { ...state, messages: data };
     default:
       return state;
   }

@@ -34,7 +34,7 @@ class ChatList extends React.Component {
   }
 
   componentWillMount() {
-    this.setState({ chatRows: this.props.messages });
+    this.setState({ chatRows: this.props.chats.messages });
   }
 
   componentDidMount() {
@@ -42,7 +42,7 @@ class ChatList extends React.Component {
   }
 
   componentWillReceiveProps() { // nextProps
-    this.setState({ chatRows: this.props.messages });
+    this.setState({ chatRows: this.props.chats.messages });
   }
 
   componentDidUpdate() {
@@ -156,8 +156,7 @@ class ChatList extends React.Component {
 
 
   render() {
-    const { messages } = this.props;
-    console.log('messages', messages);
+    const { chatRows } = this.state;
     // keyboardDismissMode="on-drag"
     return (
       <ScrollView
@@ -170,14 +169,16 @@ class ChatList extends React.Component {
           this.setState({ scrollViewHeight: height });
         }}
       >
-        {messages.map((chat, i) => this.renderRow(chat, i, messages))}
+        {this.props.chats.messages.map((chat, i) => this.renderRow(chat, i, chatRows))}
       </ScrollView>
     );
   }
+
 }
 
-const mapStateToProps = (state) => ({
-    messages: state.chats.messages
-});
+const mapStateToProps = state =>
+  /* console.log('mapStateToProps of ChatList.js');
+  console.log(state);*/
+   ({ chats: state.chats });
 
 export default connect(mapStateToProps, actions)(ChatList);

@@ -227,9 +227,9 @@ class ChatPeopleListItem extends Component {
     const { chatActions, selectedFriend, channels } = this.props;
     const { photo, type, first_name, last_name } = channels;
 
-    var id = '149011629758d15ec90b673';
-    var title = '';
-    var folder = '';
+    let id = '149011629758d15ec90b673';
+    let title = '';
+    let folder = '';
 
     if (type === 'single') {
       folder = 'profile/';
@@ -252,7 +252,7 @@ class ChatPeopleListItem extends Component {
     return (
       <TouchableWithoutFeedback
         style={container}
-        onPress={() => chatActions.openChat(id, title, photo, lastLogin)}
+        onPress={() => chatActions.openChat(id, title, folder, photo, lastLogin)}
         onLongPress={() => selectedFriend(null)}
       >
         <View>
