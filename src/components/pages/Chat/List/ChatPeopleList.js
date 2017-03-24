@@ -14,8 +14,8 @@ import { ListView } from 'react-native';
 import { Spinner } from '../../../common';
 import { connect } from 'react-redux';
 
-import { chatListFetch } from '../../../../actions';
 import ChatPeopleListItem from './ChatPeopleListItem';
+import { chatListFetch } from '../../../../actions';
 
 const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 

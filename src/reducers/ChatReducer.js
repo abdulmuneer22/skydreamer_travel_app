@@ -19,12 +19,14 @@ import {
   CHAT_LIST_FETCH_SUCCESS,
   CHAT_MESSAGES_FETCH_SUCCESS,
   START_FETCHING_CHANNELS,
-  RECEIVED_CHANNELS
+  RECEIVED_CHANNELS,
+  START_FETCHING_CHANNELS_MESSAGES
 } from 'skydreamer/actions/types';
 
 const INITIAL_STATE = {
   data,
   channels: [],
+  messages: [],
   singleChannels: [],
   isFetching: null,
 };
@@ -35,8 +37,16 @@ export default (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, {
           isFetching: true
       });
+    case START_FETCHING_CHANNELS_MESSAGES:
+      return Object.assign({}, state, {
+          isFetching: true
+      });
     case CHAT_MESSAGES_FETCH_SUCCESS:
-      return action.payload;
+      console.log('CHAT_MESSAGES_FETCH_SUCCESS', action.messages);
+      return Object.assign({}, state, {
+        isFetching: false,
+        messages: action.messages
+      });
     case RECEIVED_CHANNELS:
       console.log('RECEIVED_CHANNELS', action.channels, action.singleChannels);
       return Object.assign({}, state, {
@@ -55,6 +65,7 @@ export default (state = INITIAL_STATE, action) => {
     case ADD_NEW_MESSAGE:
       const { text, type } = action.message;
       console.log('addNewMessage: ADD_NEW_MESSAGE', type, text);
+      //@TODO: refactor the object to the new version
       const newMessageArr = {
         id: 568,
         text,

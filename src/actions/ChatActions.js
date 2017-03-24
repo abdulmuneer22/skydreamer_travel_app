@@ -6,33 +6,60 @@ import {
   CHAT_MESSAGES_FETCH_SUCCESS,
   START_FETCHING_CHANNELS,
   RECEIVED_CHANNELS,
+  START_FETCHING_CHANNELS_MESSAGES,
 } from './types';
 
-export const openChat = (id, fullname, folder, photo, lastLogin) => ({
-  type: OPEN_CHAT,
-  metaInfo: { id, fullname, folder, photo, lastLogin },
-});
-
-export const addNewMessage = (type, text) => {
-  console.log('addNewMessage:', type, text);
+export const openChat = (id, fullname, folder, photo, lastLogin) => {
+  //TODO: continue here the fetch list of the messages from the channels
+  // chatMessagesFetch(id);
   return (dispatch) => {
-      dispatch({ type: ADD_NEW_MESSAGE, message: { type, text } });
+    dispatch({ type: OPEN_CHAT, metaInfo: { id, fullname, folder, photo, lastLogin } });
   };
 };
 
+export const addNewMessage = (channelId, type, text) => {
+  saveNewMessageFirebase(channelId, type, text);
+  return (dispatch) => {
+      dispatch({ type: ADD_NEW_MESSAGE, message: { channelId, type, text } });
+  };
+};
+
+export const saveNewMessageFirebase = (channelId, type, text) => {
+    console.log('saveNewMessageFirebase: ', channelId, type, text);
+    const user = firebase.auth().currentUser;
+    let messagesRef = firebase.database().ref(`/channels/${channelId}/messages`);
+    messagesRef.push({
+      objData: {
+        type: "text",
+        value: text
+      },
+      userid: user.uid,
+      photo: user.uid + ".jpg",
+      timestamp: Date.now(),
+      pending: false
+    });
+}
+
 export const startFetchingChannels = () => ({
     type: START_FETCHING_CHANNELS
+});
+
+export const startFetchingChannelsMessages = () => ({
+    type: START_FETCHING_CHANNELS_MESSAGES
 });
 
 export const receivedChannels = () => ({
     type: RECEIVED_CHANNELS
 });
 
-export const chatMessagesFetch = (route, chatId) => {
+export const chatMessagesFetch = (channelId) => {
+  console.log('chatMessagesFetch() called:', channelId);
   return (dispatch) => {
-    firebase.database().ref(`/${route}/${chatId}/messages`)
+    dispatch(startFetchingChannelsMessages());
+    firebase.database().ref(`/channels/${channelId}/messages`)
       .on('value', snapshot => {
-        dispatch({ type: CHAT_MESSAGES_FETCH_SUCCESS, payload: snapshot.val() });
+        console.log('chatMessagesFetch() result:', snapshot.val());
+        dispatch({ type: CHAT_MESSAGES_FETCH_SUCCESS, messages: snapshot.val() });
       });
   };
 };

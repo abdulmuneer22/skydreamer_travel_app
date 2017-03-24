@@ -9,7 +9,8 @@
 import React from 'react';
 import { ScrollView } from 'react-native';
 import { connect } from 'react-redux';
-import * as actions from '../../../../../actions';
+import { chatActions } from 'skydreamer/actions';
+import { bindActionCreators } from 'redux';
 
 import {
          // HolderDateSeparator,
@@ -17,9 +18,6 @@ import {
          HolderSelfText,
        } from '../ViewHolder';
 
-export const addNewMessage = (text) => {
-  console.log('export const addNewMessage', text);
-};
 
 class ChatList extends React.Component {
 
@@ -31,6 +29,8 @@ class ChatList extends React.Component {
       listHeight: 0,
       scrollViewHeight: 0,
     };
+
+    chatActions.chatMessagesFetch('E0GX1LyX9GVv3kjzMgOsOeoKmLC3');
   }
 
   componentWillMount() {
@@ -176,9 +176,11 @@ class ChatList extends React.Component {
 
 }
 
-const mapStateToProps = state =>
-  /* console.log('mapStateToProps of ChatList.js');
-  console.log(state);*/
-   ({ chats: state.chats });
 
-export default connect(mapStateToProps, actions)(ChatList);
+const mapDispatchToProps = dispatch => ({
+  chatActions: bindActionCreators(chatActions, dispatch)
+});
+
+const mapStateToProps = state => ({ chats: state.chats });
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChatList);

@@ -129,11 +129,11 @@ class InternalChat extends Component {
     if (text === '') {
       return;
     }
-
+    const { id } = this.props;
     // ChatList.addNewMessage(text, ChatList.state);
     const type = 'SelfText';
     this.setState({ text: '' });
-    this.props.chatActions.addNewMessage(type, text);
+    this.props.chatActions.addNewMessage(id, type, text);
   }
 
   onBackPressButton = () => {
@@ -150,6 +150,7 @@ class InternalChat extends Component {
     } = styles;
     // const { id, fullname, photo, lastMessage, lastLogin } = this.props;
     const {
+      id,
       fullname,
       photo,
       lastLogin
