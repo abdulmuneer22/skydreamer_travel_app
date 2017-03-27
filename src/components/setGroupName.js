@@ -10,6 +10,7 @@ import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import Slider from 'react-native-slider';
 import { Actions } from 'react-native-router-flux';
+import { Input } from 'skydreamer/common';
 
 // Later on in your styles..
 const styles = {
@@ -65,7 +66,7 @@ const styles = {
 export default class SetGroupName extends Component {
 
   state = {
-    value: "AMS",
+    value: "Group name",
   };
 
   onNextPress = () => {
@@ -92,7 +93,11 @@ export default class SetGroupName extends Component {
         <Text style={styles.textTitle}>
           Name of the group
         </Text>
-        <Text style={styles.textValue}>{value}</Text>
+        <Input
+          label="Name"
+          value={this.state.value}
+          onChangeText={email => this.setState({ value })}
+        />
       </View>
     );
   }

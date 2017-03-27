@@ -14,6 +14,8 @@ import {
   Text,
   Image,
   View,
+  ScrollView,
+  Alert,
 } from 'react-native';
 import TimerMixin from 'react-timer-mixin';
 import LinearGradient from 'react-native-linear-gradient';
@@ -29,54 +31,57 @@ import SetFriends from './setFriends';
 
 
 export default class SessionGradient extends Component {
-  state = {
-      value: 250,
-    };
+
+
   render() {
     return (
       <View style={styles.container}>
-        <AppIntro>
+        <ScrollView
+        horizontal={true}
+        pagingEnabled={true}
+        automaticallyAdjustContentInsets={false}
+        >
           <LinearGradient
-            colors={['#f36b3c', '#e0256a']}
+            colors={['#f36b3c', '#dd1a72']}
             start={{x: 0, y: 1}} end={{x: 1, y: 1}}
             style={styles.linearGradient}>
             <View style={[styles.slide]}>
-              <View level={10}>
-                  <SetPriceSession/>
-              </View>
+                <SetPriceSession/>
             </View>
           </LinearGradient>
           <LinearGradient
-            colors={['#e0256a', '#280DFF']}
+            colors={['#dd1a72', '#7b1bdd']}
             start={{x: 0, y: 1}} end={{x: 1, y: 1}}
             style={styles.linearGradient}>
             <View style={[styles.slide]}>
-              <View level={10}>
-                  <SetAirportSession/>
-              </View>
+                <SetAirportSession/>
               </View>
           </LinearGradient>
           <LinearGradient
-            colors={['#280DFF', '#0DF1FF']}
+            colors={['#7b1bdd', '#1aa9d2']}
             start={{x: 0, y: 1}} end={{x: 1, y: 1}}
             style={styles.linearGradient}>
             <View style={[styles.slide]}>
-              <View level={10}>
-                  <SetTopics/>
-              </View>
-              </View>
+                <SetGroupName/>
+            </View>
           </LinearGradient>
           <LinearGradient
-            colors={['#0DF1FF', '#89FF0D']}
+            colors={['#1aa9d2', '#3ab35b']}
             start={{x: 0, y: 1}} end={{x: 1, y: 1}}
             style={styles.linearGradient}>
             <View style={[styles.slide]}>
-              <View level={10}>
-                  <SetFriends/>
-              </View>
-              </View>
+                <SetFriends/>
+            </View>
           </LinearGradient>
-        </AppIntro>
+          <LinearGradient
+            colors={['#3ab35b', '#ddce26']}
+            start={{x: 0, y: 1}} end={{x: 1, y: 1}}
+            style={styles.linearGradient}>
+            <View style={[styles.slide]}>
+                <SetFriends/>
+            </View>
+          </LinearGradient>
+        </ScrollView>
       </View>
     );
   }
@@ -97,7 +102,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
+    padding: 20,
   },
   linearGradient: {
     flex: 1,
