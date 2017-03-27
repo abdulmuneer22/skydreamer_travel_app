@@ -75,9 +75,9 @@ export default class ChatPeopleList extends Component {
     const { isLoading, channels, singleChannels } = this.props;
 
     console.log('isLoading', isLoading);
-    console.log('render() singleChannels:::', singleChannels);
+    console.log('render() channels:::', channels);
 
-    if(isLoading || isLoading === null) {
+    if(isLoading) {
       return (
         <Spinner />
       );

@@ -65,8 +65,8 @@ class Friend extends Component {
   }
 }
 
-const mapStateToProps = ({ selectedFriendId }) => ({
-  query: selectedFriendId.query,
+const mapStateToProps = (state) => ({
+  state
 });
 
 const mapDispatchToProps = dispatch => ({

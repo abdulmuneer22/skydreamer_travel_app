@@ -6,12 +6,10 @@ import {
   CHAT_MESSAGES_FETCH_SUCCESS,
   START_FETCHING_CHANNELS,
   RECEIVED_CHANNELS,
-  START_FETCHING_CHANNELS_MESSAGES,
+  START_FETCHING_MESSAGES,
 } from './types';
 
 export const openChat = (id, fullname, folder, photo, lastLogin) => {
-  //TODO: continue here the fetch list of the messages from the channels
-  // chatMessagesFetch(id);
   return (dispatch) => {
     dispatch({ type: OPEN_CHAT, metaInfo: { id, fullname, folder, photo, lastLogin } });
   };
@@ -45,7 +43,7 @@ export const startFetchingChannels = () => ({
 });
 
 export const startFetchingChannelsMessages = () => ({
-    type: START_FETCHING_CHANNELS_MESSAGES
+    type: START_FETCHING_MESSAGES
 });
 
 export const receivedChannels = () => ({

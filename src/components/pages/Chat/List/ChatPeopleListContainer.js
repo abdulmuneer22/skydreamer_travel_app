@@ -40,7 +40,8 @@ class ChatPeopleListContainer extends Component {
      console.log('chatListFetch UserId:', userId);
      */
 
-    this.props.chatListFetch('E0GX1LyX9GVv3kjzMgOsOeoKmLC3');
+     this.props.chatListFetch('E0GX1LyX9GVv3kjzMgOsOeoKmLC3');
+
  }
 
   render() {
@@ -65,7 +66,7 @@ class ChatPeopleListContainer extends Component {
 const mapStateToProps = ({ chats }) => ({
     channels: chats.channels,
     singleChannels: chats.singleChannels,
-    isLoading: chats.isFetching
+    isLoading: chats.isLoading
 });
 
 export default connect(mapStateToProps, { chatListFetch })(ChatPeopleListContainer);

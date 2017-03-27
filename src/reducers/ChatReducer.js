@@ -6,51 +6,34 @@
  * @Revision History:
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    14/03/2017  added import types, refactored actions import
- * Guilherme Bastos    16/03/2017  added CHAT_MESSAGES_FETCH_SUCCESS
 */
 
 import { Actions } from 'react-native-router-flux';
 import moment from 'moment';
-import data from './ChatFakeList.json';
 
 import {
   OPEN_CHAT,
-  ADD_NEW_MESSAGE,
   CHAT_LIST_FETCH_SUCCESS,
-  CHAT_MESSAGES_FETCH_SUCCESS,
   START_FETCHING_CHANNELS,
-  RECEIVED_CHANNELS,
-  START_FETCHING_CHANNELS_MESSAGES
+  RECEIVED_CHANNELS
 } from 'skydreamer/actions/types';
 
 const INITIAL_STATE = {
-  data,
   channels: [],
-  messages: [],
   singleChannels: [],
-  isFetching: null,
+  isLoading: true,
 };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case START_FETCHING_CHANNELS:
       return Object.assign({}, state, {
-          isFetching: true
-      });
-    case START_FETCHING_CHANNELS_MESSAGES:
-      return Object.assign({}, state, {
-          isFetching: true
-      });
-    case CHAT_MESSAGES_FETCH_SUCCESS:
-      console.log('CHAT_MESSAGES_FETCH_SUCCESS', action.messages);
-      return Object.assign({}, state, {
-        isFetching: false,
-        messages: action.messages
+          isLoading: true
       });
     case RECEIVED_CHANNELS:
       console.log('RECEIVED_CHANNELS', action.channels, action.singleChannels);
       return Object.assign({}, state, {
-        isFetching: false,
+        isLoading: false,
         channels: action.channels,
         singleChannels: action.singleChannels
       });
@@ -60,25 +43,8 @@ export default (state = INITIAL_STATE, action) => {
       const { id, fullname, photo, lastLogin } = action.metaInfo;
       Actions.internalChat({ id, fullname, photo, lastLogin });
       return Object.assign({}, ...state, {
-        messages: data
+        isLoading: false
       });
-    case ADD_NEW_MESSAGE:
-      const { text, type } = action.message;
-      console.log('addNewMessage: ADD_NEW_MESSAGE', type, text);
-      //@TODO: refactor the object to the new version
-      const newMessageArr = {
-        id: 568,
-        text,
-        timestamp: moment().unix(),
-        type,
-        user: {
-          userid: 1,
-          photoSrc: 'https://storage.skydreamer.io/profile/0100110.jpg',
-        },
-      };
-      data.push(newMessageArr);
-      console.log('addNewMessage: ADD_NEW_MESSAGE DATA:', data);
-      return { ...state, messages: data };
     default:
       return state;
   }

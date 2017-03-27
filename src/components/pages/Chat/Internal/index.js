@@ -120,6 +120,15 @@ class InternalChat extends Component {
     text: '',
   };
 
+
+  componentDidMount() {
+    console.log('############## index.js componentWillMount() ###############');
+    const { id } = this.props;
+    console.log('id:', id);
+    this.props.chatActions.chatMessagesFetch(id);
+  }
+  //*/
+
   onChangeText = (text) => {
     this.setState({ text });
   }

@@ -125,8 +125,7 @@ class ChatPeopleListItem extends Component {
   static propTypes = {
     channels: PropTypes.object.isRequired,
     singleChannels: PropTypes.array.isRequired,
-    openChat: PropTypes.func,
-    selectedFriend: PropTypes.func,
+    openChat: PropTypes.func
   };
 
   state = {
@@ -253,7 +252,6 @@ class ChatPeopleListItem extends Component {
       <TouchableWithoutFeedback
         style={container}
         onPress={() => chatActions.openChat(id, title, folder, photo, lastLogin)}
-        onLongPress={() => selectedFriend(null)}
       >
         <View>
           <View style={rowContainer}>
