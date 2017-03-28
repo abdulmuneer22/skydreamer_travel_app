@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 // import { chatActions } from 'skydreamer/actions';
 import { bindActionCreators } from 'redux';
 import { Spinner } from '../../../../common';
+import firebase from 'firebase';
 
 import {
          // HolderDateSeparator,
@@ -19,6 +20,7 @@ import {
          HolderSelfText,
        } from '../ViewHolder';
 
+let authUserId = null;
 
 class ChatList extends React.Component {
 
@@ -31,15 +33,17 @@ class ChatList extends React.Component {
       scrollViewHeight: 0,
     };
 
-    // chatActions.chatMessagesFetch('E0GX1LyX9GVv3kjzMgOsOeoKmLC3');
+    var user = firebase.auth().currentUser;
+    if (user != null) {
+      authUserId = user.uid;
+    }
   }
 
   componentDidMount() {
     this.setState({ rendered: true });
   }
 
-  componentWillReceiveProps(nextProps) { // nextProps
-    console.log('Aquii ChatList L 42:::', nextProps);
+  componentWillReceiveProps(nextProps) {
     this.setState({ chatRows: nextProps.messages });
   }
 
@@ -56,11 +60,11 @@ class ChatList extends React.Component {
   renderRow(message, index, currentKey, keys) {
 
     const { chatRows } = this.state;
-
+    /*
     console.log('renderRow: message:::', message);
     console.log('renderRow: index:::', index);
     console.log('renderRow: chatRows:::', chatRows);
-
+    */
     let hiddenProfile = false;
     let moreSpace = false;
     let squareCorner = false;
@@ -68,21 +72,17 @@ class ChatList extends React.Component {
     let semiSquareCornerDown = false;
 
     const loc = keys.indexOf(currentKey);
-    console.log('renderRow: loc:::', loc);
+    // console.log('renderRow: loc:::', loc);
 
-    // const previus = chatRows[Number(index) - 1];
     const previus = chatRows[keys[loc-1]];
-    // const current = chatRows[Number(index)];
     const current =  chatRows[keys[loc]];
-    // const next = chatRows[Number(index) + 1];
     const next =  chatRows[keys[loc+1]];;
-
+    /*
     console.log('renderRow: previus:::', previus);
     console.log('renderRow: current:::', current);
     console.log('renderRow: next:::', next);
-
+    */
     if (previus !== undefined && next !== undefined) {
-      //semiSquareCornerDown valiations
       if ((current.userid !== previus.userid) && (current.userid === next.userid)) {
         semiSquareCornerDown = true;
       } else if ((current.userid === previus.userid) && (current.userid === next.userid)) {
@@ -112,7 +112,7 @@ class ChatList extends React.Component {
       }
     }
 
-    if (next === undefined) {
+    if (next === undefined && previus !== undefined) {
       if (current.userid !== previus.userid) {
         moreSpace = true;
       }
@@ -122,17 +122,13 @@ class ChatList extends React.Component {
     const { type, value } = objData;
     const id = index;
 
-    //TODO: conpare the senderId with the auth user id to put ( OtherText or SelfText)
-    console.log('General data 2 ...');
-    console.log('type: ', type);
-    console.log('timestamp: ', timestamp);
-    console.log('photo: ', photo);
-    console.log('value: ', value);
-    console.log('');
+    let typeMessage = 'OtherText';
 
-    const typeMesssage = 'SelfText';
+    if(authUserId === current.userid && type === 'text') {
+      typeMessage = 'SelfText';
+    }
 
-    switch (typeMesssage) {
+    switch (typeMessage) {
       case 'DateSeparator':
         return (
           <HolderOtherText
@@ -187,9 +183,15 @@ class ChatList extends React.Component {
   render() {
     // const { chatRows } = this.state;
     const { isLoadingMessages, messages } = this.props;
-    const messageLenght = Object.keys(messages).length;
-    const keys = Object.keys(messages).sort();
+    let messageLenght = 0;
+    let keys = null;
 
+    if(messages){
+      messageLenght = Object.keys(messages).length;
+      keys = Object.keys(messages).sort();
+    }
+
+    /*
     console.log('this.props.internalChats::::', messages);
     console.log('this.props.internalChats LENGHT::::', Object.keys(messages).length);
     console.log('this.props.internalChats:::: isLoadingMessages', isLoadingMessages);

@@ -134,15 +134,14 @@ class InternalChat extends Component {
   }
 
   onSendPressButton = () => {
+    console.log('ERROR::: onSendPressButton ->');
     const { text } = this.state;
+    const { id } = this.props;
     if (text === '') {
       return;
     }
-    const { id } = this.props;
-    // ChatList.addNewMessage(text, ChatList.state);
-    const type = 'SelfText';
     this.setState({ text: '' });
-    this.props.chatActions.addNewMessage(id, type, text);
+    this.props.chatActions.addNewMessage(id, 'text', text);
   }
 
   onBackPressButton = () => {

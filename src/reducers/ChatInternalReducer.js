@@ -23,6 +23,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log('ERROR::: 2 ', action);
   switch (action.type) {
     case START_FETCHING_MESSAGES:
       return Object.assign({}, state, {
@@ -37,6 +38,7 @@ export default (state = INITIAL_STATE, action) => {
     case ADD_NEW_MESSAGE:
       const { text, type } = action.message;
       console.log('addNewMessage: ADD_NEW_MESSAGE', type, text);
+      /*
       //@TODO: refactor the object to the new version
       const newMessageArr = {
         id: 568,
@@ -48,9 +50,10 @@ export default (state = INITIAL_STATE, action) => {
           photoSrc: 'https://storage.skydreamer.io/profile/0100110.jpg',
         },
       };
-      data.push(newMessageArr);
+      messages.push(newMessageArr);
       console.log('addNewMessage: ADD_NEW_MESSAGE DATA:', data);
-      return { ...state, messages: data };
+      */
+      return { ...state };
     default:
       return state;
   }

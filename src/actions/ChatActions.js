@@ -16,6 +16,7 @@ export const openChat = (id, fullname, folder, photo, lastLogin) => {
 };
 
 export const addNewMessage = (channelId, type, text) => {
+  console.log('ERROR::: addNewMessage ->');
   saveNewMessageFirebase(channelId, type, text);
   return (dispatch) => {
       dispatch({ type: ADD_NEW_MESSAGE, message: { channelId, type, text } });
@@ -23,7 +24,7 @@ export const addNewMessage = (channelId, type, text) => {
 };
 
 export const saveNewMessageFirebase = (channelId, type, text) => {
-    console.log('saveNewMessageFirebase: ', channelId, type, text);
+    console.log('ERROR::: saveNewMessageFirebase ->', channelId, type, text);
     const user = firebase.auth().currentUser;
     let messagesRef = firebase.database().ref(`/channels/${channelId}/messages`);
     messagesRef.push({
@@ -51,12 +52,12 @@ export const receivedChannels = () => ({
 });
 
 export const chatMessagesFetch = (channelId) => {
-  console.log('chatMessagesFetch() called:', channelId);
+  console.log('ERROR::: chatMessagesFetch ->', channelId);
   return (dispatch) => {
     dispatch(startFetchingChannelsMessages());
     firebase.database().ref(`/channels/${channelId}/messages`)
       .on('value', snapshot => {
-        console.log('chatMessagesFetch() result:', snapshot.val());
+        console.log('ERROR::: chatMessagesFetch RESULT ->', snapshot.val());
         dispatch({ type: CHAT_MESSAGES_FETCH_SUCCESS, messages: snapshot.val() });
       });
   };
@@ -116,6 +117,7 @@ export const chatListFetch = (userId) =>
                       last_name,
                       photo
                     } = friendUserVal;
+
                     //@TODO: we need to receive this props on ChatPeopleListItem
                     dataChannelByKey.first_name = first_name;
                     dataChannelByKey.last_name = last_name;

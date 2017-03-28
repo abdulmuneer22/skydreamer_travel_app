@@ -25,6 +25,7 @@ const INITIAL_STATE = {
 };
 
 export default (state = INITIAL_STATE, action) => {
+  console.log('ERROR::: 3 ', action);
   switch (action.type) {
     case START_FETCHING_CHANNELS:
       return Object.assign({}, state, {

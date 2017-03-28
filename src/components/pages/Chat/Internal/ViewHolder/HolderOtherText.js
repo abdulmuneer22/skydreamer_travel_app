@@ -65,7 +65,7 @@ class HolderOtherText extends Component {
       <View style={[rowContainer, this.setMoreSpaceStyle()]}>
         <View style={{ flex: 0.15 }}>
           {!this.props.hiddenProfile &&
-            <Image source={{ uri: photoSrc }} style={profileImage} />
+            <Image source={{ uri: 'https://storage.skydreamer.io/profile/' + photoSrc }} style={profileImage} />
           }
           {this.renderOnlineUserSign()}
         </View>

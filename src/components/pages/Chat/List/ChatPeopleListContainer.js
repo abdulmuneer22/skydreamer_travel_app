@@ -30,15 +30,15 @@ class ChatPeopleListContainer extends Component {
   constructor(props) {
     super(props);
     console.log("this.props@ChatPeopleListContainer", this.props);
-     /*
+
      var user = firebase.auth().currentUser;
      if (user != null) {
-       userId = 'E0GX1LyX9GVv3kjzMgOsOeoKmLC3';//user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+       // userId = 'E0GX1LyX9GVv3kjzMgOsOeoKmLC3';//user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
+       userId = user.uid;  // The user's ID, unique to the Firebase project. Do NOT use
                            // this value to authenticate with your backend server, if
                            // you have one. Use User.getToken() instead.
      }
-     console.log('chatListFetch UserId:', userId);
-     */
+     //*/
 
      this.props.chatListFetch('E0GX1LyX9GVv3kjzMgOsOeoKmLC3');
 
