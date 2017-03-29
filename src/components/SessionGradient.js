@@ -5,9 +5,8 @@
  * @Notes:
  * @Revision History:
  * @Name:              @Date:      @Description:
+   Paolo Pirruccio     29/03/17    Added map
  */
-
-
 import React, { Component } from 'react';
 import {
   StyleSheet,
@@ -34,54 +33,66 @@ export default class SessionGradient extends Component {
 
 
   render() {
+    state = {
+      scroll: 1,
+    };
+    //onScroll={() => { this.state.scroll++ }}
+
     return (
       <View style={styles.container}>
         <ScrollView
-        horizontal={true}
-        pagingEnabled={true}
-        automaticallyAdjustContentInsets={false}
-        >
-          <LinearGradient
-            colors={['#f36b3c', '#dd1a72']}
-            start={{x: 0, y: 1}} end={{x: 1, y: 1}}
-            style={styles.linearGradient}>
-            <View style={[styles.slide]}>
-                <SetPriceSession/>
-            </View>
-          </LinearGradient>
-          <LinearGradient
-            colors={['#dd1a72', '#7b1bdd']}
-            start={{x: 0, y: 1}} end={{x: 1, y: 1}}
-            style={styles.linearGradient}>
-            <View style={[styles.slide]}>
-                <SetAirportSession/>
+          overScrollMode={false}
+          horizontal={true}
+          pagingEnabled={true}
+          scrollEventThrottle={200}
+          automaticallyAdjustContentInsets={false}
+          >
+            <LinearGradient
+              colors={['#f36b3c', '#dd1a72']}
+              start={{x: 0, y: 1}} end={{x: 1, y: 1}}
+              style={styles.linearGradient}>
+              <View style={[styles.slide]}>
+                  <SetPriceSession/>
               </View>
-          </LinearGradient>
-          <LinearGradient
-            colors={['#7b1bdd', '#1aa9d2']}
-            start={{x: 0, y: 1}} end={{x: 1, y: 1}}
-            style={styles.linearGradient}>
-            <View style={[styles.slide]}>
-                <SetGroupName/>
-            </View>
-          </LinearGradient>
-          <LinearGradient
-            colors={['#1aa9d2', '#3ab35b']}
-            start={{x: 0, y: 1}} end={{x: 1, y: 1}}
-            style={styles.linearGradient}>
-            <View style={[styles.slide]}>
-                <SetFriends/>
-            </View>
-          </LinearGradient>
-          <LinearGradient
-            colors={['#3ab35b', '#ddce26']}
-            start={{x: 0, y: 1}} end={{x: 1, y: 1}}
-            style={styles.linearGradient}>
-            <View style={[styles.slide]}>
-                <SetFriends/>
-            </View>
-          </LinearGradient>
-        </ScrollView>
+            </LinearGradient>
+            <LinearGradient
+              colors={['#dd1a72', '#7b1bdd']}
+              start={{x: 0, y: 1}} end={{x: 1, y: 1}}
+              style={styles.linearGradient}>
+              <View style={[styles.slide]}>
+                  <SetAirportSession/>
+              </View>
+            </LinearGradient>
+            <LinearGradient
+              colors={['#7b1bdd', '#1aa9d2']}
+              start={{x: 0, y: 1}} end={{x: 1, y: 1}}
+              style={styles.linearGradient}>
+              <View style={[styles.slide]}>
+                  <SetGroupName/>
+              </View>
+            </LinearGradient>
+            <LinearGradient
+              colors={['#1aa9d2', '#3ab35b']}
+              start={{x: 0, y: 1}} end={{x: 1, y: 1}}
+              style={styles.linearGradient}>
+              <View style={[styles.slide]}>
+                  <SetFriends/>
+              </View>
+            </LinearGradient>
+            <LinearGradient
+              colors={['#3ab35b', '#ddce26']}
+              start={{x: 0, y: 1}} end={{x: 1, y: 1}}
+              style={styles.linearGradient}>
+              <View style={[styles.slide]}>
+                  <SetFriends/>
+              </View>
+            </LinearGradient>
+          </ScrollView>
+
+          <Image
+            source={require('../images/map.png')}
+            style={styles.map}
+            />
       </View>
     );
   }
@@ -90,6 +101,7 @@ export default class SessionGradient extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    zIndex: 0
   },
   gradient: {
     flex: 1,
@@ -97,6 +109,11 @@ const styles = StyleSheet.create({
     height: null,
   },
   image: {
+    height: 300,
+  },
+
+  map: {
+    position: 'absolute',
   },
   slide: {
     flex: 1,

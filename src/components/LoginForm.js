@@ -61,7 +61,7 @@ class LoginForm extends Component {
     super(props);
   }
 
-  
+
   onEmailChange = (text) => {
     this.props.actions.emailChanged(text);
   }
@@ -164,9 +164,7 @@ class LoginForm extends Component {
             <CardSection>
               {this.renderButton()}
             </CardSection>
-
           </View>
-
         </Image>
       </View>
     );

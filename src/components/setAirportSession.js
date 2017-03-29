@@ -98,6 +98,7 @@ export default class SetAirportSession extends Component {
   }
 
   componentDidMount() {
+    /*
       navigator.geolocation.getCurrentPosition((position) => {
           var initialPosition = JSON.stringify(position);
           var latitude = position.coords.latitude;
@@ -117,7 +118,7 @@ export default class SetAirportSession extends Component {
           this.setState({latitude});
           this.setState({longitude});
           this.setState({lastPosition});
-      })
+      })*/
   }
 
   render() {
