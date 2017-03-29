@@ -7,7 +7,7 @@
 // /   Name:           Date:        Description:
 // /-----------------------------------------------------------------
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Text } from 'react-native';
 import { connect } from 'react-redux';
 // import { chatActions } from 'skydreamer/actions';
 import { bindActionCreators } from 'redux';
@@ -18,6 +18,8 @@ import {
          // HolderDateSeparator,
          HolderOtherText,
          HolderSelfText,
+         HolderOtherPhoto,
+         HolderSelfPhoto,
        } from '../ViewHolder';
 
 let authUserId = null;
@@ -122,12 +124,28 @@ class ChatList extends React.Component {
     const { type, value } = objData;
     const id = index;
 
-    let typeMessage = 'OtherText';
+    let typeMessage = null;
+    let titleStr = null;
+    let subtitleStr = null;
 
-    if(authUserId === current.userid && type === 'text') {
-      typeMessage = 'SelfText';
+    if(type === 'text') {
+      if(authUserId === current.userid) {
+        typeMessage = 'SelfText';
+      } else {
+        typeMessage = 'OtherText';
+      }
+    } else if(type === 'photo') {
+      const { title, subtitle } = objData;
+      titleStr = title;
+      subtitleStr = subtitle;
+
+      if(authUserId === current.userid) {
+        typeMessage = 'SelfPhoto';
+      } else {
+        typeMessage = 'OtherPhoto';
+      }
     }
-
+    // SelfPhoto
     switch (typeMessage) {
       case 'DateSeparator':
         return (
@@ -166,6 +184,40 @@ class ChatList extends React.Component {
             photoSrc={photo}
             timestamp={timestamp}
             text={value}
+            hiddenProfile={hiddenProfile}
+            moreSpace={moreSpace}
+            squareCorner={squareCorner}
+            semiSquareCornerUp={semiSquareCornerUp}
+            semiSquareCornerDown={semiSquareCornerDown}
+            key={index}
+          />
+        );
+      case 'SelfPhoto':
+        return (
+          <HolderSelfPhoto
+            id={id}
+            photoSrc={photo}
+            timestamp={timestamp}
+            url={value}
+            title={titleStr}
+            subtitle={subtitleStr}
+            hiddenProfile={hiddenProfile}
+            moreSpace={moreSpace}
+            squareCorner={squareCorner}
+            semiSquareCornerUp={semiSquareCornerUp}
+            semiSquareCornerDown={semiSquareCornerDown}
+            key={index}
+          />
+        );
+      case 'OtherPhoto':
+        return (
+          <HolderOtherPhoto
+            id={id}
+            photoSrc={photo}
+            timestamp={timestamp}
+            url={value}
+            title={titleStr}
+            subtitle={subtitleStr}
             hiddenProfile={hiddenProfile}
             moreSpace={moreSpace}
             squareCorner={squareCorner}
