@@ -1,0 +1,42 @@
+import React, { Component, PropTypes } from 'react';
+// https://github.com/styled-components/styled-components#react-native
+import styled from 'styled-components/native';
+import { colors, dims } from 'app/config';
+
+const Container = styled.View`
+  flex: 1;
+`;
+
+const Label = styled.Text`
+  font-size: 16;
+`;
+
+export default class {{ pascalCase className }} extends Component {
+
+  static propTypes = {
+
+  };
+
+  static defaultProps = {
+
+  };
+
+  constructor(props) {
+    super(props);
+    console.log('{{ pascalCase className }} props', props);
+  }
+
+  state = {
+
+  };
+
+  render() {
+    return (
+      <Container>
+        <Label>
+          {{ pascalCase className }}
+        </Label>
+      </Container>
+    );
+  }
+};

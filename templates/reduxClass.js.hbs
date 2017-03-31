@@ -1,0 +1,55 @@
+import React, { Component, PropTypes } from 'react';
+// https://github.com/styled-components/styled-components#react-native
+import styled from 'styled-components/native';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { colors, dims } from 'app/config';
+import { PUT_ACTION_NAME_HERE } from 'app/actions';
+
+const Container = styled.View`
+  flex: 1;
+`;
+
+const Label = styled.Text`
+  font-size: 16;
+`;
+
+class {{ pascalCase className }} extends Component {
+
+  static propTypes = {
+
+  };
+
+  static defaultProps = {
+
+  };
+
+  constructor(props) {
+    super(props);
+    console.log('{{ pascalCase className }} props', props);
+  }
+
+  state = {
+
+  };
+
+  render() {
+    return (
+      <Container>
+        <Label>
+          {{ pascalCase className }}
+        </Label>
+      </Container>
+    );
+  }
+};
+
+const mapStateToProps = ({ PUT_REDUCER_NAME_HERE }) => ({
+  myReducer: PUT_REDUCER_NAME_HERE,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  myAction: bindActionCreators(PUT_ACTION_NAME_HERE, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)({{ pascalCase className }});
