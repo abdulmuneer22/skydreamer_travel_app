@@ -28,12 +28,12 @@ export default (state = INITIAL_STATE, action) => {
   console.log('ERROR::: 3 ', action);
   switch (action.type) {
     case START_FETCHING_CHANNELS:
-      return Object.assign({}, state, {
+      return Object.assign({}, ...state, {
           isLoading: true
       });
     case RECEIVED_CHANNELS:
       console.log('RECEIVED_CHANNELS', action.channels, action.singleChannels);
-      return Object.assign({}, state, {
+      return Object.assign({}, ...state, {
         isLoading: false,
         channels: action.channels,
         singleChannels: action.singleChannels

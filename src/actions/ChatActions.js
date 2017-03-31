@@ -1,5 +1,9 @@
+/**
+ * Manage the Firebase Database to create the 'querys' to load the Chat and InternalChat
+*/
+
 import firebase from 'firebase';
-import lodash from 'lodash';
+import Promise  from 'Promise';
 import {
   OPEN_CHAT,
   ADD_NEW_MESSAGE,
@@ -8,6 +12,9 @@ import {
   RECEIVED_CHANNELS,
   START_FETCHING_MESSAGES,
 } from './types';
+
+let channelsArr  = [];
+let userId = null;
 
 export const openChat = (id, fullname, folder, photo, lastLogin) => {
   return (dispatch) => {
@@ -24,7 +31,6 @@ export const addNewMessage = (channelId, type, text) => {
 };
 
 export const saveNewMessageFirebase = (channelId, type, text) => {
-    console.log('ERROR::: saveNewMessageFirebase ->', channelId, type, text);
     const user = firebase.auth().currentUser;
     let messagesRef = firebase.database().ref(`/channels/${channelId}/messages`);
     messagesRef.push({
@@ -51,6 +57,7 @@ export const receivedChannels = () => ({
     type: RECEIVED_CHANNELS
 });
 
+
 export const chatMessagesFetch = (channelId) => {
   console.log('ERROR::: chatMessagesFetch ->', channelId);
   return (dispatch) => {
@@ -63,178 +70,147 @@ export const chatMessagesFetch = (channelId) => {
   };
 };
 
-// firebase.database().ref(`/users/${userId}/friends/${friendUserId}/messages`)
-// export const chatListFetch = (userId, friendUserId) => {
-
-
-/**
- * From @jkomyno to @guilherme:
- * You don't want to have variables with the same name at different scopes levels inside the same method.
- * Also, never use var, they pollute the js file environment! Use let or const instead.
- * Avoid using 'function', please use arrow functions, otherwise we end up with a mixture of ES5 and ES6 and that
- * makes the code more difficult to read.
- * Are you really sure that we have to perform all these queries? All these nested forEach with _query.once() have
- * esponential time complexity.
- * When you console an error (btw remember that every exception should be caught and dealt with, a console.error doesn't suffice in production)
- * please remember to write some useful information about it. console.log("error", error) isn't humanly comprehensible.
- */
-export const chatListFetch = (userId) =>
-  (dispatch) => {
-    dispatch(startFetchingChannels());
-    let channelsArr  = [];
-    let singleChannelsArr  = [];
-    let query = firebase.database().ref(`/users/${userId}/channels`).orderByKey();
-    query.once('value')
-    .then((snapshot) => {
-      const totalNum = snapshot.numChildren();
-      console.log('totalNum', totalNum);
-      snapshot.forEach((channel, index) => {
-        console.log('**index**', index);
-        let channelKey = channel.key;  // key of user's channels
-        let childData = channel.val(); // actual contents of the child
-        if (childData) {
-          let channelRef = firebase.database().ref('/channels/'+ channelKey);
-          channelRef.once('value')
-          .then((channelByKey) => {
-            let key = channelByKey.key;
-            let type = channelByKey.val().type;
-            let dataChannelByKey = channelByKey.val();
-            console.log('dataChannelByKey', dataChannelByKey);
-            if(type === 'single') {
-              let members = dataChannelByKey.members;
-              //look on member list the friend from this logged userId
-              Object.keys(members).forEach((memberKey, memberKeyIndex) => {
-                if(memberKey !== userId) {
-                  //take the friend of this channelByKey
-                  let queryFriendUser = firebase.database().ref(`/users/${memberKey}`).orderByKey();
-                  queryFriendUser.once("value")
-                  .then((friendUser) => {
-                    let friendUserKey = channelByKey.key;
-                    let friendUserVal = friendUser.val();
-                    singleChannelsArr[friendUserKey] = friendUserVal;
-                    const {
-                      first_name,
-                      last_name,
-                      photo
-                    } = friendUserVal;
-
-                    //@TODO: we need to receive this props on ChatPeopleListItem
-                    dataChannelByKey.first_name = first_name;
-                    dataChannelByKey.last_name = last_name;
-                    dataChannelByKey.photo = photo;
-
-                    return dataChannelByKey;
-                  })
-                  .then((dataChannelByKey) => {
-                    console.log('returned dataChannelByKey', dataChannelByKey, totalNum, channelsArr.length);
-                    console.log('Object.keys(members).length, memberKeyIndex, index', Object.keys(members).length, memberKeyIndex, index);
-                    /*
-                    We should dispatch here, because this is the last block that is executed in this Promise mess.
-                    When we arrive here, we should merge our array with the dataChannelByKey one, which represents a single item every time.
-
-                    dispatch({
-                        type: RECEIVED_CHANNELS,
-                        channels: channelsArr,
-                        singleChannels: singleChannelsArr //empty
-                    });
-                    */
-                  })
-                  .catch((error) => {
-                    console.error("Error retrieving friendUser inside Object.keys loop in chatListFetch", error);
-                  });
-                }
-                console.log('memberIndex end');
-              });
-              console.log('Object.keys end', members);
-            }
-            channelsArr.push(dataChannelByKey);
-            console.log('channelByKey block end', totalNum, channelsArr.length);
-            if (channelsArr.length == totalNum) {
-              console.log('channelsArr', JSON.stringify(channelsArr, null, 2));
-              console.log('singleChannelsArr', singleChannelsArr);
-              /**
-               * It's too soon to dispatch the action, because we don't really know which properties every item of channelsArr has
-               */
-              dispatch({
-                  type: RECEIVED_CHANNELS,
-                  channels: channelsArr,
-                  singleChannels: singleChannelsArr //empty
-              });
-            }
-          })
-          .catch((error) => {
-            console.error("Error retrieving channelByKey from channelRef.once('value') in chatListFetch", error);
-          });
-          console.log('channelRef.once() end');
-        }
-        console.log('childData end', childData);
-      });
-      console.log('snapshot forEach end');
-    })
-    .catch((error) => {
-      console.error("Error retrieving snapshot from query.once('value') in chatListFetch", error);
+ // method to fetch the channels form the user
+ const loadChannelsFirebase = (userId) => {
+   console.log('');
+   console.log('########## exec method: loadChannelsFirebase() ###############');
+   console.log('new ) * loadChannelsFirebase: userId:::', userId);
+   // return (dispatch) => {
+     const query = firebase.database().ref(`/users/${userId}/channels`).orderByKey();
+     query.once('value')
+     .then((snapshot) => {
+         const total = snapshot.numChildren();
+         const channels = snapshot.val();
+         forEachChannelsFirebase(channels, total);
+     }).then((snapshot) => {
+        // after all process done, dispatch the array to Redux
+        //dispatch the list of groups/single chat
+        dispatchChannelsToChatList();
+        // **** END ****
     });
-  }
+  // }
+ };
 
-/*
-export const chatListFetch = (userId) => {
-  return function (dispatch) {
-     dispatch(startFetchingChannels());
-     var channelsArr  = [];
-     var singleChannelsArr  = [];
-     var query = firebase.database().ref(`/users/${userId}/channels`).orderByKey();
-     query.once("value").then(function(snapshot) {
-        const totalNum = snapshot.numChildren();
-        var i = 1;
-        snapshot.forEach(function(channels) {
-          // key of user's channels
-          var channelKey = channels.key;
-          // childData will be the actual contents of the child
-          var childData = channels.val();
-          if (childData) {
-            var channelRef = firebase.database().ref('/channels/'+ channelKey);
-            channelRef.once('value').then(function(channelByKey) {
-              var key = channelByKey.key;
-              var type = channelByKey.val().type;
-              var dataChannelByKey = channelByKey.val();
-              // console.log('dataChannelByKey', dataChannelByKey);
-              //actions for load info of a single chat between 2 users
-              if(type === 'single') {
-                var members = dataChannelByKey.members;
-                //look on member list the friend from this logged userId
-                Object.keys(members).forEach(function(key) {
-                    if(key !== userId) {
-                      //take the friend of this channelByKey
-                      var queryFriendUser = firebase.database().ref(`/users/${key}`).orderByKey();
-                      queryFriendUser.once("value").then(function(friendUser) {
-                        var friendUserKey = channelByKey.key;
-                        singleChannelsArr[friendUserKey] = friendUser.val();
-                        //@TODO: we need to receive this props on ChatPeopleListItem
-                        dataChannelByKey.first_name = friendUser.val().first_name;
-                        dataChannelByKey.last_name = friendUser.val().last_name;
-                        dataChannelByKey.photo = friendUser.val().photo;
-                        //
-                      }, function(error) {
-                        console.error(error);
-                      });
-                    }
-                });
-              }
-              channelsArr.push(dataChannelByKey);
-              if(i === totalNum) {
-                  dispatch({
-                      type: RECEIVED_CHANNELS,
-                      channels: channelsArr,
-                      singleChannels: singleChannelsArr
-                  });
-              }
-              i++;
-            });
-          }
-        });
-      }, function(error) {
-        console.error(error);
+ const dispatchChannelsToChatList = () => {
+   console.log('');
+   console.log('########## dispatchChannelsToChatList() Called ##############');
+   console.log('new ) * loadChannelsFirebase: FINAL ChannelsArr:::', channelsArr);
+   return (dispatch) => {
+     dispatch({
+        type: RECEIVED_CHANNELS,
+        channels: channelsArr,
+        singleChannels: []
      });
-  };
-};
-*/
+   };
+ }
+
+ const getAuthUserId = () => {
+    let userId = null;
+    const user = firebase.auth().currentUser;
+    if (user != null) {
+      userId = user.uid;
+    }
+    return userId;
+ }
+
+
+ // method to get full channel object searching by key on Firebase
+ const getChannelDetailsFirebase = (key) => {
+   console.log('');
+   console.log('########## exec method: getChannelDetailsFirebase() ###############');
+   let channelRef = firebase.database().ref('/channels/'+ key);
+   channelRef.once('value')
+    .then((channel) => {
+       let key = channel.key;
+       let type = channel.val().type;
+       let dataObj = channel.val();
+
+       console.log('new ) * getChannelDetailsFirebase: key:::', key);
+       console.log('new ) * getChannelDetailsFirebase: type:::', type);
+       console.log('new ) * getChannelDetailsFirebase: dataObj:::', dataObj);
+
+       // if the channel type === single, need to get first_name, last_nameand photo
+       if(type === 'single') {
+         let members = dataObj.members;
+         //look on member list the friend from this logged userId
+         Object.keys(members).forEach((memberKey, memberKeyIndex) => {
+           if(memberKey !== userId) {
+             //take the friend of this channel
+            console.log('new ) * getChannelDetailsFirebase: Friend:::', memberKey);
+            getFriendDetailsFirebase(memberKey, dataObj);
+           }
+         });
+       } else { // group channel
+         //add new goup channel to the list to be dipatched on redux later
+         channelsArr.push(dataObj);
+       }
+       console.log('');
+    });
+ };
+
+ // method to get full user object searching by key on Firebase
+ const getFriendDetailsFirebase = (uid, targetObject) => {
+   console.log('########## exec method: getFriendDetailsFirebase() ###############');
+   //take the friend of this uid
+   let query = firebase.database().ref(`/users/${uid}`).orderByKey();
+   query.once("value")
+   .then((friend) => {
+     let friendKey = friend.key;
+     let friendVal = friend.val();
+
+     console.log('new ) *** getFriendDetailsFirebase: myFriend:::', friendVal);
+
+     const { first_name, last_name, photo } = friendVal;
+
+     console.log('new ) *** getFriendDetailsFirebase: first_name:::', first_name);
+     console.log('new ) *** getFriendDetailsFirebase: last_name:::', last_name);
+     console.log('new ) *** getFriendDetailsFirebase: photo:::', photo);
+
+     // add ne data in the tarhet Object
+     // TODO: try to use Object.assing
+     targetObject.first_name = first_name;
+     targetObject.last_name = last_name;
+     targetObject.photo = photo;
+
+     console.log('new ) *** getFriendDetailsFirebase: targetObject:::', targetObject);
+
+     //add new single channel to the list with custom data (first_name, last_name, photo) to be dipatched on redux later
+     channelsArr.push(targetObject);
+
+     console.log('new ) *** getFriendDetailsFirebase: channelsArr:::', channelsArr);
+
+   })
+   .catch((error) => {
+     console.error("Error retrieving friend!", error);
+   });
+ }
+
+ // method to forEach every channel key received from loadChannelsFirebase()
+ // making request on firebase looking for more details about the channel
+ const forEachChannelsFirebase = (channels, total) => {
+   console.log('');
+   console.log('########## exec method: forEachChannelsFirebase() ###############');
+   console.log('new ) * forEachChannelsFirebase: total:::', total);
+   console.log('new ) * forEachChannelsFirebase: channels:::', channels);
+   console.log();
+
+   //get user id from logged user
+   userId = getAuthUserId();
+
+   Object.keys(channels).forEach((key) => {
+      let isActive = channels[key]; // actual contents of the childs
+      console.log('new ) ** forEachChannelsFirebase: channelKey:::', key);
+      console.log('new ) ** forEachChannelsFirebase: isActive:::', isActive);
+      if (isActive) {
+        //make request asking for the specific
+        getChannelDetailsFirebase(key);
+      }
+   });
+ };
+
+ export const chatListFetch = (userId) => (dispatch) => {
+   //enable the spinner ( preload )
+   dispatch(startFetchingChannels());
+   //start the query to fetch the user's chat list ( groups and single chats ) 
+   loadChannelsFirebase(userId);
+ }

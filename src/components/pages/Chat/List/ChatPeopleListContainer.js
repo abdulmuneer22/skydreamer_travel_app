@@ -44,19 +44,22 @@ class ChatPeopleListContainer extends Component {
 
  }
 
-  render() {
+ componentWillReceiveProps(nextProps) {
+   console.log('ChatPeopleListItem: nextProps:::', nextProps);
+   console.log('ChatPeopleListItem: nextProps: channels:::', nextProps.channels);
+ }
+
+ render() {
     const { container } = styles;
-    const { isLoading, channels, singleChannels } = this.props;
+    const { isLoading, channels } = this.props;
 
     console.log('isLoading', isLoading);
-    console.log('render() singleChannels:::', singleChannels);
 
     return (
       <View style={container}>
         <ChatPeopleList
           isLoading={isLoading}
           channels={channels}
-          singleChannels={singleChannels}
         />
       </View>
     );
@@ -65,7 +68,6 @@ class ChatPeopleListContainer extends Component {
 
 const mapStateToProps = ({ chats }) => ({
     channels: chats.channels,
-    singleChannels: chats.singleChannels,
     isLoading: chats.isLoading
 });
 

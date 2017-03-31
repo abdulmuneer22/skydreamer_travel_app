@@ -64,9 +64,15 @@ export default class ChatPeopleList extends Component {
   };
 
   componentWillReceiveProps(nextProps) {
-    console.log("nextProps", nextProps);
-    console.log("nextProps str", JSON.stringify(nextProps, null, 2));
+    console.log("8 ) nextProps", nextProps);
+    const { channels } = nextProps;
+
     if(nextProps.channels) {
+      const { first_name, last_name } = channels;
+      console.log("8 ) first_name:", first_name);
+      console.log("8 ) last_name:", last_name);
+      console.log("8 ) nextProps str", JSON.stringify(channels, null, 2));
+
       this.dataSource = ds.cloneWithRows(nextProps.channels);
     }
   }

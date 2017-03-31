@@ -125,7 +125,7 @@ class ChatPeopleListItem extends Component {
   static propTypes = {
     channels: PropTypes.object.isRequired,
     singleChannels: PropTypes.array.isRequired,
-    openChat: PropTypes.func
+    openChat: PropTypes.func,
   };
 
   state = {
