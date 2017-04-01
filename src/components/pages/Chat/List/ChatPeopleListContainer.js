@@ -8,10 +8,8 @@
  * Alberto Schiabel    12/03/2017  eslint, slightly refactored
  */
 import React, { Component, PropTypes } from 'react';
-import lodash from 'lodash';
 import firebase from 'firebase';
-import { ListView, View, Text } from 'react-native';
-import { Spinner } from '../../../common';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 
 import { chatListFetch } from '../../../../actions';
@@ -44,14 +42,12 @@ class ChatPeopleListContainer extends Component {
 
  }
 
- componentWillReceiveProps(nextProps) {
-   console.log('ChatPeopleListItem: nextProps:::', nextProps);
-   console.log('ChatPeopleListItem: nextProps: channels:::', nextProps.channels);
- }
-
  render() {
     const { container } = styles;
-    const { isLoading, channels } = this.props;
+    const {
+      isLoading,
+      channels,
+    } = this.props;
 
     console.log('isLoading', isLoading);
 
@@ -60,6 +56,7 @@ class ChatPeopleListContainer extends Component {
         <ChatPeopleList
           isLoading={isLoading}
           channels={channels}
+          singleChannels={{}} // not implemented yet
         />
       </View>
     );

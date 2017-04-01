@@ -6,96 +6,34 @@
  * @Revision History:
  * @Name:              @Date:      @Description:
  * Alberto Schiabel    12/03/2017  eslint, slightly refactored
+ * Alberto Schiabel    01/04/2017  refactored to stateless component and
+ *                                 replaced ListView with FlatList
  */
 import React, { Component, PropTypes } from 'react';
-import lodash from 'lodash';
-import firebase from 'firebase';
-import { ListView } from 'react-native';
+import { FlatList } from 'react-native';
 import { Spinner } from '../../../common';
-import { connect } from 'react-redux';
 
 import ChatPeopleListItem from './ChatPeopleListItem';
-import { chatListFetch } from '../../../../actions';
 
-const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-
-export default class ChatPeopleList extends Component {
-
-  static propTypes = {
-    isLoading: PropTypes.bool,
-    channels: PropTypes.array,
-    singleChannel: PropTypes.object,
-  };
-
-  constructor(props) {
-     super(props);
-     this.dataSource = ds.cloneWithRows(props.channels);
-     console.log('props@ChatPeopleList', props);
-     console.log('props@ChatPeopleList str', JSON.stringify(props, null, 2));
-  }
-
-  renderRow(channel, sectionID, rowID, singleChannels) {
-    console.log('arguments@renderRow', arguments);
-    /*
-    console.log('####### renderRow ########');
-    console.log('channel', channel);
-    console.log('sectionID', sectionID);
-    console.log('rowID', rowID);
-    console.log('singleChannels', singleChannels);
-    console.log('');
-    console.log('');
-    const { type, members, photo } = channel;
-    console.log('members>', members);
-    console.log('photo>', photo);
-    if (type === 'single') {
-      var friendKey = null;
-      var singleChannel = null;
-      Object.keys(members).forEach(function(key) {
-          if(key !== userId) {
-            friendKey = key;
-          }
-      });
-      console.log('Object.keys(): friendKey:', friendKey);
-      singleChannel = singleChannels.friendKey;
-    }
-    console.log('singleChannel:::', singleChannel, friendKey);
-    */
-    return <ChatPeopleListItem channels={channel} singleChannels={singleChannels} />
-  };
-
-  componentWillReceiveProps(nextProps) {
-    console.log("8 ) nextProps", nextProps);
-    const { channels } = nextProps;
-
-    if(nextProps.channels) {
-      const { first_name, last_name } = channels;
-      console.log("8 ) first_name:", first_name);
-      console.log("8 ) last_name:", last_name);
-      console.log("8 ) nextProps str", JSON.stringify(channels, null, 2));
-
-      this.dataSource = ds.cloneWithRows(nextProps.channels);
-    }
-  }
-
-  render() {
-    const { isLoading, channels, singleChannels } = this.props;
-
-    console.log('isLoading', isLoading);
-    console.log('render() channels:::', channels);
-
-    if(isLoading) {
-      return (
-        <Spinner />
-      );
-    } else {
-      return (
-        <ListView
-          enableEmptySections
-          style={{flex: 1}}
-          dataSource={this.dataSource}
-          renderRow={(rowData, sectionID, rowID) => this.renderRow(rowData, sectionID, rowID, singleChannels)}
+const ChatPeopleList = ({ isLoading, channels, singleChannels }) => (
+  isLoading ?
+    <Spinner /> :
+    <FlatList
+      data={this.props.channels}
+      keyExtractor={(_, i) => i}
+      renderItem={({ item}) => (
+        <ChatPeopleListItem
+          channels={item}
+          singleChannels={singleChannels}
         />
-      );
-    }
-  }
-}
+      )}
+    />
+);
+
+ChatPeopleList.propTypes = {
+  isLoading: PropTypes.bool,
+  channels: PropTypes.array,
+  singleChannel: PropTypes.object,
+};
+
+export default ChatPeopleList;

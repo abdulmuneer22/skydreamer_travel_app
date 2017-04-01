@@ -61,10 +61,10 @@ export const startFetchingChannelsMessages = () => ({
     type: START_FETCHING_MESSAGES
 });
 
-export const receivedChannels = () => ({
-    type: RECEIVED_CHANNELS
+export const receivedChannels = (channels) => ({
+    type: RECEIVED_CHANNELS,
+    channels,
 });
-
 
 export const chatMessagesFetch = (channelId) => {
   console.log('ERROR::: chatMessagesFetch ->', channelId);
@@ -98,7 +98,8 @@ export const chatMessagesFetch = (channelId) => {
   // }
  };
 
- const dispatchChannelsToChatList = () => {
+/*
+ const dispatchChannelsToChatList = () => (dispatch) => {
     console.log('');
       console.log('#############################################################');
       console.log('########## dispatchChannelsToChatList() Called ##############');
@@ -112,6 +113,7 @@ export const chatMessagesFetch = (channelId) => {
      });
     }
  }
+*/
 
  const getAuthUserId = () => {
     let userId = null;
@@ -216,9 +218,29 @@ export const chatMessagesFetch = (channelId) => {
    });
  };
 
- export const chatListFetch = (userId) => (dispatch) => {
-   //enable the spinner ( preload )
-   dispatch(startFetchingChannels());
-   //start the query to fetch the user's chat list ( groups and single chats )
-   loadChannelsFirebase(userId);
- }
+ export const chatListFetch = (userId) =>
+  (dispatch) => {
+    //enable the spinner ( preload )
+    dispatch(startFetchingChannels());
+    //start the query to fetch the user's chat list ( groups and single chats )
+    console.log('');
+    console.log('########## exec method: loadChannelsFirebase() ###############');
+    console.log('new ) * loadChannelsFirebase: userId:::', userId);
+    const query = firebase.database().ref(`/users/${userId}/channels`).orderByKey();
+    query.once('value')
+      .then((snapshot) => {
+        const channels = snapshot.val();
+        forEachChannelsFirebase(channels);
+      }).then((snapshot) => {
+        // after all process done, dispatch the array to Redux
+        //dispatch the list of groups/single chat
+        console.log('');
+        console.log('#############################################################');
+        console.log('########## dispatchChannelsToChatList() Called ##############');
+        console.log('FINAL ChannelsArr:::', channelsArr);
+        console.log('#############################################################');
+        console.log('');
+        dispatch(receivedChannels(channelsArr));
+        // **** END ****
+      });
+  }
